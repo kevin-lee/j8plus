@@ -21,10 +21,8 @@ import java.util.stream.Stream;
  * @author Lee, SeongHyun (Kevin)
  * @version 0.0.1 (2014-06-14)
  */
-public class TailCalls
-{
-  public static <T> T trampoline(final TailCallable<T> firstTailCallable)
-  {
+public class TailCalls {
+  public static <T> T trampoline(final TailCallable<T> firstTailCallable) {
     return Stream.iterate(firstTailCallable, TailCallable::next)
         .filter(TailCallable::isDone)
         .findFirst()
@@ -38,36 +36,30 @@ public class TailCalls
     // return tailCall.result();
   }
 
-  static class Result<T> implements TailCallable<T>
-  {
+  static class Result<T> implements TailCallable<T> {
     private final T value;
 
-    public Result(final T value)
-    {
+    public Result(final T value) {
       this.value = value;
     }
 
     @Override
-    public TailCallable<T> next()
-    {
+    public TailCallable<T> next() {
       throw new RuntimeException("No more next value. It has the result.");
     }
 
     @Override
-    public boolean isDone()
-    {
+    public boolean isDone() {
       return true;
     }
 
     @Override
-    public T result()
-    {
+    public T result() {
       return value;
     }
   }
 
-  public static <T> TailCallable<T> done(final T value)
-  {
+  public static <T> TailCallable<T> done(final T value) {
     return new Result<>(value);
   }
 }

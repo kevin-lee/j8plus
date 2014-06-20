@@ -21,17 +21,15 @@ package cc.kevinlee.functional.recursion;
  *
  * @param <T>
  */
-public interface TailCallable<T>
-{
+@FunctionalInterface
+public interface TailCallable<T> {
   TailCallable<T> next();
 
-  default boolean isDone()
-  {
+  default boolean isDone() {
     return false;
   }
 
-  default T result()
-  {
+  default T result() {
     throw new RuntimeException("It does not have the result yet");
   }
 }
