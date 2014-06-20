@@ -7,7 +7,7 @@ import java.math.BigInteger;
 
 import org.junit.Test;
 
-public class TailCallTest {
+public class TailCallsTest {
   private static TailCallable<BigInteger> factorial(final BigInteger acc, final BigInteger n) {
     if (n.equals(BigInteger.ONE)) {
       return done(acc);
