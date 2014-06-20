@@ -40,7 +40,7 @@ import java.util.function.Function;
  */
 @FunctionalInterface
 public interface Function7<T1, T2, T3, T4, T5, T6, T7, R> {
-  R apply(final T1 input1, final T2 input2, final T3 input3, final T4 input4, final T5 input5, final T6 input6, final T7 input7);
+  R apply(T1 input1, T2 input2, T3 input3, T4 input4, T5 input5, T6 input6, T7 input7);
 
   /**
    * Returns a composed function that first applies this function to its input, and then applies the {@code after}
@@ -55,7 +55,7 @@ public interface Function7<T1, T2, T3, T4, T5, T6, T7, R> {
    * @throws NullPointerException
    *           if after is null
    */
-  default <V> Function7<T1, T2, T3, T4, T5, T6, T7, V> andThen(final Function<? super R, ? extends V> after) {
+  default <V> Function7<T1, T2, T3, T4, T5, T6, T7, V> andThen(Function<? super R, ? extends V> after) {
     Objects.requireNonNull(after);
     /* @formatter:off */
     return (input1, input2, input3, input4, input5, input6, input7) ->

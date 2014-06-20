@@ -21,7 +21,12 @@ import java.util.stream.Stream;
  * @author Lee, SeongHyun (Kevin)
  * @version 0.0.1 (2014-06-14)
  */
-public class TailCalls {
+public final class TailCalls {
+
+  private TailCalls() throws IllegalAccessException {
+    throw new IllegalAccessException(getClass().getName() + " cannot be instantiated.");
+  }
+
   public static <T> T trampoline(final TailCallable<T> firstTailCallable) {
     return Stream.iterate(firstTailCallable, TailCallable::next)
         .filter(TailCallable::isDone)

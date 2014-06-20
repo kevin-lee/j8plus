@@ -36,7 +36,7 @@ import java.util.function.Function;
  */
 @FunctionalInterface
 public interface Function5<T1, T2, T3, T4, T5, R> {
-  R apply(final T1 input1, final T2 input2, final T3 input3, final T4 input4, final T5 input5);
+  R apply(T1 input1, T2 input2, T3 input3, T4 input4, T5 input5);
 
   /**
    * Returns a composed function that first applies this function to its input, and then applies the {@code after}
@@ -51,7 +51,7 @@ public interface Function5<T1, T2, T3, T4, T5, R> {
    * @throws NullPointerException
    *           if after is null
    */
-  default <V> Function5<T1, T2, T3, T4, T5, V> andThen(final Function<? super R, ? extends V> after) {
+  default <V> Function5<T1, T2, T3, T4, T5, V> andThen(Function<? super R, ? extends V> after) {
     Objects.requireNonNull(after);
     return (input1, input2, input3, input4, input5) -> after.apply(apply(input1, input2, input3, input4, input5));
   }
