@@ -41,7 +41,7 @@ public final class TailCalls {
     // return tailCall.result();
   }
 
-  static class Result<T> implements TailCallable<T> {
+  private static class Result<T> implements TailCallable<T> {
     private final T value;
 
     public Result(final T value) {
