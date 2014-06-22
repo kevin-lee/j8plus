@@ -174,12 +174,12 @@ public final class Numbers {
     }
   }
 
-  public static BigIntegerNumber bInt(final BigInteger number) {
+  public static BigIntegerNumber bigInt(final BigInteger number) {
     return () -> number;
   }
 
-  public static BigIntegerNumber bInt(final String number) {
-    return bInt(new BigInteger(number));
+  public static BigIntegerNumber bigInt(final String number) {
+    return bigInt(new BigInteger(number));
   }
 
   public interface BigDecimalNumber {
