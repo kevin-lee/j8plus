@@ -172,6 +172,14 @@ public final class Numbers {
     default boolean gt(final String anotherNumber) {
       return gt(new BigInteger(anotherNumber));
     }
+
+    default boolean isOdd() {
+      return Numbers.isOdd(number());
+    }
+
+    default boolean isEven() {
+      return !isOdd();
+    }
   }
 
   public static BigIntegerNumber bigInt(final BigInteger number) {
@@ -183,7 +191,6 @@ public final class Numbers {
   }
 
   public interface BigDecimalNumber {
-
     BigDecimal number();
 
     default boolean lt(final BigDecimal anotherNumber) {
@@ -235,7 +242,9 @@ public final class Numbers {
     return decimal(new BigDecimal(number));
   }
 
-  public static class BigIntegers {
+  public enum BigIntegers {
+
+    INSTANCE;
 
     public static Predicate<BigInteger> lt(final BigInteger number) {
       return anotherNumber -> anotherNumber.compareTo(number) < 0;
@@ -277,6 +286,8 @@ public final class Numbers {
       return ge(new BigInteger(number));
     }
   }
+
+  public static final BigIntegers bigInt = BigIntegers.INSTANCE;
 
   public static Predicate<BigDecimal> lt(final BigDecimal number) {
     return anotherNumber -> anotherNumber.compareTo(number) < 0;
