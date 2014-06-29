@@ -5,7 +5,7 @@
 
 	<groupId>cc.kevinlee</groupId>
   <artifactId>java8plus</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<version>0.0.2-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>java8plus</name>
