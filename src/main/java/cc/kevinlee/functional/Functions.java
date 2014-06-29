@@ -16,6 +16,7 @@
 package cc.kevinlee.functional;
 
 import java.util.Comparator;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -49,5 +50,45 @@ public final class Functions {
 
   public static <T> Comparator<T> reversed(final Comparator<T> comparator) {
     return comparator.reversed();
+  }
+
+  /**
+   * <pre>
+   * T -&gt; R -&gt; String
+   * </pre>
+   *
+   * <pre>
+   * public class SomeType {
+   *   private final Long id;
+   *
+   *   public SomeType(final Long id) {
+   *     this.id = id;
+   *   }
+   *
+   *   public Long getId() {
+   *     return id;
+   *   }
+   * }
+   *
+   * final String result = Arrays.asList(new SomeType(1L), new SomeType(2L), new SomeType(3L))
+   *     .stream()
+   *     .map(toStringOf(SomeType::getId))
+   *     .collect(joining(&quot;, &quot;, &quot;(&quot;, &quot;)&quot;));
+   * </pre>
+   *
+   * <pre>
+   * result:
+   * (1, 2, 3)
+   * </pre>
+   *
+   * @param function
+   *          function to map T to R
+   * @return A function to map T -> R -> String (using {@link String#valueOf(Object)})
+   */
+  public static <T, R> Function<T, String> toStringOf(final Function<T, R> function) {
+    /* @formatter:off */
+    return input -> function.andThen(String::valueOf)
+                            .apply(input);
+    /* @formatter:on */
   }
 }

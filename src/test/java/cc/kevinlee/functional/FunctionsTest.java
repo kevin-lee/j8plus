@@ -220,4 +220,45 @@ public class FunctionsTest {
     assertThat(actual).isEqualTo(expected);
   }
 
+  static class TestValue {
+    private final Long id;
+
+    public TestValue(final Long id) {
+      this.id = id;
+    }
+
+    public Long getId() {
+      return id;
+    }
+  }
+
+  @Test
+  public void testToStringOf() {
+    /* given */
+    final List<TestValue> numbers = Arrays.asList(new TestValue(1L), new TestValue(2L), new TestValue(3L));
+    final String expected = "[1, 2, 3]";
+
+    /* when */
+    final String actual = numbers.stream()
+        .map(toStringOf(TestValue::getId))
+        .collect(joining(", ", "[", "]"));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testToStringOfWithNull() {
+    /* given */
+    final List<TestValue> numbers = Arrays.asList(new TestValue(1L), new TestValue(null), new TestValue(3L));
+    final String expected = "[1, null, 3]";
+
+    /* when */
+    final String actual = numbers.stream()
+        .map(toStringOf(TestValue::getId))
+        .collect(joining(", ", "[", "]"));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
 }
