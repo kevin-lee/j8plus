@@ -4,12 +4,12 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>cc.kevinlee</groupId>
-  <artifactId>java8plus</artifactId>
+  <artifactId>j8plus</artifactId>
 	<version>0.0.3-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
-	<name>java8plus</name>
-	<url>https://github.com/Kevin-Lee/java8plus</url>
+	<name>J8Plus</name>
+	<url>https://github.com/Kevin-Lee/j8plus</url>
 
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
