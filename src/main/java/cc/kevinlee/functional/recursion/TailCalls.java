@@ -27,6 +27,16 @@ public final class TailCalls {
     throw new IllegalAccessException(getClass().getName() + " cannot be instantiated.");
   }
 
+  /**
+   * Returns the result of the end operation starting from the given {@link TailCallable}. It keeps running the
+   * {@link TailCallable#next()} method and get the next {@link TailCallable} to run the next operation as long as
+   * {@link TailCallable#isDone()} returns false. Once any {@link TailCallable#isDone()} returns false, it takes the
+   * result from that {@link TailCallable} object then returns it.
+   *
+   * @param firstTailCallable
+   *          The first {@link TailCallable} object normally the one directly from the recursive method.
+   * @return the result of the end operation starting from the given {@link TailCallable}.
+   */
   public static <T> T trampoline(final TailCallable<T> firstTailCallable) {
     return Stream.iterate(firstTailCallable, TailCallable::next)
         .filter(TailCallable::isDone)

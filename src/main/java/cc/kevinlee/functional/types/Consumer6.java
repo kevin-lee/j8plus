@@ -19,7 +19,7 @@ import java.util.Objects;
 
 /**
  * @author Lee, SeongHyun (Kevin)
- * @version 0.0.1 (2010-11-13)
+ * @version 0.0.1 (2014-06-30)
  * @param <T1>
  *          input1
  * @param <T2>
@@ -49,8 +49,7 @@ public interface Consumer6<T1, T2, T3, T4, T5, T6> {
    * @throws NullPointerException
    *           if {@code after} is null
    */
-  default Consumer6<T1, T2, T3, T4, T5, T6> andThen(
-      final Consumer6<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6> after) {
+  default Consumer6<T1, T2, T3, T4, T5, T6> andThen(Consumer6<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6> after) {
     Objects.requireNonNull(after);
     return (input1, input2, input3, input4, input5, input6) -> {
       accept(input1, input2, input3, input4, input5, input6);

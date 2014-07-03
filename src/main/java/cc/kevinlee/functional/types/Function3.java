@@ -47,7 +47,7 @@ public interface Function3<T1, T2, T3, R> {
    * @throws NullPointerException
    *           if after is null
    */
-  default <V> Function3<T1, T2, T3, V> andThen(Function<? super R, ? extends V> after) {
+  default <V> Function3<T1, T2, T3, V> andThen(final Function<? super R, ? extends V> after) {
     Objects.requireNonNull(after);
     return (input1, input2, input3) -> after.apply(apply(input1, input2, input3));
   }

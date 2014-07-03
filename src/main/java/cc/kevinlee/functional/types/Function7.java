@@ -55,7 +55,7 @@ public interface Function7<T1, T2, T3, T4, T5, T6, T7, R> {
    * @throws NullPointerException
    *           if after is null
    */
-  default <V> Function7<T1, T2, T3, T4, T5, T6, T7, V> andThen(Function<? super R, ? extends V> after) {
+  default <V> Function7<T1, T2, T3, T4, T5, T6, T7, V> andThen(final Function<? super R, ? extends V> after) {
     Objects.requireNonNull(after);
     /* @formatter:off */
     return (input1, input2, input3, input4, input5, input6, input7) ->

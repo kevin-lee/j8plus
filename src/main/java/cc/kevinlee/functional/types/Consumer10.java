@@ -26,10 +26,24 @@ import java.util.Objects;
  *          input2
  * @param <T3>
  *          input3
+ * @param <T4>
+ *          input4
+ * @param <T5>
+ *          input5
+ * @param <T6>
+ *          input6
+ * @param <T7>
+ *          input7
+ * @param <T8>
+ *          input8
+ * @param <T9>
+ *          input9
+ * @param <T10>
+ *          input10
  */
 @FunctionalInterface
-public interface Consumer3<T1, T2, T3> {
-  void accept(T1 input1, T2 input2, T3 input3);
+public interface Consumer10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> {
+  void accept(T1 input1, T2 input2, T3 input3, T4 input4, T5 input5, T6 input6, T7 input7, T8 input8, T9 input9, T10 input10);
 
   /**
    * Returns a composed {@code Consumer} that performs, in sequence, this operation followed by the {@code after}
@@ -43,11 +57,12 @@ public interface Consumer3<T1, T2, T3> {
    * @throws NullPointerException
    *           if {@code after} is null
    */
-  default Consumer3<T1, T2, T3> andThen(Consumer3<? super T1, ? super T2, ? super T3> after) {
+  default Consumer10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10> andThen(
+      final Consumer10<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9, ? super T10> after) {
     Objects.requireNonNull(after);
-    return (input1, input2, input3) -> {
-      accept(input1, input2, input3);
-      after.accept(input1, input2, input3);
+    return (input1, input2, input3, input4, input5, input6, input7, input8, input9, input10) -> {
+      accept(input1, input2, input3, input4, input5, input6, input7, input8, input9, input10);
+      after.accept(input1, input2, input3, input4, input5, input6, input7, input8, input9, input10);
     };
   }
 }

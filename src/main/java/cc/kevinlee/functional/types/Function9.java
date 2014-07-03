@@ -33,12 +33,18 @@ import java.util.function.Function;
  *          input5
  * @param <T6>
  *          input6
+ * @param <T7>
+ *          input7
+ * @param <T8>
+ *          input8
+ * @param <T9>
+ *          input9
  * @param <R>
  *          result
  */
 @FunctionalInterface
-public interface Function6<T1, T2, T3, T4, T5, T6, R> {
-  R apply(T1 input1, T2 input2, T3 input3, T4 input4, T5 input5, T6 input6);
+public interface Function9<T1, T2, T3, T4, T5, T6, T7, T8, T9, R> {
+  R apply(T1 input1, T2 input2, T3 input3, T4 input4, T5 input5, T6 input6, T7 input7, T8 input8, T9 input9);
 
   /**
    * Returns a composed function that first applies this function to its input, and then applies the {@code after}
@@ -53,11 +59,11 @@ public interface Function6<T1, T2, T3, T4, T5, T6, R> {
    * @throws NullPointerException
    *           if after is null
    */
-  default <V> Function6<T1, T2, T3, T4, T5, T6, V> andThen(final Function<? super R, ? extends V> after) {
+  default <V> Function9<T1, T2, T3, T4, T5, T6, T7, T8, T9, V> andThen(final Function<? super R, ? extends V> after) {
     Objects.requireNonNull(after);
     /* @formatter:off */
-    return (input1, input2, input3, input4, input5, input6) ->
-                after.apply(apply(input1, input2, input3, input4, input5, input6));
+    return (input1, input2, input3, input4, input5, input6, input7, input8, input9) ->
+                after.apply(apply(input1, input2, input3, input4, input5, input6, input7, input8, input9));
     /* @formatter:on */
   }
 }

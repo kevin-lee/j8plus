@@ -17,6 +17,9 @@ package cc.kevinlee.functional;
 
 import java.math.BigDecimal;
 import java.math.BigInteger;
+import java.util.Collection;
+import java.util.Objects;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 /**
@@ -129,113 +132,169 @@ public final class Numbers {
     return number.compareTo(BigDecimal.ZERO) > 0;
   }
 
-  public interface BigIntegerNumber {
+  public static class BigIntegerNumber {
 
-    BigInteger number();
+    private final BigInteger number;
 
-    default boolean lt(final BigInteger anotherNumber) {
-      return number().compareTo(anotherNumber) < 0;
+    public BigIntegerNumber(final BigInteger number) {
+      this.number = number;
     }
 
-    default boolean lt(final String anotherNumber) {
+    public BigInteger getNumber() {
+      return number;
+    }
+
+    public BigInteger number() {
+      return number;
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+      if (this == obj) {
+        return true;
+      }
+      if (!(obj instanceof BigIntegerNumber)) {
+        return false;
+      }
+      return eq(((BigIntegerNumber) obj).number());
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(number);
+    }
+
+    public boolean lt(final BigInteger anotherNumber) {
+      return number.compareTo(anotherNumber) < 0;
+    }
+
+    public boolean lt(final String anotherNumber) {
       return lt(new BigInteger(anotherNumber));
     }
 
-    default boolean le(final BigInteger anotherNumber) {
-      return number().compareTo(anotherNumber) <= 0;
+    public boolean le(final BigInteger anotherNumber) {
+      return number.compareTo(anotherNumber) <= 0;
     }
 
-    default boolean le(final String anotherNumber) {
+    public boolean le(final String anotherNumber) {
       return le(new BigInteger(anotherNumber));
     }
 
-    default boolean eq(final BigInteger anotherNumber) {
-      return number().compareTo(anotherNumber) == 0;
+    public boolean eq(final BigInteger anotherNumber) {
+      return number.compareTo(anotherNumber) == 0;
     }
 
-    default boolean eq(final String anotherNumber) {
+    public boolean eq(final String anotherNumber) {
       return eq(new BigInteger(anotherNumber));
     }
 
-    default boolean ge(final BigInteger anotherNumber) {
-      return number().compareTo(anotherNumber) >= 0;
+    public boolean ge(final BigInteger anotherNumber) {
+      return number.compareTo(anotherNumber) >= 0;
     }
 
-    default boolean ge(final String anotherNumber) {
+    public boolean ge(final String anotherNumber) {
       return ge(new BigInteger(anotherNumber));
     }
 
-    default boolean gt(final BigInteger anotherNumber) {
-      return number().compareTo(anotherNumber) > 0;
+    public boolean gt(final BigInteger anotherNumber) {
+      return number.compareTo(anotherNumber) > 0;
     }
 
-    default boolean gt(final String anotherNumber) {
+    public boolean gt(final String anotherNumber) {
       return gt(new BigInteger(anotherNumber));
     }
 
-    default boolean isOdd() {
-      return Numbers.isOdd(number());
+    public boolean isOdd() {
+      return Numbers.isOdd(number);
     }
 
-    default boolean isEven() {
+    public boolean isEven() {
       return !isOdd();
     }
   }
 
   public static BigIntegerNumber bigInt(final BigInteger number) {
-    return () -> number;
+    return new BigIntegerNumber(number);
   }
 
   public static BigIntegerNumber bigInt(final String number) {
     return bigInt(new BigInteger(number));
   }
 
-  public interface BigDecimalNumber {
-    BigDecimal number();
+  public static class BigDecimalNumber {
+    private final BigDecimal number;
 
-    default boolean lt(final BigDecimal anotherNumber) {
+    public BigDecimalNumber(final BigDecimal number) {
+      this.number = number;
+    }
+
+    @Override
+    public int hashCode() {
+      return Objects.hash(number);
+    }
+
+    @Override
+    public boolean equals(final Object obj) {
+      if (this == obj) {
+        return true;
+      }
+      if (!(obj instanceof BigDecimalNumber)) {
+        return false;
+      }
+      return eq(((BigDecimalNumber) obj).number());
+    }
+
+    public BigDecimal getNumber() {
+      return number;
+    }
+
+    public BigDecimal number() {
+      return number;
+    }
+
+    public boolean lt(final BigDecimal anotherNumber) {
       return number().compareTo(anotherNumber) < 0;
     }
 
-    default boolean lt(final String anotherNumber) {
+    public boolean lt(final String anotherNumber) {
       return lt(new BigDecimal(anotherNumber));
     }
 
-    default boolean le(final BigDecimal anotherNumber) {
+    public boolean le(final BigDecimal anotherNumber) {
       return number().compareTo(anotherNumber) <= 0;
     }
 
-    default boolean le(final String anotherNumber) {
+    public boolean le(final String anotherNumber) {
       return le(new BigDecimal(anotherNumber));
     }
 
-    default boolean eq(final BigDecimal anotherNumber) {
+    public boolean eq(final BigDecimal anotherNumber) {
       return number().compareTo(anotherNumber) == 0;
     }
 
-    default boolean eq(final String anotherNumber) {
+    public boolean eq(final String anotherNumber) {
       return eq(new BigDecimal(anotherNumber));
     }
 
-    default boolean ge(final BigDecimal anotherNumber) {
+    public boolean ge(final BigDecimal anotherNumber) {
       return number().compareTo(anotherNumber) >= 0;
     }
 
-    default boolean ge(final String anotherNumber) {
+    public boolean ge(final String anotherNumber) {
       return ge(new BigDecimal(anotherNumber));
     }
 
-    default boolean gt(final BigDecimal anotherNumber) {
+    public boolean gt(final BigDecimal anotherNumber) {
       return number().compareTo(anotherNumber) > 0;
     }
 
-    default boolean gt(final String anotherNumber) {
+    public boolean gt(final String anotherNumber) {
       return gt(new BigDecimal(anotherNumber));
     }
   }
 
   public static BigDecimalNumber decimal(final BigDecimal number) {
-    return () -> number;
+    return new BigDecimalNumber(number);
   }
 
   public static BigDecimalNumber decimal(final String number) {
@@ -285,6 +344,36 @@ public final class Numbers {
     public static Predicate<BigInteger> ge(final String number) {
       return ge(new BigInteger(number));
     }
+
+    public static BigInteger total(final Collection<BigInteger> bigIntegers) {
+      /* @formatter:off */
+      return bigIntegers.stream()
+          .reduce(BigInteger.ZERO, BigInteger::add);
+      /* @formatter:on */
+    }
+
+    public static <T> BigInteger total(final Collection<T> list, final Function<T, BigInteger> toBigIntegerMapper) {
+      /* @formatter:off */
+      return list.stream()
+          .map(toBigIntegerMapper)
+          .reduce(BigInteger.ZERO, BigInteger::add);
+      /* @formatter:on */
+    }
+
+    public static BigInteger parallelTotal(final Collection<BigInteger> bigIntegers) {
+      /* @formatter:off */
+      return bigIntegers.parallelStream()
+                        .reduce(BigInteger.ZERO, BigInteger::add);
+      /* @formatter:on */
+    }
+
+    public static <T> BigInteger parallelTotal(final Collection<T> list, final Function<T, BigInteger> toBigIntegerMapper) {
+      /* @formatter:off */
+      return list.parallelStream()
+                 .map(toBigIntegerMapper)
+                 .reduce(BigInteger.ZERO, BigInteger::add);
+      /* @formatter:on */
+    }
   }
 
   public static final BigIntegers bigInt = BigIntegers.INSTANCE;
@@ -327,5 +416,35 @@ public final class Numbers {
 
   public static Predicate<BigDecimal> ge(final String number) {
     return ge(new BigDecimal(number));
+  }
+
+  public static BigDecimal total(final Collection<BigDecimal> bigDecimals) {
+    /* @formatter:off */
+    return bigDecimals.stream()
+                      .reduce(BigDecimal.ZERO, BigDecimal::add);
+    /* @formatter:on */
+  }
+
+  public static <T> BigDecimal total(final Collection<T> list, final Function<T, BigDecimal> toBigDecimalMapper) {
+    /* @formatter:off */
+    return list.stream()
+               .map(toBigDecimalMapper)
+               .reduce(BigDecimal.ZERO, BigDecimal::add);
+    /* @formatter:on */
+  }
+
+  public static BigDecimal parallelTotal(final Collection<BigDecimal> bigDecimals) {
+    /* @formatter:off */
+    return bigDecimals.parallelStream()
+                      .reduce(BigDecimal.ZERO, BigDecimal::add);
+    /* @formatter:on */
+  }
+
+  public static <T> BigDecimal parallelTotal(final Collection<T> list, final Function<T, BigDecimal> toBigDecimalMapper) {
+    /* @formatter:off */
+    return list.parallelStream()
+               .map(toBigDecimalMapper)
+               .reduce(BigDecimal.ZERO, BigDecimal::add);
+    /* @formatter:on */
   }
 }

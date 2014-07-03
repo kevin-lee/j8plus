@@ -20,16 +20,10 @@ import java.util.Objects;
 /**
  * @author Lee, SeongHyun (Kevin)
  * @version 0.0.1 (2014-06-30)
- * @param <T1>
- *          input1
- * @param <T2>
- *          input2
- * @param <T3>
- *          input3
  */
 @FunctionalInterface
-public interface Consumer3<T1, T2, T3> {
-  void accept(T1 input1, T2 input2, T3 input3);
+public interface Runner {
+  void run();
 
   /**
    * Returns a composed {@code Consumer} that performs, in sequence, this operation followed by the {@code after}
@@ -38,16 +32,15 @@ public interface Consumer3<T1, T2, T3> {
    *
    * @param after
    *          the operation to perform after this operation
-   * @return a composed {@code Consumer} that performs in sequence this operation followed by the {@code after}
-   *         operation
+   * @return a composed {@code Runner} that performs in sequence this operation followed by the {@code after} operation
    * @throws NullPointerException
    *           if {@code after} is null
    */
-  default Consumer3<T1, T2, T3> andThen(Consumer3<? super T1, ? super T2, ? super T3> after) {
+  default Runner andThen(final Runner after) {
     Objects.requireNonNull(after);
-    return (input1, input2, input3) -> {
-      accept(input1, input2, input3);
-      after.accept(input1, input2, input3);
+    return () -> {
+      run();
+      after.run();
     };
   }
 }

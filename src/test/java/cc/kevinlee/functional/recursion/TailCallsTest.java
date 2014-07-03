@@ -8,6 +8,44 @@ import java.math.BigInteger;
 import org.junit.Test;
 
 public class TailCallsTest {
+
+  /**
+   * It's just like.
+   *
+   * <pre>
+   * int factorial(final int acc, final int n) {
+   *   if (n == 1) {
+   *     return acc;
+   *   }
+   *   return factorial(acc * n, n - 1);
+   * }
+   * </pre>
+   *
+   * <pre>
+   * OR
+   * </pre>
+   *
+   * <pre>
+   * BigInteger factorial(final BigInteger acc, final BigInteger n) {
+   *   if (n.equals(BigInteger.ONE)) {
+   *     return acc;
+   *   }
+   *   return factorial(acc.multiply(n), n.subtract(BigInteger.ONE));
+   * }
+   * </pre>
+   * <pre>
+   *                 ↓↓↓↓↓↓↓↓↓
+   * </pre>
+   * <pre>
+   * TailCallable&lt;BigInteger&gt; factorial(final BigInteger acc, final BigInteger n) {
+   *   if (n.equals(BigInteger.ONE)) {
+   *     return done(acc);
+   *   }
+   *   return () -&gt; factorial(acc.multiply(n), n.subtract(BigInteger.ONE));
+   * }
+   * </pre>
+   *
+   */
   private static TailCallable<BigInteger> factorial(final BigInteger acc, final BigInteger n) {
     if (n.equals(BigInteger.ONE)) {
       return done(acc);
@@ -23,7 +61,7 @@ public class TailCallsTest {
 
     /* when */
     final long start = System.currentTimeMillis();
-    final BigInteger actual = trampoline(factorial(BigInteger.ONE, new BigInteger("" + 1000)));
+    final BigInteger actual = trampoline(factorial(BigInteger.ONE, new BigInteger("1000")));
     System.out.println("It took " + (System.currentTimeMillis() - start) + "ms.");
 
     /* then */
