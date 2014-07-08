@@ -7,6 +7,7 @@ import static org.assertj.core.api.Assertions.*;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Function;
 import java.util.function.Predicate;
 
 import org.junit.Test;
@@ -15,14 +16,11 @@ public class FunctionsTest {
   @Test
   public void testIsNull() {
     /* given */
-    @SuppressWarnings("unchecked")
-    final Predicate<String> expected = (Predicate<String>) Functions.IS_NULL;
-
     /* when */
     final Predicate<String> actual = Functions.isNull();
 
     /* then */
-    assertThat(actual).isEqualTo(expected);
+    assertThat(actual.test(null)).isTrue();
   }
 
   @Test
@@ -67,14 +65,11 @@ public class FunctionsTest {
   @Test
   public void testIsNotNull() {
     /* given */
-    @SuppressWarnings("unchecked")
-    final Predicate<String> expected = (Predicate<String>) Functions.IS_NOT_NULL;
-
     /* when */
     final Predicate<String> actual = Functions.isNotNull();
 
     /* then */
-    assertThat(actual).isEqualTo(expected);
+    assertThat(actual.test(null)).isFalse();
   }
 
   @Test
@@ -261,4 +256,125 @@ public class FunctionsTest {
     /* then */
     assertThat(actual).isEqualTo(expected);
   }
+
+  @Test
+  public void testToTrue() {
+    /* given */
+    final String value = "test";
+    /* when */
+    final Function<String, Boolean> toTrue = Functions.toTrue();
+    final boolean actual = toTrue.apply(value);
+
+    /* then */
+    assertThat(actual).isTrue();
+  }
+
+  @Test
+  public void testToTrue2() {
+    /* given */
+    final Integer value = 1;
+    /* when */
+    final Function<Integer, Boolean> toTrue = Functions.toTrue();
+    final boolean actual = toTrue.apply(value);
+
+    /* then */
+    assertThat(actual).isTrue();
+  }
+
+  @Test
+  public void testToTrue3() {
+    /* given */
+    final long value = 1L;
+    /* when */
+    final Function<Long, Boolean> toTrue = Functions.toTrue();
+    final boolean actual = toTrue.apply(value);
+
+    /* then */
+    assertThat(actual).isTrue();
+  }
+
+  @Test
+  public void testToTrue4() {
+    /* given */
+    final Boolean value = false;
+    /* when */
+    final Function<Boolean, Boolean> toTrue = Functions.toTrue();
+    final boolean actual = toTrue.apply(value);
+
+    /* then */
+    assertThat(actual).isTrue();
+  }
+
+  @Test
+  public void testToTrue5() {
+    /* given */
+    final Boolean value = false;
+    /* when */
+    final Function<? super Object, Boolean> toTrue = Functions.toTrue();
+    final boolean actual = toTrue.apply(value);
+
+    /* then */
+    assertThat(actual).isTrue();
+  }
+
+  @Test
+  public void testToFalse() {
+    /* given */
+    final String value = "test";
+    /* when */
+    final Function<String, Boolean> toFalse = Functions.toFalse();
+    final boolean actual = toFalse.apply(value);
+
+    /* then */
+    assertThat(actual).isFalse();
+  }
+
+  @Test
+  public void testToFalse2() {
+    /* given */
+    final Integer value = 1;
+    /* when */
+    final Function<Integer, Boolean> toFalse = Functions.toFalse();
+    final boolean actual = toFalse.apply(value);
+
+    /* then */
+    assertThat(actual).isFalse();
+  }
+
+  @Test
+  public void testToFalse3() {
+    /* given */
+    final long value = 1L;
+    /* when */
+    final Function<Long, Boolean> toFalse = Functions.toFalse();
+    final boolean actual = toFalse.apply(value);
+
+    /* then */
+    assertThat(actual).isFalse();
+  }
+
+  @Test
+  public void testToFalse4() {
+    /* given */
+    final Boolean value = false;
+    /* when */
+    final Function<Boolean, Boolean> toFalse = Functions.toFalse();
+    final boolean actual = toFalse.apply(value);
+
+    /* then */
+    assertThat(actual).isFalse();
+  }
+
+  @Test
+  public void testToFalse5() {
+    /* given */
+    final Boolean value = false;
+    /* when */
+    final Function<? super Object, Boolean> toFalse = Functions.toFalse();
+    final boolean actual = toFalse.apply(value);
+
+    /* then */
+    assertThat(actual).isFalse();
+  }
+
 }

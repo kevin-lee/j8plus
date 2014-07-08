@@ -25,23 +25,17 @@ import java.util.function.Predicate;
  *
  */
 public final class Functions {
-  public static final Predicate<?> IS_NULL = t -> t == null;
-  public static final Predicate<?> IS_NOT_NULL = IS_NULL.negate();
 
   private Functions() throws IllegalAccessException {
     throw new IllegalAccessException(getClass().getName() + " cannot be instantiated.");
   }
 
   public static <T> Predicate<T> isNull() {
-    @SuppressWarnings("unchecked")
-    final Predicate<T> isNull = (Predicate<T>) IS_NULL;
-    return isNull;
+    return t -> t == null;
   }
 
   public static <T> Predicate<T> isNotNull() {
-    @SuppressWarnings("unchecked")
-    final Predicate<T> isNull = (Predicate<T>) IS_NOT_NULL;
-    return isNull;
+    return t -> t != null;
   }
 
   public static <T> Predicate<T> not(final Predicate<T> predicate) {
@@ -90,5 +84,13 @@ public final class Functions {
     return input -> function.andThen(String::valueOf)
                             .apply(input);
     /* @formatter:on */
+  }
+
+  public static <T> Function<T, Boolean> toTrue() {
+    return t -> Boolean.TRUE;
+  }
+
+  public static <T> Function<T, Boolean> toFalse() {
+    return t -> Boolean.FALSE;
   }
 }
