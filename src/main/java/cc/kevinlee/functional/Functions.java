@@ -77,7 +77,7 @@ public final class Functions {
    *
    * @param function
    *          function to map T to R
-   * @return A function to map T -> R -> String (using {@link String#valueOf(Object)})
+   * @return A function to map <code>T -> R -> String</code> (using {@link String#valueOf(Object)})
    */
   public static <T, R> Function<T, String> toStringOf(final Function<T, R> function) {
     /* @formatter:off */
