@@ -4,6 +4,7 @@ import static cc.kevinlee.functional.Functions.*;
 import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.*;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
@@ -210,6 +211,134 @@ public class FunctionsTest {
     final List<Integer> actual = numbers.stream()
         .sorted(reversed(this::ascendingOrder))
         .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  static class SomeBean {
+    private final LocalDate dateCreated;
+
+    public SomeBean(final LocalDate localDate) {
+      this.dateCreated = localDate;
+    }
+
+    public LocalDate getDateCreated() {
+      return dateCreated;
+    }
+
+    @Override
+    public String toString() {
+      return dateCreated.toString();
+    }
+  }
+
+  @Test
+  public void testCompare() {
+    /* given */
+
+    /* @formatter:off */
+    final SomeBean someBean1 = new SomeBean(LocalDate.now()
+                                                     .minusDays(2));
+    final SomeBean someBean2 = new SomeBean(LocalDate.now()
+                                                     .minusDays(1));
+    final SomeBean someBean3 = new SomeBean(LocalDate.now());
+    /* @formatter:on */
+
+    final List<SomeBean> expected = Arrays.asList(someBean1, someBean2, someBean3);
+
+    /* when */
+    final List<SomeBean> actual = Arrays.asList(someBean3, someBean1, someBean2)
+        .stream()
+        .sorted(compare(SomeBean::getDateCreated))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testCompareReversed() {
+    /* given */
+
+    /* @formatter:off */
+    final SomeBean someBean1 = new SomeBean(LocalDate.now()
+                                                     .minusDays(2));
+    final SomeBean someBean2 = new SomeBean(LocalDate.now()
+                                                     .minusDays(1));
+    final SomeBean someBean3 = new SomeBean(LocalDate.now());
+    /* @formatter:on */
+
+    final List<SomeBean> expected = Arrays.asList(someBean3, someBean2, someBean1);
+
+    /* when */
+    final List<SomeBean> actual = Arrays.asList(someBean1, someBean2, someBean3)
+        .stream()
+        .sorted(reversed(compare(SomeBean::getDateCreated)))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testCompareLt() {
+    /* given */
+
+    /* @formatter:off */
+    final LocalDate yesterday = LocalDate.now()
+                                         .minusDays(1);
+    final LocalDate tomorrow =  LocalDate.now()
+                                         .plusDays(1);
+    /* @formatter:on */
+
+    final SomeBean madeYesterday = new SomeBean(yesterday);
+    final SomeBean willBeMadeTomorrow = new SomeBean(tomorrow);
+
+    final int expected = yesterday.compareTo(tomorrow);
+
+    /* when */
+    final int actual = compare(SomeBean::getDateCreated).compare(madeYesterday, willBeMadeTomorrow);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testCompareEq() {
+    /* given */
+    final LocalDate today = LocalDate.now();
+
+    final SomeBean madeYesterday = new SomeBean(today);
+    final SomeBean willBeMadeTomorrow = new SomeBean(today);
+
+    final int expected = today.compareTo(today);
+
+    /* when */
+    final int actual = compare(SomeBean::getDateCreated).compare(madeYesterday, willBeMadeTomorrow);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testCompareGt() {
+    /* given */
+
+    /* @formatter:off */
+    final LocalDate yesterday = LocalDate.now()
+                                         .minusDays(1);
+    final LocalDate tomorrow =  LocalDate.now()
+                                         .plusDays(1);
+    /* @formatter:on */
+
+    final SomeBean madeYesterday = new SomeBean(yesterday);
+    final SomeBean willBeMadeTomorrow = new SomeBean(tomorrow);
+
+    final int expected = tomorrow.compareTo(yesterday);
+
+    /* when */
+    final int actual = compare(SomeBean::getDateCreated).compare(willBeMadeTomorrow, madeYesterday);
 
     /* then */
     assertThat(actual).isEqualTo(expected);

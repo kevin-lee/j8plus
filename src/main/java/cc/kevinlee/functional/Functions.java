@@ -16,6 +16,7 @@
 package cc.kevinlee.functional;
 
 import java.util.Comparator;
+import java.util.Objects;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -39,12 +40,60 @@ public final class Functions {
   }
 
   public static <T> Predicate<T> not(final Predicate<T> predicate) {
+    Objects.requireNonNull(predicate, "The predicate: Predicate<T> cannot be null.");
     return predicate.negate();
   }
 
   public static <T> Comparator<T> reversed(final Comparator<T> comparator) {
+    Objects.requireNonNull(comparator, "The comparator: Comparator<T> cannot be null.");
     return comparator.reversed();
   }
+
+  /* @formatter:off */
+  /**
+   * Returns a Higher-order function to create a {@link Comparator} object which takes some objects of type T then use
+   * the given toComparable mapper which is a {@link Function} object to map the T type to something {@link Comparable}.
+   * Once mapping happened, it uses the comparable objects to compare. This can be very useful and helpful when using
+   * with method reference for sorting.
+   *
+   * e.g.)
+   *
+   * <pre>
+   * list.stream()
+   *     .sorted((someBean1, someBean2) -&gt; someBean1.getDateCreated()
+   *                                                .compareTo(someBean2.getDateCreated()))
+   *     .collect(toList());
+   * </pre>
+   *
+   * can become like
+   *
+   * <pre>
+   * list.stream()
+   *     .sorted(compare(SomeBean::getDateCreated))
+   *     .collect(toList());
+   * </pre>
+   *
+   * It can be used with the {@link #reversed(Comparator)} method to sort in reversed order.
+   *
+   * e.g.)
+   *
+   * <pre>
+   * list.stream()
+   *     .sorted(reversed(compare(SomeBean::getDateCreated)))
+   *     .collect(toList());
+   * </pre>
+   *
+   * @param toComparable
+   * @return a Higher-order function the result of which is a {@link Comparator} taking two objects of type T then use
+   *         the mapper which is passed as the parameter of this {@link #compare(Function)} method to map the T type to
+   *         something {@link Comparable} and use them to compare.
+   */
+  public static <T, C extends Comparable<C>> Comparator<T> compare(final Function<T, C> toComparable) {
+    Objects.requireNonNull(toComparable, "The toComparable: Function<T, C> cannot be null.");
+    return (t1, t2) -> toComparable.apply(t1)
+                                   .compareTo(toComparable.apply(t2));
+  }
+  /* @formatter:on */
 
   /**
    * <pre>
