@@ -129,6 +129,7 @@ public final class Functions {
    * @return A function to map <code>T -> R -> String</code> (using {@link String#valueOf(Object)})
    */
   public static <T, R> Function<T, String> toStringOf(final Function<T, R> function) {
+    Objects.requireNonNull(function, "function: Function<T, R> cannot be null.");
     /* @formatter:off */
     return input -> function.andThen(String::valueOf)
                             .apply(input);
