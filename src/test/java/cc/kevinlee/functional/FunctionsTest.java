@@ -1,6 +1,7 @@
 package cc.kevinlee.functional;
 
 import static cc.kevinlee.functional.Functions.*;
+import static cc.kevinlee.testosterone.Testosterones.*;
 import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.*;
 
@@ -166,6 +167,18 @@ public class FunctionsTest {
   }
 
   @Test
+  public final void testNotWithNull() {
+    /* given */
+    final Predicate<Integer> nullPredicate = null;
+
+    when(() -> {
+      not(nullPredicate);
+    })
+    .expect(throwing(NullPointerException.class)
+           .containsMessage("cannot be null."));
+  }
+
+  @Test
   public final void testReversed() {
     /* given */
     final List<Integer> numbers = Arrays.asList(4, 2, 0, 3, 10, 32, 99, 57, 100);
@@ -216,6 +229,18 @@ public class FunctionsTest {
     assertThat(actual).isEqualTo(expected);
   }
 
+  @Test
+  public final void testReversedWithNullComparator() {
+
+    final Comparator<?> nullComparator = null;
+
+    when(() -> {
+      reversed(nullComparator);
+    })
+    .expect(throwing(NullPointerException.class)
+           .containsMessage("cannot be null."));
+  }
+
   static class SomeBean {
     private final LocalDate dateCreated;
 
@@ -255,6 +280,18 @@ public class FunctionsTest {
 
     /* then */
     assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testCompareWithNull() {
+
+    final Function<Object, String> nullFunction = null;
+
+    when(() -> {
+      compare(nullFunction);
+    })
+    .expect(throwing(NullPointerException.class)
+           .containsMessage("cannot be null."));
   }
 
   @Test
@@ -384,6 +421,18 @@ public class FunctionsTest {
 
     /* then */
     assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testToStringOfWithNullFunction() {
+    /* given */
+    final Function<Object, String> nullFunction = null;
+
+    when(() -> {
+      toStringOf(nullFunction);
+    })
+    .expect(throwing(NullPointerException.class)
+           .containsMessage("cannot be null."));
   }
 
   @Test

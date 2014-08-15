@@ -83,6 +83,12 @@
       <scope>test</scope>
     </dependency>
     <dependency>
+      <groupId>cc.kevinlee</groupId>
+      <artifactId>testosterone</artifactId>
+      <version>0.0.1-SNAPSHOT</version>
+      <scope>test</scope>
+    </dependency>
+    <dependency>
       <groupId>org.assertj</groupId>
       <artifactId>assertj-core</artifactId>
       <version>1.5.0</version>
