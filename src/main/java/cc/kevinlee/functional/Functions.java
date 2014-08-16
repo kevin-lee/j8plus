@@ -17,8 +17,28 @@ package cc.kevinlee.functional;
 
 import java.util.Comparator;
 import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
+
+import cc.kevinlee.functional.types.Consumer10;
+import cc.kevinlee.functional.types.Consumer3;
+import cc.kevinlee.functional.types.Consumer4;
+import cc.kevinlee.functional.types.Consumer5;
+import cc.kevinlee.functional.types.Consumer6;
+import cc.kevinlee.functional.types.Consumer7;
+import cc.kevinlee.functional.types.Consumer8;
+import cc.kevinlee.functional.types.Consumer9;
+import cc.kevinlee.functional.types.Function10;
+import cc.kevinlee.functional.types.Function3;
+import cc.kevinlee.functional.types.Function4;
+import cc.kevinlee.functional.types.Function5;
+import cc.kevinlee.functional.types.Function6;
+import cc.kevinlee.functional.types.Function7;
+import cc.kevinlee.functional.types.Function8;
+import cc.kevinlee.functional.types.Function9;
 
 /**
  * @author Lee, SeongHyun (Kevin)
@@ -143,4 +163,208 @@ public final class Functions {
   public static <T> Function<T, Boolean> toFalse() {
     return t -> Boolean.FALSE;
   }
+
+  public static <O, T, R> Function<O, R> using(final BiFunction<O, T, R> function, final T param) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param);
+  }
+
+  public static <O, T, T2, R> Function<O, R> using(final Function3<O, T, T2, R> function, final T param1, final T2 param2) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2);
+  }
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, R> Function<O, R> using(final Function4<O, T, T2, T3, R> function,
+                                                       final T param1,
+                                                       final T2 param2,
+                                                       final T3 param3) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2, param3);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, R> Function<O, R> using(final Function5<O, T, T2, T3, T4, R> function,
+                                                           final T param1,
+                                                           final T2 param2,
+                                                           final T3 param3,
+                                                           final T4 param4) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2, param3, param4);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, R> Function<O, R> using(final Function6<O, T, T2, T3, T4, T5, R> function,
+                                                               final T param1,
+                                                               final T2 param2,
+                                                               final T3 param3,
+                                                               final T4 param4,
+                                                               final T5 param5) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2, param3, param4, param5);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, R> Function<O, R> using(final Function7<O, T, T2, T3, T4, T5, T6, R> function,
+                                                                   final T param1,
+                                                                   final T2 param2,
+                                                                   final T3 param3,
+                                                                   final T4 param4,
+                                                                   final T5 param5,
+                                                                   final T6 param6) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2, param3, param4, param5, param6);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7, R> Function<O, R> using(final Function8<O, T, T2, T3, T4, T5, T6, T7, R> function,
+                                                                       final T param1,
+                                                                       final T2 param2,
+                                                                       final T3 param3,
+                                                                       final T4 param4,
+                                                                       final T5 param5,
+                                                                       final T6 param6,
+                                                                       final T7 param7) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2, param3, param4, param5, param6, param7);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, R> Function<O, R> using(final Function9<O, T, T2, T3, T4, T5, T6, T7, T8, R> function,
+                                                                           final T param1,
+                                                                           final T2 param2,
+                                                                           final T3 param3,
+                                                                           final T4 param4,
+                                                                           final T5 param5,
+                                                                           final T6 param6,
+                                                                           final T7 param7,
+                                                                           final T8 param8) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> Function<O, R> using(final Function10<O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> function,
+                                                                               final T param1,
+                                                                               final T2 param2,
+                                                                               final T3 param3,
+                                                                               final T4 param4,
+                                                                               final T5 param5,
+                                                                               final T6 param6,
+                                                                               final T7 param7,
+                                                                               final T8 param8,
+                                                                               final T9 param9) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.apply(object, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
+  /* @formatter:on */
+
+  public static <O, T> Consumer<O> accepting(final BiConsumer<O, T> function, final T param) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param);
+  }
+
+  public static <O, T, T2> Consumer<O> accepting(final Consumer3<O, T, T2> function, final T param1, final T2 param2) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2);
+  }
+
+  /* @formatter:off */
+  public static <O, T, T2, T3> Consumer<O> accepting(final Consumer4<O, T, T2, T3> function,
+                                                     final T param1,
+                                                     final T2 param2,
+                                                     final T3 param3) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2, param3);
+  }
+  /* @formatter:on */
+
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4> Consumer<O> accepting(final Consumer5<O, T, T2, T3, T4> function,
+                                                         final T param1,
+                                                         final T2 param2,
+                                                         final T3 param3,
+                                                         final T4 param4) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2, param3, param4);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5> Consumer<O> accepting(final Consumer6<O, T, T2, T3, T4, T5> function,
+                                                             final T param1,
+                                                             final T2 param2,
+                                                             final T3 param3,
+                                                             final T4 param4,
+                                                             final T5 param5) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2, param3, param4, param5);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6> Consumer<O> accepting(final Consumer7<O, T, T2, T3, T4, T5, T6> function,
+                                                                 final T param1,
+                                                                 final T2 param2,
+                                                                 final T3 param3,
+                                                                 final T4 param4,
+                                                                 final T5 param5,
+                                                                 final T6 param6) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2, param3, param4, param5, param6);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7> Consumer<O> accepting(final Consumer8<O, T, T2, T3, T4, T5, T6, T7> function,
+                                                                     final T param1,
+                                                                     final T2 param2,
+                                                                     final T3 param3,
+                                                                     final T4 param4,
+                                                                     final T5 param5,
+                                                                     final T6 param6,
+                                                                     final T7 param7) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2, param3, param4, param5, param6, param7);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8> Consumer<O> accepting(final Consumer9<O, T, T2, T3, T4, T5, T6, T7, T8> function,
+                                                                         final T param1,
+                                                                         final T2 param2,
+                                                                         final T3 param3,
+                                                                         final T4 param4,
+                                                                         final T5 param5,
+                                                                         final T6 param6,
+                                                                         final T7 param7,
+                                                                         final T8 param8) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9> Consumer<O> accepting(final Consumer10<O, T, T2, T3, T4, T5, T6, T7, T8, T9> function,
+                                                                             final T param1,
+                                                                             final T2 param2,
+                                                                             final T3 param3,
+                                                                             final T4 param4,
+                                                                             final T5 param5,
+                                                                             final T6 param6,
+                                                                             final T7 param7,
+                                                                             final T8 param8,
+                                                                             final T9 param9) {
+    Objects.requireNonNull(function, "The function cannot be null.");
+    return object -> function.accept(object, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
+  /* @formatter:on */
+
 }

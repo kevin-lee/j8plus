@@ -4,11 +4,13 @@ import static cc.kevinlee.functional.Functions.*;
 import static cc.kevinlee.testosterone.Testosterones.*;
 import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.*;
+import static org.mockito.Mockito.*;
 
 import java.time.LocalDate;
 import java.util.Arrays;
 import java.util.Comparator;
 import java.util.List;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
@@ -173,9 +175,7 @@ public class FunctionsTest {
 
     when(() -> {
       not(nullPredicate);
-    })
-    .expect(throwing(NullPointerException.class)
-           .containsMessage("cannot be null."));
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
   }
 
   @Test
@@ -236,9 +236,7 @@ public class FunctionsTest {
 
     when(() -> {
       reversed(nullComparator);
-    })
-    .expect(throwing(NullPointerException.class)
-           .containsMessage("cannot be null."));
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
   }
 
   static class SomeBean {
@@ -289,9 +287,7 @@ public class FunctionsTest {
 
     when(() -> {
       compare(nullFunction);
-    })
-    .expect(throwing(NullPointerException.class)
-           .containsMessage("cannot be null."));
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
   }
 
   @Test
@@ -430,9 +426,7 @@ public class FunctionsTest {
 
     when(() -> {
       toStringOf(nullFunction);
-    })
-    .expect(throwing(NullPointerException.class)
-           .containsMessage("cannot be null."));
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
   }
 
   @Test
@@ -555,4 +549,815 @@ public class FunctionsTest {
     assertThat(actual).isFalse();
   }
 
+  static class TestBean {
+    final String name;
+
+    TestBean(final String name) {
+      this.name = name;
+    }
+
+    String call(final Integer number) {
+      return name + "+" + number;
+    }
+
+    String call(final Integer number, final String prefix) {
+      return prefix + ":" + name + "+" + number;
+    }
+
+    String call(final Integer number, final String prefix, final String suffix) {
+      return prefix + ":" + name + "+" + number + suffix;
+    }
+
+    String call(final Integer number, final String prefix, final String suffix, final String param4) {
+      return prefix + ":" + name + "+" + number + suffix + " - " + param4;
+    }
+
+    String call(final Integer number, final String prefix, final String suffix, final String param4, final String param5) {
+      return prefix + ":" + name + "+" + number + suffix + " - " + param4 + " - " + param5;
+    }
+
+    String call(final Integer number, final String prefix, final String suffix, final String param4, final String param5,
+        final String param6) {
+      return prefix + ":" + name + "+" + number + suffix + " - " + param4 + " - " + param5 + "-" + param6;
+    }
+
+    String call(final Integer number, final String prefix, final String suffix, final String param4, final String param5,
+        final String param6, final String param7) {
+      return prefix + ":" + name + "+" + number + suffix + " - " + param4 + " - " + param5 + "-" + param6 + "-" + param7;
+    }
+
+    String call(final Integer number, final String prefix, final String suffix, final String param4, final String param5,
+        final String param6, final String param7, final String param8) {
+      return prefix + ":" + name + "+" + number + suffix + " - " + param4 + " - " + param5 + "-" + param6 + "-" + param7 + "-" + param8;
+    }
+
+    String call(final Integer number, final String prefix, final String suffix, final String param4, final String param5,
+        final String param6, final String param7, final String param8, final String param9) {
+      return prefix + ":" + name + "+" + number + suffix + " - " + param4 + " - " + param5 + "-" + param6 + "-" + param7 + "-" + param8
+          + "-" + param9;
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6,
+        @SuppressWarnings("unused") final String param7) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6,
+        @SuppressWarnings("unused") final String param7, @SuppressWarnings("unused") final String param8) {
+      throw new AssertionError("Use mock to test");
+    }
+
+    void run(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6,
+        @SuppressWarnings("unused") final String param7, @SuppressWarnings("unused") final String param8,
+        @SuppressWarnings("unused") final String param9) {
+      throw new AssertionError("Use mock to test");
+    }
+  }
+
+  final Integer param1 = 999;
+  final String param2 = "{";
+  final String param3 = "}";
+  final String param4 = "aaa";
+  final String param5 = "bbb";
+  final String param6 = "ccc";
+  final String param7 = "ddd";
+  final String param8 = "eee";
+  final String param9 = "fff";
+
+  @Test
+  public void testUsing1WithNull() {
+    when(() -> {
+      Functions.using(null, param1);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing() {
+    /* given */
+    final String name = "abc";
+    final String expected = new TestBean(name).call(param1);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsingWithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1), new TestBean("def").call(param1),
+        new TestBean("ghi").call(param1));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing2WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing2() {
+    /* given */
+    final String name = "abc";
+    final String expected = new TestBean(name).call(param1, param2);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing2WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1, param2), new TestBean("def").call(param1, param2),
+        new TestBean("ghi").call(param1, param2));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing3WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2, param3);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing3() {
+    /* given */
+    final String name = "abc";
+
+    final String expected = new TestBean(name).call(param1, param2, param3);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing3WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1, param2, param3),
+        new TestBean("def").call(param1, param2, param3), new TestBean("ghi").call(param1, param2, param3));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2, param3))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing4WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2, param3, param4);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing4() {
+    /* given */
+    final String name = "abc";
+
+    final String expected = new TestBean(name).call(param1, param2, param3, param4);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing4WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1, param2, param3, param4),
+        new TestBean("def").call(param1, param2, param3, param4), new TestBean("ghi").call(param1, param2, param3, param4));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2, param3, param4))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing5WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2, param3, param4, param5);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing5() {
+    /* given */
+    final String name = "abc";
+    final String expected = new TestBean(name).call(param1, param2, param3, param4, param5);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing5WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1, param2, param3, param4, param5),
+        new TestBean("def").call(param1, param2, param3, param4, param5), new TestBean("ghi").call(param1, param2, param3, param4, param5));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2, param3, param4, param5))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing6WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2, param3, param4, param5, param6);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing6() {
+    /* given */
+    final String name = "abc";
+    final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing6WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1, param2, param3, param4, param5, param6), new TestBean(
+        "def").call(param1, param2, param3, param4, param5, param6), new TestBean("ghi").call(param1, param2, param3, param4, param5,
+        param6));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing7WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2, param3, param4, param5, param6, param7);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing7() {
+    /* given */
+    final String name = "abc";
+    final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6, param7);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing7WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1, param2, param3, param4, param5, param6, param7),
+        new TestBean("def").call(param1, param2, param3, param4, param5, param6, param7),
+        new TestBean("ghi").call(param1, param2, param3, param4, param5, param6, param7));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6, param7))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing8WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing8() {
+    /* given */
+    final String name = "abc";
+    final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7, param8);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing8WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(new TestBean("abc").call(param1, param2, param3, param4, param5, param6, param7, param8),
+        new TestBean("def").call(param1, param2, param3, param4, param5, param6, param7, param8),
+        new TestBean("ghi").call(param1, param2, param3, param4, param5, param6, param7, param8));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing9WithNull() {
+    when(() -> {
+      Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testUsing9() {
+    /* given */
+    final String name = "abc";
+    final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+
+    /* when */
+    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8,
+        param9);
+    final String actual = f.apply(new TestBean(name));
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testUsing9WithStream() {
+    /* given */
+    final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
+
+    final List<String> expected = Arrays.asList(
+        new TestBean("abc").call(param1, param2, param3, param4, param5, param6, param7, param8, param9),
+        new TestBean("def").call(param1, param2, param3, param4, param5, param6, param7, param8, param9),
+        new TestBean("ghi").call(param1, param2, param3, param4, param5, param6, param7, param8, param9));
+
+    /* when */
+    final List<String> actual = list.stream()
+        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8, param9))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public void testAcceptingWithNull() {
+    when(() -> {
+      Functions.accepting(null, param1);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting() {
+    /* given */
+    final Integer param1 = 999;
+
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1);
+  }
+
+  @Test
+  public void testAcceptingWithStream() {
+    /* given */
+    final Integer param1 = 999;
+
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1);
+    verify(testBean2, times(1)).run(param1);
+    verify(testBean3, times(1)).run(param1);
+  }
+
+  @Test
+  public void testAccepting2WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting2() {
+    /* given */
+    final Integer param1 = 999;
+    final String param2 = "{";
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2);
+  }
+
+  @Test
+  public void testAccepting2WithStream() {
+    /* given */
+    final Integer param1 = 999;
+    final String param2 = "{";
+
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2);
+    verify(testBean2, times(1)).run(param1, param2);
+    verify(testBean3, times(1)).run(param1, param2);
+  }
+
+  @Test
+  public void testAccepting3WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2, param3);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting3() {
+    /* given */
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2, param3);
+  }
+
+  @Test
+  public void testAccepting3WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2, param3));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2, param3);
+    verify(testBean2, times(1)).run(param1, param2, param3);
+    verify(testBean3, times(1)).run(param1, param2, param3);
+  }
+
+  @Test
+  public void testAccepting4WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2, param3, param4);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting4() {
+    /* given */
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2, param3, param4);
+  }
+
+  @Test
+  public void testAccepting4WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2, param3, param4));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2, param3, param4);
+    verify(testBean2, times(1)).run(param1, param2, param3, param4);
+    verify(testBean3, times(1)).run(param1, param2, param3, param4);
+  }
+
+  @Test
+  public void testAccepting5WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2, param3, param4, param5);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting5() {
+    /* given */
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2, param3, param4, param5);
+  }
+
+  @Test
+  public void testAccepting5WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2, param3, param4, param5));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2, param3, param4, param5);
+    verify(testBean2, times(1)).run(param1, param2, param3, param4, param5);
+    verify(testBean3, times(1)).run(param1, param2, param3, param4, param5);
+  }
+
+  @Test
+  public void testAccepting6WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2, param3, param4, param5, param6);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting6() {
+    /* given */
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2, param3, param4, param5, param6);
+  }
+
+  @Test
+  public void testAccepting6WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2, param3, param4, param5, param6));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2, param3, param4, param5, param6);
+    verify(testBean2, times(1)).run(param1, param2, param3, param4, param5, param6);
+    verify(testBean3, times(1)).run(param1, param2, param3, param4, param5, param6);
+  }
+
+  @Test
+  public void testAccepting7WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting7() {
+    /* given */
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2, param3, param4, param5, param6, param7);
+  }
+
+  @Test
+  public void testAccepting7WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2, param3, param4, param5, param6, param7);
+    verify(testBean2, times(1)).run(param1, param2, param3, param4, param5, param6, param7);
+    verify(testBean3, times(1)).run(param1, param2, param3, param4, param5, param6, param7);
+  }
+
+  @Test
+  public void testAccepting8WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting8() {
+    /* given */
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+
+  @Test
+  public void testAccepting8WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8);
+    verify(testBean2, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8);
+    verify(testBean3, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+
+  @Test
+  public void testAccepting9WithNull() {
+    when(() -> {
+      Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testAccepting9() {
+    /* given */
+    final TestBean testBean = mock(TestBean.class);
+
+    /* when */
+    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    r.accept(testBean);
+
+    /* then */
+    verify(testBean, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
+
+  @Test
+  public void testAccepting9WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    /* when */
+    Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .forEach(accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8, param9));
+
+    /* then */
+    verify(testBean1, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    verify(testBean2, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    verify(testBean3, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
 }
