@@ -19,7 +19,6 @@ import org.junit.Test;
 public class FunctionsTest {
   @Test
   public void testIsNull() {
-    /* given */
     /* when */
     final Predicate<String> actual = Functions.isNull();
 
@@ -257,7 +256,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testCompare() {
+  public void testComparing() {
     /* given */
 
     /* @formatter:off */
@@ -273,7 +272,7 @@ public class FunctionsTest {
     /* when */
     final List<SomeBean> actual = Arrays.asList(someBean3, someBean1, someBean2)
         .stream()
-        .sorted(compare(SomeBean::getDateCreated))
+        .sorted(comparing(SomeBean::getDateCreated))
         .collect(toList());
 
     /* then */
@@ -281,17 +280,17 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testCompareWithNull() {
+  public void testComparingWithNull() {
 
     final Function<Object, String> nullFunction = null;
 
     when(() -> {
-      compare(nullFunction);
+      comparing(nullFunction);
     }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
   }
 
   @Test
-  public void testCompareReversed() {
+  public void testComparingReversed() {
     /* given */
 
     /* @formatter:off */
@@ -307,7 +306,7 @@ public class FunctionsTest {
     /* when */
     final List<SomeBean> actual = Arrays.asList(someBean1, someBean2, someBean3)
         .stream()
-        .sorted(reversed(compare(SomeBean::getDateCreated)))
+        .sorted(reversed(comparing(SomeBean::getDateCreated)))
         .collect(toList());
 
     /* then */
@@ -315,7 +314,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testCompareLt() {
+  public void testComparingLt() {
     /* given */
 
     /* @formatter:off */
@@ -331,14 +330,14 @@ public class FunctionsTest {
     final int expected = yesterday.compareTo(tomorrow);
 
     /* when */
-    final int actual = compare(SomeBean::getDateCreated).compare(madeYesterday, willBeMadeTomorrow);
+    final int actual = comparing(SomeBean::getDateCreated).compare(madeYesterday, willBeMadeTomorrow);
 
     /* then */
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void testCompareEq() {
+  public void testComparingEq() {
     /* given */
     final LocalDate today = LocalDate.now();
 
@@ -348,14 +347,14 @@ public class FunctionsTest {
     final int expected = today.compareTo(today);
 
     /* when */
-    final int actual = compare(SomeBean::getDateCreated).compare(madeYesterday, willBeMadeTomorrow);
+    final int actual = comparing(SomeBean::getDateCreated).compare(madeYesterday, willBeMadeTomorrow);
 
     /* then */
     assertThat(actual).isEqualTo(expected);
   }
 
   @Test
-  public void testCompareGt() {
+  public void testComparingGt() {
     /* given */
 
     /* @formatter:off */
@@ -371,7 +370,7 @@ public class FunctionsTest {
     final int expected = tomorrow.compareTo(yesterday);
 
     /* when */
-    final int actual = compare(SomeBean::getDateCreated).compare(willBeMadeTomorrow, madeYesterday);
+    final int actual = comparing(SomeBean::getDateCreated).compare(willBeMadeTomorrow, madeYesterday);
 
     /* then */
     assertThat(actual).isEqualTo(expected);
@@ -556,6 +555,58 @@ public class FunctionsTest {
       this.name = name;
     }
 
+    boolean isOk(@SuppressWarnings("unused") final Integer number) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6,
+        @SuppressWarnings("unused") final String param7) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6,
+        @SuppressWarnings("unused") final String param7, @SuppressWarnings("unused") final String param8) {
+      return false;
+    }
+
+    boolean isOk(@SuppressWarnings("unused") final Integer number, @SuppressWarnings("unused") final String prefix,
+        @SuppressWarnings("unused") final String suffix, @SuppressWarnings("unused") final String param4,
+        @SuppressWarnings("unused") final String param5, @SuppressWarnings("unused") final String param6,
+        @SuppressWarnings("unused") final String param7, @SuppressWarnings("unused") final String param8,
+        @SuppressWarnings("unused") final String param9) {
+      return false;
+    }
+
     String call(final Integer number) {
       return name + "+" + number;
     }
@@ -661,7 +712,718 @@ public class FunctionsTest {
   final String param9 = "fff";
 
   @Test
-  public void testUsing1WithNull() {
+  public void testSatisfyingWithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1);
+  }
+
+  @Test
+  public void testSatisfyingWithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1)).thenReturn(true);
+    when(testBean2.isOk(param1)).thenReturn(true);
+    when(testBean3.isOk(param1)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1);
+    verify(testBean2, times(1)).isOk(param1);
+    verify(testBean3, times(1)).isOk(param1);
+  }
+
+  @Test
+  public void testSatisfyingWithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1)).thenReturn(false);
+    when(testBean2.isOk(param1)).thenReturn(false);
+    when(testBean3.isOk(param1)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1);
+    verify(testBean2, times(1)).isOk(param1);
+    verify(testBean3, times(1)).isOk(param1);
+  }
+
+  @Test
+  public void testSatisfying2WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2);
+  }
+
+  @Test
+  public void testSatisfying2WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2)).thenReturn(true);
+    when(testBean2.isOk(param1, param2)).thenReturn(true);
+    when(testBean3.isOk(param1, param2)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2);
+    verify(testBean2, times(1)).isOk(param1, param2);
+    verify(testBean3, times(1)).isOk(param1, param2);
+  }
+
+  @Test
+  public void testSatisfying2WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2)).thenReturn(false);
+    when(testBean2.isOk(param1, param2)).thenReturn(false);
+    when(testBean3.isOk(param1, param2)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2);
+    verify(testBean2, times(1)).isOk(param1, param2);
+    verify(testBean3, times(1)).isOk(param1, param2);
+  }
+
+  @Test
+  public void testSatisfying3WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2, param3);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying3() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2, param3)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2, param3);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3);
+  }
+
+  @Test
+  public void testSatisfying3WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3)).thenReturn(true);
+    when(testBean2.isOk(param1, param2, param3)).thenReturn(true);
+    when(testBean3.isOk(param1, param2, param3)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3);
+    verify(testBean2, times(1)).isOk(param1, param2, param3);
+    verify(testBean3, times(1)).isOk(param1, param2, param3);
+  }
+
+  @Test
+  public void testSatisfying3WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3)).thenReturn(false);
+    when(testBean2.isOk(param1, param2, param3)).thenReturn(false);
+    when(testBean3.isOk(param1, param2, param3)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3);
+    verify(testBean2, times(1)).isOk(param1, param2, param3);
+    verify(testBean3, times(1)).isOk(param1, param2, param3);
+  }
+
+  @Test
+  public void testSatisfying4WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2, param3, param4);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying4() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2, param3, param4)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2, param3, param4);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4);
+  }
+
+  @Test
+  public void testSatisfying4WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4)).thenReturn(true);
+    when(testBean2.isOk(param1, param2, param3, param4)).thenReturn(true);
+    when(testBean3.isOk(param1, param2, param3, param4)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4);
+  }
+
+  @Test
+  public void testSatisfying4WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4)).thenReturn(false);
+    when(testBean2.isOk(param1, param2, param3, param4)).thenReturn(false);
+    when(testBean3.isOk(param1, param2, param3, param4)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4);
+  }
+
+  @Test
+  public void testSatisfying5WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2, param3, param4, param5);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying5() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2, param3, param4, param5)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2, param3, param4, param5);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5);
+  }
+
+  @Test
+  public void testSatisfying5WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5)).thenReturn(true);
+    when(testBean2.isOk(param1, param2, param3, param4, param5)).thenReturn(true);
+    when(testBean3.isOk(param1, param2, param3, param4, param5)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5);
+  }
+
+  @Test
+  public void testSatisfying5WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5)).thenReturn(false);
+    when(testBean2.isOk(param1, param2, param3, param4, param5)).thenReturn(false);
+    when(testBean3.isOk(param1, param2, param3, param4, param5)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5);
+  }
+
+  @Test
+  public void testSatisfying6WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2, param3, param4, param5, param6);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying6() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6);
+  }
+
+  @Test
+  public void testSatisfying6WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6)).thenReturn(true);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6)).thenReturn(true);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6);
+  }
+
+  @Test
+  public void testSatisfying6WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6)).thenReturn(false);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6)).thenReturn(false);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6);
+  }
+
+  @Test
+  public void testSatisfying7WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying7() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7);
+  }
+
+  @Test
+  public void testSatisfying7WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7)).thenReturn(true);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6, param7)).thenReturn(true);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6, param7)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7);
+  }
+
+  @Test
+  public void testSatisfying7WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7)).thenReturn(false);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6, param7)).thenReturn(false);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6, param7)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7);
+  }
+
+  @Test
+  public void testSatisfying8WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying8() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7, param8)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7, param8);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+
+  @Test
+  public void testSatisfying8WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7, param8)).thenReturn(true);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6, param7, param8)).thenReturn(true);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6, param7, param8)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7, param8))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+
+  @Test
+  public void testSatisfying8WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7, param8)).thenReturn(false);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6, param7, param8)).thenReturn(false);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6, param7, param8)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7, param8))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+
+  @Test
+  public void testSatisfying9WithNull() {
+    when(() -> {
+      Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+  }
+
+  @Test
+  public void testSatisfying9() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+
+    final boolean expected = true;
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9)).thenReturn(expected);
+
+    /* when */
+    final Predicate<TestBean> predicate = satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    final boolean actual = predicate.test(testBean1);
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
+
+  @Test
+  public void testSatisfying9WithStream() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9)).thenReturn(true);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9)).thenReturn(true);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9)).thenReturn(true);
+
+    final List<TestBean> expected = Arrays.asList(testBean1, testBean2, testBean3);
+
+    /* when */
+    final List<TestBean> actual = expected.stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7, param8, param9))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
+
+  @Test
+  public void testSatisfying9WithStream2() {
+    /* given */
+    final TestBean testBean1 = mock(TestBean.class);
+    final TestBean testBean2 = mock(TestBean.class);
+    final TestBean testBean3 = mock(TestBean.class);
+
+    when(testBean1.isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9)).thenReturn(false);
+    when(testBean2.isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9)).thenReturn(false);
+    when(testBean3.isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9)).thenReturn(false);
+
+    final List<TestBean> expected = Arrays.asList();
+
+    /* when */
+    final List<TestBean> actual = Arrays.asList(testBean1, testBean2, testBean3)
+        .stream()
+        .filter(satisfying(TestBean::isOk, param1, param2, param3, param4, param5, param6, param7, param8, param9))
+        .collect(toList());
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+    assertThat(actual).hasSize(0);
+
+    verify(testBean1, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    verify(testBean2, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    verify(testBean3, times(1)).isOk(param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
+
+  @Test
+  public void testUsingWithNull() {
     when(() -> {
       Functions.using(null, param1);
     }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));

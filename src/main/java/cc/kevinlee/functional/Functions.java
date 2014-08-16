@@ -19,6 +19,7 @@ import java.util.Comparator;
 import java.util.Objects;
 import java.util.function.BiConsumer;
 import java.util.function.BiFunction;
+import java.util.function.BiPredicate;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -39,6 +40,14 @@ import cc.kevinlee.functional.types.Function6;
 import cc.kevinlee.functional.types.Function7;
 import cc.kevinlee.functional.types.Function8;
 import cc.kevinlee.functional.types.Function9;
+import cc.kevinlee.functional.types.Predicate10;
+import cc.kevinlee.functional.types.Predicate3;
+import cc.kevinlee.functional.types.Predicate4;
+import cc.kevinlee.functional.types.Predicate5;
+import cc.kevinlee.functional.types.Predicate6;
+import cc.kevinlee.functional.types.Predicate7;
+import cc.kevinlee.functional.types.Predicate8;
+import cc.kevinlee.functional.types.Predicate9;
 
 /**
  * @author Lee, SeongHyun (Kevin)
@@ -105,10 +114,10 @@ public final class Functions {
    *
    * @param toComparable
    * @return a Higher-order function the result of which is a {@link Comparator} taking two objects of type T then use
-   *         the mapper which is passed as the parameter of this {@link #compare(Function)} method to map the T type to
+   *         the mapper which is passed as the parameter of this {@link #comparing(Function)} method to map the T type to
    *         something {@link Comparable} and use them to compare.
    */
-  public static <T, C extends Comparable<C>> Comparator<T> compare(final Function<T, C> toComparable) {
+  public static <T, C extends Comparable<C>> Comparator<T> comparing(final Function<T, C> toComparable) {
     Objects.requireNonNull(toComparable, "The toComparable: Function<T, C> cannot be null.");
     return (t1, t2) -> toComparable.apply(t1)
                                    .compareTo(toComparable.apply(t2));
@@ -163,6 +172,114 @@ public final class Functions {
   public static <T> Function<T, Boolean> toFalse() {
     return t -> Boolean.FALSE;
   }
+
+  /* @formatter:off */
+  public static <O, T> Predicate<O> satisfying(final BiPredicate<O, T> predicate,
+                                               final T param1) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2> Predicate<O> satisfying(final Predicate3<O, T, T2> predicate,
+                                                   final T param1,
+                                                   final T2 param2) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3> Predicate<O> satisfying(final Predicate4<O, T, T2, T3> predicate,
+                                                       final T param1,
+                                                       final T2 param2,
+                                                       final T3 param3) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2, param3);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4> Predicate<O> satisfying(final Predicate5<O, T, T2, T3, T4> predicate,
+                                                           final T param1,
+                                                           final T2 param2,
+                                                           final T3 param3,
+                                                           final T4 param4) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2, param3, param4);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5> Predicate<O> satisfying(final Predicate6<O, T, T2, T3, T4, T5> predicate,
+                                                               final T param1,
+                                                               final T2 param2,
+                                                               final T3 param3,
+                                                               final T4 param4,
+                                                               final T5 param5) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2, param3, param4, param5);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6> Predicate<O> satisfying(final Predicate7<O, T, T2, T3, T4, T5, T6> predicate,
+                                                                   final T param1,
+                                                                   final T2 param2,
+                                                                   final T3 param3,
+                                                                   final T4 param4,
+                                                                   final T5 param5,
+                                                                   final T6 param6) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2, param3, param4, param5, param6);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7> Predicate<O> satisfying(final Predicate8<O, T, T2, T3, T4, T5, T6, T7> predicate,
+                                                                       final T param1,
+                                                                       final T2 param2,
+                                                                       final T3 param3,
+                                                                       final T4 param4,
+                                                                       final T5 param5,
+                                                                       final T6 param6,
+                                                                       final T7 param7) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2, param3, param4, param5, param6, param7);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8> Predicate<O> satisfying(final Predicate9<O, T, T2, T3, T4, T5, T6, T7, T8> predicate,
+                                                                           final T param1,
+                                                                           final T2 param2,
+                                                                           final T3 param3,
+                                                                           final T4 param4,
+                                                                           final T5 param5,
+                                                                           final T6 param6,
+                                                                           final T7 param7,
+                                                                           final T8 param8) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2, param3, param4, param5, param6, param7, param8);
+  }
+  /* @formatter:on */
+
+  /* @formatter:off */
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9> Predicate<O> satisfying(final Predicate10<O, T, T2, T3, T4, T5, T6, T7, T8, T9> predicate,
+                                                                               final T param1,
+                                                                               final T2 param2,
+                                                                               final T3 param3,
+                                                                               final T4 param4,
+                                                                               final T5 param5,
+                                                                               final T6 param6,
+                                                                               final T7 param7,
+                                                                               final T8 param8,
+                                                                               final T9 param9) {
+    Objects.requireNonNull(predicate, "The function cannot be null.");
+    return object -> predicate.test(object, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+  }
+  /* @formatter:on */
 
   public static <O, T, R> Function<O, R> using(final BiFunction<O, T, R> function, final T param) {
     Objects.requireNonNull(function, "The function cannot be null.");
@@ -284,7 +401,6 @@ public final class Functions {
     return object -> function.accept(object, param1, param2, param3);
   }
   /* @formatter:on */
-
 
   /* @formatter:off */
   public static <O, T, T2, T3, T4> Consumer<O> accepting(final Consumer5<O, T, T2, T3, T4> function,
