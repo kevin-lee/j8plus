@@ -33,9 +33,11 @@ public class TailCallsTest {
    *   return factorial(acc.multiply(n), n.subtract(BigInteger.ONE));
    * }
    * </pre>
+   *
    * <pre>
    *                 ↓↓↓↓↓↓↓↓↓
    * </pre>
+   *
    * <pre>
    * TailCallable&lt;BigInteger&gt; factorial(final BigInteger acc, final BigInteger n) {
    *   if (n.equals(BigInteger.ONE)) {
@@ -68,6 +70,33 @@ public class TailCallsTest {
     assertThat(actual).isEqualTo(expected);
   }
 
+  private static TailCallable<BigInteger> nThTriangularNumber(final BigInteger acc, final BigInteger n) {
+    if (n.equals(BigInteger.ZERO)) {
+      return done(acc);
+    }
+    return () -> nThTriangularNumber(acc.add(n), n.subtract(BigInteger.ONE));
+  }
+
+  @Test
+  public final void testTrampoline2() {
+    /* given */
+    final String number = "100000";
+    /*
+     * expected: nth triangular number = (n^2 + n) / 2 or n(n + 1) / 2
+     */
+    final BigInteger expected = (new BigInteger(number).pow(2).add(new BigInteger(number))).divide(new BigInteger("2"));
+    // final BigInteger expected = (new BigInteger(number).multiply(new
+    // BigInteger(number).add(BigInteger.ONE))).divide(new BigInteger("2"));
+
+    /* when */
+    final long start = System.currentTimeMillis();
+    final BigInteger actual = trampoline(nThTriangularNumber(BigInteger.ZERO, new BigInteger(number)));
+    System.out.println("It took " + (System.currentTimeMillis() - start) + "ms.");
+
+    /* then */
+    assertThat(actual).isEqualTo(expected);
+  }
+
   private static boolean isOdd(final int n) {
     return (n & 1) != 0;
   }
@@ -84,7 +113,7 @@ public class TailCallsTest {
   }
 
   @Test
-  public final void testTrampoline2() {
+  public final void testTrampoline3() {
     /* given */
     final int expected = 6172;
 
