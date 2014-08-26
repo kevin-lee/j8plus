@@ -39,8 +39,7 @@ public class BigIntegersTest {
       Numbers.BigIntegers.lt(new BigInteger("100"))
     )
     .then(actual ->
-//      assertThat(actual.test(number)).isFalse()
-      assertThat(actual.test(number)).isTrue()
+      assertThat(actual.test(number)).isFalse()
     );
     /* @formatter:on */
   }
