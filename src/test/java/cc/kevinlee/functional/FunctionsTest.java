@@ -1,7 +1,7 @@
 package cc.kevinlee.functional;
 
 import static cc.kevinlee.functional.Functions.*;
-import static cc.kevinlee.testosterone.Testosterones.*;
+import static cc.kevinlee.testosterone.Testosterone.*;
 import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
@@ -19,11 +19,11 @@ import org.junit.Test;
 public class FunctionsTest {
   @Test
   public void testIsNull() {
-    /* when */
-    final Predicate<String> actual = Functions.isNull();
-
-    /* then */
-    assertThat(actual.test(null)).isTrue();
+    /* @formatter:off */
+    test("testIsNull", "Functions.isNull()")
+    .when(() -> Functions.isNull())
+    .then(actual -> assertThat(actual.test(null)).isTrue());
+    /* @formatter:on */
   }
 
   @Test
@@ -31,12 +31,12 @@ public class FunctionsTest {
     /* given */
     final String string = null;
 
-    /* when */
-    final boolean actual = Functions.isNull()
-        .test(string);
-
-    /* then */
-    assertThat(actual).isTrue();
+    /* @formatter:off */
+    test("testIsNull2", "Functions.isNull().test(null)")
+    .when(() -> Functions.isNull()
+                         .test(string))
+    .then(actual -> assertThat(actual).isTrue());
+    /* @formatter:on */
   }
 
   @Test
@@ -44,12 +44,14 @@ public class FunctionsTest {
     /* given */
     final String string = "Some string";
 
-    /* when */
-    final boolean actual = Functions.isNull()
-        .test(string);
-
-    /* then */
-    assertThat(actual).isFalse();
+    /* @formatter:off */
+    test("testIsNull3", "Functions.isNull().test(" + string + ")")
+    .when(() -> Functions.isNull()
+                         .test(string))
+    .then(actual ->
+      assertThat(actual).isFalse()
+    );
+    /* @formatter:on */
   }
 
   @Test
@@ -57,22 +59,28 @@ public class FunctionsTest {
     /* given */
     final String string = "";
 
-    /* when */
-    final boolean actual = Functions.isNull()
-        .test(string);
-
-    /* then */
-    assertThat(actual).isFalse();
+    /* @formatter:off */
+    test("testIsNull4", "Functions.isNull().test(\"" + string + "\")")
+    .when(() ->
+      Functions.isNull().test(string)
+    )
+    .then(actual ->
+      assertThat(actual).isFalse()
+    );
+    /* @formatter:on */
   }
 
   @Test
   public void testIsNotNull() {
-    /* given */
-    /* when */
-    final Predicate<String> actual = Functions.isNotNull();
-
-    /* then */
-    assertThat(actual.test(null)).isFalse();
+    /* @formatter:off */
+    test("testIsNotNull", "Functions.isNotNull()")
+    .when(() ->
+      Functions.isNotNull()
+    )
+    .then(actual ->
+      assertThat(actual.test(null)).isFalse()
+    );
+    /* @formatter:on */
   }
 
   @Test
@@ -122,13 +130,17 @@ public class FunctionsTest {
     final List<String> expected = Arrays.asList("Hi", "Good morning", "That", "do ", "where");
     final String text = "Hello Kevin. How are you? This will get all the words which this text does not contain.";
 
-    /* when */
-    final List<String> actual = words.stream()
+    /* @formatter:off */
+    test("testNot", "Test not() with stream and method reference")
+    .when(() ->
+        words.stream()
         .filter(not(text::contains))
-        .collect(toList());
-
-    /* then */
-    assertThat(actual).isEqualTo(expected);
+        .collect(toList())
+    )
+    .then(actual ->
+      assertThat(actual).isEqualTo(expected)
+    );
+    /* @formatter:on */
   }
 
   @Test
@@ -172,9 +184,12 @@ public class FunctionsTest {
     /* given */
     final Predicate<Integer> nullPredicate = null;
 
-    when(() -> {
+    /* @formatter:off */
+    test("testNotWithNull", "not(null)")
+    .when(() -> {
       not(nullPredicate);
     }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
+    /* @formatter:on */
   }
 
   @Test
@@ -233,9 +248,13 @@ public class FunctionsTest {
 
     final Comparator<?> nullComparator = null;
 
-    when(() -> {
+    /* @formatter:off */
+    test("testReversedWithNullComparator", "reversed(null)")
+    .when(() -> {
       reversed(nullComparator);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
+    /* @formatter:on */
   }
 
   static class SomeBean {
@@ -284,9 +303,13 @@ public class FunctionsTest {
 
     final Function<Object, String> nullFunction = null;
 
-    when(() -> {
+    /* @formatter:off */
+    test("testComparingWithNull", "comparing(null)")
+    .when(() -> {
       comparing(nullFunction);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
+    /* @formatter:on */
   }
 
   @Test
@@ -423,9 +446,13 @@ public class FunctionsTest {
     /* given */
     final Function<Object, String> nullFunction = null;
 
-    when(() -> {
+    /* @formatter:off */
+    test("testToStringOfWithNullFunction", "toStringOf(null)")
+    .when(() -> {
       toStringOf(nullFunction);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null."));
+    /* @formatter:on */
   }
 
   @Test
@@ -713,9 +740,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfyingWithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfyingWithNull", "Functions.satisfying(null, param1)")
+    .when(() -> {
       Functions.satisfying(null, param1);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -792,9 +823,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying2WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying2WithNull", "Functions.satisfying(null, param1, param2)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -871,9 +906,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying3WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying3WithNull", "Functions.satisfying(null, param1, param2, param3)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2, param3);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -950,9 +989,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying4WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying4WithNull", "Functions.satisfying(null, param1, param2, param3, param4)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2, param3, param4);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1029,9 +1072,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying5WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying5WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2, param3, param4, param5);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1108,9 +1155,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying6WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying6WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2, param3, param4, param5, param6);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1187,9 +1238,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying7WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying7WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1266,9 +1321,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying8WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying8WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1345,9 +1404,13 @@ public class FunctionsTest {
 
   @Test
   public void testSatisfying9WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testSatisfying9WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
+    .when(() -> {
       Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1424,9 +1487,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsingWithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsingWithNull", "Functions.using(null, param1)")
+    .when(() -> {
       Functions.using(null, param1);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1462,9 +1529,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing2WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing2WithNull", "Functions.using(null, param1, param2)")
+    .when(() -> {
       Functions.using(null, param1, param2);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1500,9 +1571,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing3WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing3WithNull", "Functions.using(null, param1, param2, param3)")
+    .when(() -> {
       Functions.using(null, param1, param2, param3);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1539,9 +1614,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing4WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing4WithNull", "Functions.using(null, param1, param2, param3, param4)")
+    .when(() -> {
       Functions.using(null, param1, param2, param3, param4);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1578,9 +1657,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing5WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing5WithNull", "Functions.using(null, param1, param2, param3, param4, param5)")
+    .when(() -> {
       Functions.using(null, param1, param2, param3, param4, param5);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1616,9 +1699,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing6WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing6WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6)")
+    .when(() -> {
       Functions.using(null, param1, param2, param3, param4, param5, param6);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1655,9 +1742,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing7WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing7WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6, param7)")
+    .when(() -> {
       Functions.using(null, param1, param2, param3, param4, param5, param6, param7);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1694,9 +1785,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing8WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing8WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8)")
+    .when(() -> {
       Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1733,9 +1828,13 @@ public class FunctionsTest {
 
   @Test
   public void testUsing9WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testUsing9WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
+    .when(() -> {
       Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
-    }).expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1774,9 +1873,13 @@ public class FunctionsTest {
 
   @Test
   public void testAcceptingWithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAcceptingWithNull", "Functions.accepting(null, param1)")
+    .when(() -> {
       Functions.accepting(null, param1);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1816,9 +1919,13 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting2WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAccepting2WithNull", "Functions.accepting(null, param1, param2)")
+    .when(() -> {
       Functions.accepting(null, param1, param2);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1859,9 +1966,10 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting3WithNull() {
-    when(() -> {
+    test("testAccepting3WithNull", "Functions.accepting(null, param1, param2, param3)").when(() -> {
       Functions.accepting(null, param1, param2, param3);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+        .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
   }
 
   @Test
@@ -1897,9 +2005,13 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting4WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAccepting4WithNull", "Functions.accepting(null, param1, param2, param3, param4)")
+    .when(() -> {
       Functions.accepting(null, param1, param2, param3, param4);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1935,9 +2047,13 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting5WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAccepting5WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5)")
+    .when(() -> {
       Functions.accepting(null, param1, param2, param3, param4, param5);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -1973,9 +2089,13 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting6WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAccepting6WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6)")
+    .when(() -> {
       Functions.accepting(null, param1, param2, param3, param4, param5, param6);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -2011,9 +2131,13 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting7WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAccepting7WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7)")
+    .when(() -> {
       Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -2049,9 +2173,13 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting8WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAccepting8WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8)")
+    .when(() -> {
       Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test
@@ -2087,9 +2215,13 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting9WithNull() {
-    when(() -> {
+    /* @formatter:off */
+    test("testAccepting9WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
+    .when(() -> {
       Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
-    }).equals(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    })
+    .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
+    /* @formatter:on */
   }
 
   @Test

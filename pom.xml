@@ -5,7 +5,7 @@
 
 	<groupId>cc.kevinlee</groupId>
   <artifactId>j8plus</artifactId>
-	<version>0.0.7-SNAPSHOT</version>
+	<version>0.0.8-SNAPSHOT</version>
 	<packaging>jar</packaging>
 
 	<name>J8Plus</name>
@@ -15,6 +15,7 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <junit.version>4.11</junit.version>
+    <testosterone.version>[0,)</testosterone.version>
   </properties>
 
   <repositories>
@@ -85,7 +86,7 @@
     <dependency>
       <groupId>cc.kevinlee</groupId>
       <artifactId>testosterone</artifactId>
-      <version>0.0.1-SNAPSHOT</version>
+      <version>${testosterone.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>

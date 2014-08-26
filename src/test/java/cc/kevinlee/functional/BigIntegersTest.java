@@ -1,5 +1,6 @@
 package cc.kevinlee.functional;
 
+import static cc.kevinlee.testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigInteger;
@@ -16,11 +17,15 @@ public class BigIntegersTest {
     /* given */
     final BigInteger number = new BigInteger("99");
 
-    /* when */
-    final Predicate<BigInteger> actual = Numbers.BigIntegers.lt(new BigInteger("100"));
-
-    /* then */
-    assertThat(actual.test(number)).isTrue();
+    /* @formatter:off */
+    test("testLtBigInteger", "Numbers.BigIntegers.lt(new BigInteger(\"100\")).test(new BigInteger(\"99\")) should be true")
+    .when(() ->
+      Numbers.BigIntegers.lt(new BigInteger("100"))
+    )
+    .then(actual ->
+      assertThat(actual.test(number)).isTrue()
+    );
+    /* @formatter:on */
   }
 
   @Test
@@ -28,11 +33,16 @@ public class BigIntegersTest {
     /* given */
     final BigInteger number = new BigInteger("100");
 
-    /* when */
-    final Predicate<BigInteger> actual = Numbers.BigIntegers.lt(new BigInteger("100"));
-
-    /* then */
-    assertThat(actual.test(number)).isFalse();
+    /* @formatter:off */
+    test("testLtBigInteger2", "Numbers.BigIntegers.lt(new BigInteger(\"100\")).test(new BigInteger(\"100\")) should be false")
+    .when(() ->
+      Numbers.BigIntegers.lt(new BigInteger("100"))
+    )
+    .then(actual ->
+//      assertThat(actual.test(number)).isFalse()
+      assertThat(actual.test(number)).isTrue()
+    );
+    /* @formatter:on */
   }
 
   @Test
