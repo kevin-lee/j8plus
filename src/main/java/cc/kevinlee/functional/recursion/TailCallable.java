@@ -19,7 +19,7 @@ package cc.kevinlee.functional.recursion;
  * @author Lee, SeongHyun (Kevin)
  * @version 0.0.1 (2014-06-14)
  *
- * @param <T>
+ * @param <T> The type of the result from this tailcallable operation
  */
 @FunctionalInterface
 public interface TailCallable<T> {
