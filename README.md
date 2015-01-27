@@ -73,7 +73,9 @@ It filters out all empty String values and takes only non-empty ones.
 
 # Get J8+
 
-### Maven
+**NOT AVAILABLE YET!!!!!!!!!!**
+
+### Maven (NOT AVAILABLE YET!!!)
 * Add maven repository
 
 ```xml
@@ -105,7 +107,7 @@ It filters out all empty String values and takes only non-empty ones.
 </dependencies>
 ```
 
-### Gradle
+### Gradle (NOT AVAILABLE YET!!!)
 * Add maven repository
 
   In `build.gradle`, add the following repository to `repositories`.
