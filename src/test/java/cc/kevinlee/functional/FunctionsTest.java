@@ -1486,24 +1486,24 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsingWithNull() {
+  public void testApplyingWithNull() {
     /* @formatter:off */
-    test("testUsingWithNull", "Functions.using(null, param1)")
+    test("testApplyingWithNull", "Functions.applying(null, param1)")
     .when(() -> {
-      Functions.using(null, param1);
+      Functions.applying(null, param1);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing() {
+  public void testApplying() {
     /* given */
     final String name = "abc";
     final String expected = new TestBean(name).call(param1);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1511,7 +1511,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsingWithStream() {
+  public void testApplyingWithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1520,7 +1520,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1))
+        .map(applying(TestBean::call, param1))
         .collect(toList());
 
     /* then */
@@ -1528,24 +1528,24 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing2WithNull() {
+  public void testApplying2WithNull() {
     /* @formatter:off */
-    test("testUsing2WithNull", "Functions.using(null, param1, param2)")
+    test("testApplying2WithNull", "Functions.applying(null, param1, param2)")
     .when(() -> {
-      Functions.using(null, param1, param2);
+      Functions.applying(null, param1, param2);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing2() {
+  public void testApplying2() {
     /* given */
     final String name = "abc";
     final String expected = new TestBean(name).call(param1, param2);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1553,7 +1553,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing2WithStream() {
+  public void testApplying2WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1562,7 +1562,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2))
+        .map(applying(TestBean::call, param1, param2))
         .collect(toList());
 
     /* then */
@@ -1570,25 +1570,25 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing3WithNull() {
+  public void testApplying3WithNull() {
     /* @formatter:off */
-    test("testUsing3WithNull", "Functions.using(null, param1, param2, param3)")
+    test("testApplying3WithNull", "Functions.applying(null, param1, param2, param3)")
     .when(() -> {
-      Functions.using(null, param1, param2, param3);
+      Functions.applying(null, param1, param2, param3);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing3() {
+  public void testApplying3() {
     /* given */
     final String name = "abc";
 
     final String expected = new TestBean(name).call(param1, param2, param3);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1596,7 +1596,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing3WithStream() {
+  public void testApplying3WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1605,7 +1605,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2, param3))
+        .map(applying(TestBean::call, param1, param2, param3))
         .collect(toList());
 
     /* then */
@@ -1613,25 +1613,25 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing4WithNull() {
+  public void testApplying4WithNull() {
     /* @formatter:off */
-    test("testUsing4WithNull", "Functions.using(null, param1, param2, param3, param4)")
+    test("testApplying4WithNull", "Functions.applying(null, param1, param2, param3, param4)")
     .when(() -> {
-      Functions.using(null, param1, param2, param3, param4);
+      Functions.applying(null, param1, param2, param3, param4);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing4() {
+  public void testApplying4() {
     /* given */
     final String name = "abc";
 
     final String expected = new TestBean(name).call(param1, param2, param3, param4);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1639,7 +1639,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing4WithStream() {
+  public void testApplying4WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1648,7 +1648,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2, param3, param4))
+        .map(applying(TestBean::call, param1, param2, param3, param4))
         .collect(toList());
 
     /* then */
@@ -1656,24 +1656,24 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing5WithNull() {
+  public void testApplying5WithNull() {
     /* @formatter:off */
-    test("testUsing5WithNull", "Functions.using(null, param1, param2, param3, param4, param5)")
+    test("testApplying5WithNull", "Functions.applying(null, param1, param2, param3, param4, param5)")
     .when(() -> {
-      Functions.using(null, param1, param2, param3, param4, param5);
+      Functions.applying(null, param1, param2, param3, param4, param5);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing5() {
+  public void testApplying5() {
     /* given */
     final String name = "abc";
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1681,7 +1681,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing5WithStream() {
+  public void testApplying5WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1690,7 +1690,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2, param3, param4, param5))
+        .map(applying(TestBean::call, param1, param2, param3, param4, param5))
         .collect(toList());
 
     /* then */
@@ -1698,24 +1698,24 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing6WithNull() {
+  public void testApplying6WithNull() {
     /* @formatter:off */
-    test("testUsing6WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6)")
+    test("testApplying6WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6)")
     .when(() -> {
-      Functions.using(null, param1, param2, param3, param4, param5, param6);
+      Functions.applying(null, param1, param2, param3, param4, param5, param6);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing6() {
+  public void testApplying6() {
     /* given */
     final String name = "abc";
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1723,7 +1723,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing6WithStream() {
+  public void testApplying6WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1733,7 +1733,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6))
+        .map(applying(TestBean::call, param1, param2, param3, param4, param5, param6))
         .collect(toList());
 
     /* then */
@@ -1741,24 +1741,24 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing7WithNull() {
+  public void testApplying7WithNull() {
     /* @formatter:off */
-    test("testUsing7WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6, param7)")
+    test("testApplying7WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6, param7)")
     .when(() -> {
-      Functions.using(null, param1, param2, param3, param4, param5, param6, param7);
+      Functions.applying(null, param1, param2, param3, param4, param5, param6, param7);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing7() {
+  public void testApplying7() {
     /* given */
     final String name = "abc";
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6, param7);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1766,7 +1766,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing7WithStream() {
+  public void testApplying7WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1776,7 +1776,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6, param7))
+        .map(applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7))
         .collect(toList());
 
     /* then */
@@ -1784,24 +1784,24 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing8WithNull() {
+  public void testApplying8WithNull() {
     /* @formatter:off */
-    test("testUsing8WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8)")
+    test("testApplying8WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8)")
     .when(() -> {
-      Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8);
+      Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing8() {
+  public void testApplying8() {
     /* given */
     final String name = "abc";
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7, param8);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8);
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1809,7 +1809,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing8WithStream() {
+  public void testApplying8WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1819,7 +1819,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8))
+        .map(applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8))
         .collect(toList());
 
     /* then */
@@ -1827,24 +1827,24 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing9WithNull() {
+  public void testApplying9WithNull() {
     /* @formatter:off */
-    test("testUsing9WithNull", "Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
+    test("testApplying9WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
     .when(() -> {
-      Functions.using(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+      Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
   }
 
   @Test
-  public void testUsing9() {
+  public void testApplying9() {
     /* given */
     final String name = "abc";
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7, param8, param9);
 
     /* when */
-    final Function<TestBean, String> f = Functions.using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8,
+    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8,
         param9);
     final String actual = f.apply(new TestBean(name));
 
@@ -1853,7 +1853,7 @@ public class FunctionsTest {
   }
 
   @Test
-  public void testUsing9WithStream() {
+  public void testApplying9WithStream() {
     /* given */
     final List<TestBean> list = Arrays.asList(new TestBean("abc"), new TestBean("def"), new TestBean("ghi"));
 
@@ -1864,7 +1864,7 @@ public class FunctionsTest {
 
     /* when */
     final List<String> actual = list.stream()
-        .map(using(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8, param9))
+        .map(applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8, param9))
         .collect(toList());
 
     /* then */

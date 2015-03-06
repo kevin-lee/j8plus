@@ -281,102 +281,102 @@ public final class Functions {
   }
   /* @formatter:on */
 
-  public static <O, T, R> Function<O, R> using(final BiFunction<O, T, R> function, final T param) {
+  public static <O, T, R> Function<O, R> applying(final BiFunction<O, T, R> function, final T param) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param);
   }
 
-  public static <O, T, T2, R> Function<O, R> using(final Function3<O, T, T2, R> function, final T param1, final T2 param2) {
+  public static <O, T, T2, R> Function<O, R> applying(final Function3<O, T, T2, R> function, final T param1, final T2 param2) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2);
   }
 
   /* @formatter:off */
-  public static <O, T, T2, T3, R> Function<O, R> using(final Function4<O, T, T2, T3, R> function,
-                                                       final T param1,
-                                                       final T2 param2,
-                                                       final T3 param3) {
+  public static <O, T, T2, T3, R> Function<O, R> applying(final Function4<O, T, T2, T3, R> function,
+                                                          final T param1,
+                                                          final T2 param2,
+                                                          final T3 param3) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2, param3);
   }
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, R> Function<O, R> using(final Function5<O, T, T2, T3, T4, R> function,
-                                                           final T param1,
-                                                           final T2 param2,
-                                                           final T3 param3,
-                                                           final T4 param4) {
+  public static <O, T, T2, T3, T4, R> Function<O, R> applying(final Function5<O, T, T2, T3, T4, R> function,
+                                                              final T param1,
+                                                              final T2 param2,
+                                                              final T3 param3,
+                                                              final T4 param4) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2, param3, param4);
   }
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, R> Function<O, R> using(final Function6<O, T, T2, T3, T4, T5, R> function,
-                                                               final T param1,
-                                                               final T2 param2,
-                                                               final T3 param3,
-                                                               final T4 param4,
-                                                               final T5 param5) {
+  public static <O, T, T2, T3, T4, T5, R> Function<O, R> applying(final Function6<O, T, T2, T3, T4, T5, R> function,
+                                                                  final T param1,
+                                                                  final T2 param2,
+                                                                  final T3 param3,
+                                                                  final T4 param4,
+                                                                  final T5 param5) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2, param3, param4, param5);
   }
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, R> Function<O, R> using(final Function7<O, T, T2, T3, T4, T5, T6, R> function,
-                                                                   final T param1,
-                                                                   final T2 param2,
-                                                                   final T3 param3,
-                                                                   final T4 param4,
-                                                                   final T5 param5,
-                                                                   final T6 param6) {
+  public static <O, T, T2, T3, T4, T5, T6, R> Function<O, R> applying(final Function7<O, T, T2, T3, T4, T5, T6, R> function,
+                                                                      final T param1,
+                                                                      final T2 param2,
+                                                                      final T3 param3,
+                                                                      final T4 param4,
+                                                                      final T5 param5,
+                                                                      final T6 param6) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2, param3, param4, param5, param6);
   }
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, R> Function<O, R> using(final Function8<O, T, T2, T3, T4, T5, T6, T7, R> function,
-                                                                       final T param1,
-                                                                       final T2 param2,
-                                                                       final T3 param3,
-                                                                       final T4 param4,
-                                                                       final T5 param5,
-                                                                       final T6 param6,
-                                                                       final T7 param7) {
+  public static <O, T, T2, T3, T4, T5, T6, T7, R> Function<O, R> applying(final Function8<O, T, T2, T3, T4, T5, T6, T7, R> function,
+                                                                          final T param1,
+                                                                          final T2 param2,
+                                                                          final T3 param3,
+                                                                          final T4 param4,
+                                                                          final T5 param5,
+                                                                          final T6 param6,
+                                                                          final T7 param7) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2, param3, param4, param5, param6, param7);
   }
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8, R> Function<O, R> using(final Function9<O, T, T2, T3, T4, T5, T6, T7, T8, R> function,
-                                                                           final T param1,
-                                                                           final T2 param2,
-                                                                           final T3 param3,
-                                                                           final T4 param4,
-                                                                           final T5 param5,
-                                                                           final T6 param6,
-                                                                           final T7 param7,
-                                                                           final T8 param8) {
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, R> Function<O, R> applying(final Function9<O, T, T2, T3, T4, T5, T6, T7, T8, R> function,
+                                                                              final T param1,
+                                                                              final T2 param2,
+                                                                              final T3 param3,
+                                                                              final T4 param4,
+                                                                              final T5 param5,
+                                                                              final T6 param6,
+                                                                              final T7 param7,
+                                                                              final T8 param8) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2, param3, param4, param5, param6, param7, param8);
   }
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> Function<O, R> using(final Function10<O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> function,
-                                                                               final T param1,
-                                                                               final T2 param2,
-                                                                               final T3 param3,
-                                                                               final T4 param4,
-                                                                               final T5 param5,
-                                                                               final T6 param6,
-                                                                               final T7 param7,
-                                                                               final T8 param8,
-                                                                               final T9 param9) {
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> Function<O, R> applying(final Function10<O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> function,
+                                                                                  final T param1,
+                                                                                  final T2 param2,
+                                                                                  final T3 param3,
+                                                                                  final T4 param4,
+                                                                                  final T5 param5,
+                                                                                  final T6 param6,
+                                                                                  final T7 param7,
+                                                                                  final T8 param8,
+                                                                                  final T9 param9) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2, param3, param4, param5, param6, param7, param8, param9);
   }
