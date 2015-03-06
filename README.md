@@ -1,5 +1,7 @@
 # J8+ (J8Plus) - The Missing Functional Parts of Java 8
 
+[![Build Status](https://travis-ci.org/Kevin-Lee/j8plus.svg?branch=master)](https://travis-ci.org/Kevin-Lee/j8plus)
+
 ## Why J8+?
 Q: Java 8 comes with newly added functional features like Lamba Expressions and Method References so why do we need this library claiming that it contains some functional features that Java 8 does not have?
 
