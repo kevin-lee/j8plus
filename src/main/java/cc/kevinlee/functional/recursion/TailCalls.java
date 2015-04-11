@@ -65,6 +65,7 @@ public final class TailCalls {
    *
    * @param firstTailCallable
    *          The first {@link TailCallable} object normally the one directly from the recursive method.
+   * @param <T> the result type, T
    * @return the result of the end operation starting from the given {@link TailCallable}.
    */
   public static <T> T trampoline(final TailCallable<T> firstTailCallable) {

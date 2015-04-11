@@ -38,10 +38,10 @@ uploadArchives {
   repositories {
     mavenDeployer {
       repository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-releases') {
-        authentication(userName: mavenDeployUser, password: mavenDeployPassword)
+        authentication(userName: hasProperty('mavenDeployUser') ? mavenDeployUser : "", password: hasProperty('mavenDeployPassword') ? mavenDeployPassword : "")
       }
       snapshotRepository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-snapshots') {
-        authentication(userName: mavenDeployUser, password: mavenDeployPassword)
+        authentication(userName: hasProperty('mavenDeployUser') ? mavenDeployUser : "", password: hasProperty('mavenDeployPassword') ? mavenDeployPassword : "")
       }
     }
   }

@@ -112,7 +112,10 @@ public final class Functions {
    *     .collect(toList());
    * </pre>
    *
-   * @param toComparable
+   * @param toComparable Function that can convert the given type T into the Comparable type C.
+   * @param <T> The given type
+   * @param <C> The comparable type from type T
+   *
    * @return a Higher-order function the result of which is a {@link Comparator} taking two objects of type T then use
    *         the mapper which is passed as the parameter of this {@link #comparing(Function)} method to map the T type to
    *         something {@link Comparable} and use them to compare.
@@ -155,7 +158,10 @@ public final class Functions {
    *
    * @param function
    *          function to map T to R
-   * @return A function to map <code>T -> R -> String</code> (using {@link String#valueOf(Object)})
+   * @param <T> the given type T
+   * @param <R> the mapped type of the given type T. The R type's toString() method is called to return the result.
+   *
+   * @return A function to map <code>T -&gt; R -&gt; String</code> (using {@link String#valueOf(Object)})
    */
   public static <T, R> Function<T, String> toStringOf(final Function<T, R> function) {
     Objects.requireNonNull(function, "function: Function<T, R> cannot be null.");
