@@ -1,0 +1,81 @@
+apply plugin: 'java'
+apply plugin: 'idea'
+apply plugin: 'maven'
+
+description = "j8plus"
+
+version = '0.0.9-SNAPSHOT'
+
+//task wrapper(type: Wrapper) {
+//    gradleVersion = '2.3'
+//}
+
+def projectSourceEncoding = 'UTF-8'
+def projectJavaVersion = '1.8'
+def junitVersion = '4.11'
+def testosteroneVersion = '0+'
+
+sourceCompatibility = projectJavaVersion
+targetCompatibility = projectJavaVersion
+
+compileJava.options.encoding = projectSourceEncoding
+
+project.version = version
+project.group = 'cc.kevinlee'
+
+repositories {
+  mavenLocal()
+  mavenCentral()
+  maven {
+    url 'http://nexus.lckymn.com/content/repositories/kevin-public-releases'
+  }
+  maven {
+    url 'http://nexus.lckymn.com/content/repositories/kevin-public-snapshots'
+  }
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-releases') {
+        authentication(userName: mavenDeployUser, password: mavenDeployPassword)
+      }
+      snapshotRepository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-snapshots') {
+        authentication(userName: mavenDeployUser, password: mavenDeployPassword)
+      }
+    }
+  }
+}
+
+tasks.withType(JavaCompile) {
+  options.encoding = projectSourceEncoding
+}
+
+task sourcesJar(type: Jar, dependsOn: classes) {
+  classifier = 'sources'
+  from sourceSets.main.allSource
+}
+
+task javadocJar(type: Jar, dependsOn: javadoc) {
+  classifier = 'javadoc'
+  from javadoc.destinationDir
+}
+
+artifacts {
+  archives sourcesJar
+  archives javadocJar
+}
+
+dependencies {
+  testCompile "junit:junit:${junitVersion}",
+      "cc.kevinlee:testosterone:${testosteroneVersion}",
+      "org.assertj:assertj-core:1.5.0",
+      "org.mockito:mockito-all:1.9.5"
+}
+
+jar {
+  manifest {
+    attributes 'Implementation-Title': 'J8+',
+        'Implementation-Version': version
+  }
+}

@@ -28,3 +28,8 @@ local.properties
 
 # PDT-specific
 .buildpath
+
+
+gradle/
+gradlew*
+.gradle
