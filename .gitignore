@@ -33,3 +33,4 @@ local.properties
 gradle/
 gradlew*
 .gradle
+build/
