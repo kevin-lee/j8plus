@@ -37,11 +37,11 @@ repositories {
 uploadArchives {
   repositories {
     mavenDeployer {
-      repository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-releases') {
-        authentication(userName: hasProperty('mavenDeployUser') ? mavenDeployUser : "", password: hasProperty('mavenDeployPassword') ? mavenDeployPassword : "")
+      repository(url: 'https://api.bintray.com/maven/kevinlee/J8Plus') {
+        authentication(userName: hasProperty('bintrayUser') ? mavenDeployUser : "", password: hasProperty('bintrayPass') ? mavenDeployPassword : "")
       }
-      snapshotRepository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-snapshots') {
-        authentication(userName: hasProperty('mavenDeployUser') ? mavenDeployUser : "", password: hasProperty('mavenDeployPassword') ? mavenDeployPassword : "")
+      snapshotRepository(url: 'https://api.bintray.com/maven/kevinlee/J8Plus') {
+        authentication(userName: hasProperty('bintrayUser') ? mavenDeployUser : "", password: hasProperty('bintrayPass') ? mavenDeployPassword : "")
       }
     }
   }
