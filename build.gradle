@@ -38,10 +38,10 @@ uploadArchives {
   repositories {
     mavenDeployer {
       repository(url: 'https://api.bintray.com/maven/kevinlee/J8Plus') {
-        authentication(userName: hasProperty('bintrayUser') ? mavenDeployUser : "", password: hasProperty('bintrayPass') ? mavenDeployPassword : "")
+        authentication(userName: hasProperty('bintrayUser') ? bintrayUser : "", password: hasProperty('bintrayPass') ? bintrayPass : "")
       }
       snapshotRepository(url: 'https://api.bintray.com/maven/kevinlee/J8Plus') {
-        authentication(userName: hasProperty('bintrayUser') ? mavenDeployUser : "", password: hasProperty('bintrayPass') ? mavenDeployPassword : "")
+        authentication(userName: hasProperty('bintrayUser') ? bintrayUser : "", password: hasProperty('bintrayPass') ? bintrayPass : "")
       }
     }
   }
