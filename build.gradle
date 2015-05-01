@@ -20,7 +20,7 @@ buildscript {
 
 description = "j8plus"
 
-version = '0.0.9'
+version = '0.0.10-SNAPSHOT'
 
 //task wrapper(type: Wrapper) {
 //    gradleVersion = '2.3'
@@ -50,18 +50,18 @@ repositories {
   }
 }
 
-//uploadArchives {
-//  repositories {
-//    mavenDeployer {
-//      repository(url: 'https://api.bintray.com/maven/kevinlee/J8Plus') {
-//        authentication(userName: hasProperty('bintrayUser') ? mavenDeployUser : "", password: hasProperty('bintrayPass') ? mavenDeployPassword : "")
-//      }
-//      snapshotRepository(url: 'https://api.bintray.com/maven/kevinlee/J8Plus') {
-//        authentication(userName: hasProperty('bintrayUser') ? mavenDeployUser : "", password: hasProperty('bintrayPass') ? mavenDeployPassword : "")
-//      }
-//    }
-//  }
-//}
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      repository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-releases') {
+        authentication(userName: hasProperty('bintrayUser') ? bintrayUser : "", password: hasProperty('bintrayPass') ? bintrayPass : "")
+      }
+      snapshotRepository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-snapshots') {
+        authentication(userName: hasProperty('bintrayUser') ? bintrayUser : "", password: hasProperty('bintrayPass') ? bintrayPass : "")
+      }
+    }
+  }
+}
 
 tasks.withType(JavaCompile) {
   options.encoding = projectSourceEncoding

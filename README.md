@@ -75,9 +75,7 @@ It filters out all empty String values and takes only non-empty ones.
 
 # Get J8+
 
-**NOT AVAILABLE YET!!!!!!!!!!**
-
-### Maven (NOT AVAILABLE YET!!!)
+### Maven
 * Add maven repository
 
 ```xml
@@ -85,8 +83,12 @@ It filters out all empty String values and takes only non-empty ones.
   ...
 
   <repository>
-    <name>Kevin's Public Releases</name>
-    <url>http://nexus.lckymn.com/content/repositories/kevin-public-releases</url>
+    <snapshots>
+      <enabled>false</enabled>
+    </snapshots>
+    <id>bintray-kevinlee-maven</id>
+    <name>bintray</name>
+    <url>http://dl.bintray.com/kevinlee/maven</url>
   </repository>
 
   ...
@@ -109,14 +111,14 @@ It filters out all empty String values and takes only non-empty ones.
 </dependencies>
 ```
 
-### Gradle (NOT AVAILABLE YET!!!)
+### Gradle
 * Add maven repository
 
   In `build.gradle`, add the following repository to `repositories`.
 
 ```gradle
 maven {
-    url "http://nexus.lckymn.com/content/repositories/kevin-public-releases"
+  url  "http://dl.bintray.com/kevinlee/maven"
 }
 ```
   e.g.)
@@ -125,7 +127,7 @@ maven {
 repositories {
   mavenCentral()
   maven {
-    url "http://nexus.lckymn.com/content/repositories/kevin-public-releases"
+    url  "http://dl.bintray.com/kevinlee/maven"
   }
 }
 ```
