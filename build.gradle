@@ -53,9 +53,9 @@ repositories {
 uploadArchives {
   repositories {
     mavenDeployer {
-      repository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-releases') {
-        authentication(userName: hasProperty('mavenDeployUser') ? mavenDeployUser : "", password: hasProperty('mavenDeployPassword') ? mavenDeployPassword : "")
-      }
+//      repository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-releases') {
+//        authentication(userName: hasProperty('mavenDeployUser') ? mavenDeployUser : "", password: hasProperty('mavenDeployPassword') ? mavenDeployPassword : "")
+//      }
       snapshotRepository(url: 'http://nexus.lckymn.com/content/repositories/kevin-public-snapshots') {
         authentication(userName: hasProperty('mavenDeployUser') ? mavenDeployUser : "", password: hasProperty('mavenDeployPassword') ? mavenDeployPassword : "")
       }
