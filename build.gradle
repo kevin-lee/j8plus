@@ -18,13 +18,13 @@ buildscript {
   }
 }
 
-//configurations.all {
-//  resolutionStrategy {
-//    // Cobertura includes an ASM version that can't handle Java 8, ASM 5.0.3 handles Java8
-//    force 'org.ow2.asm:asm:5.0.3'
-//    forcedModules = [ 'org.ow2.asm:asm:5.0.3' ]
-//  }
-//}
+configurations.all {
+  resolutionStrategy {
+    // Cobertura includes an ASM version that can't handle Java 8, ASM 5.0.3 handles Java8
+    force 'org.ow2.asm:asm:5.0.3'
+    forcedModules = [ 'org.ow2.asm:asm:5.0.3' ]
+  }
+}
 
 cobertura.coverageFormats = ['html', 'xml']
 
