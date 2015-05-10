@@ -9,7 +9,7 @@ script: mvn clean test package
 script: gradle clean test jar
 
 after_success:
-  - gradle cobertura coveralls --debug --stacktrace
+  - gradle jacocoTestReport coveralls --debug --stacktrace
 
 env:
   global:

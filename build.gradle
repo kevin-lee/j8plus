@@ -3,7 +3,7 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
-apply plugin: 'cobertura'
+apply plugin: 'jacoco'
 apply plugin: 'com.github.kt3k.coveralls'
 
 buildscript {
@@ -18,15 +18,12 @@ buildscript {
   }
 }
 
-configurations.all {
-  resolutionStrategy {
-    // Cobertura includes an ASM version that can't handle Java 8, ASM 5.0.3 handles Java8
-    force 'org.ow2.asm:asm:5.0.3'
-    forcedModules = [ 'org.ow2.asm:asm:5.0.3' ]
+jacocoTestReport {
+  reports {
+    xml.enabled = true // coveralls plugin depends on xml format report
+    html.enabled = true
   }
 }
-
-cobertura.coverageFormats = ['html', 'xml']
 
 //plugins {
 //  id "com.jfrog.bintray" version "1.1"
