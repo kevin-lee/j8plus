@@ -11,12 +11,12 @@ buildscript {
     jcenter()
     mavenCentral()
     maven {
-      url  "http://dl.bintray.com/kevinlee/maven"
+      url  "http://dl.bintray.com/kt3k/gradle-plugins"
     }
   }
   dependencies {
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
-    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.3.2'
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.4.0'
   }
 }
 
