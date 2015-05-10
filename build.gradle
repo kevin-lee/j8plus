@@ -13,10 +13,18 @@ buildscript {
   }
   dependencies {
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
-    classpath 'net.saliman:gradle-cobertura-plugin:2.0.0'
+    classpath 'net.saliman:gradle-cobertura-plugin:2.2.8'
     classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.3.1'
   }
 }
+
+//configurations.all {
+//  resolutionStrategy {
+//    // Cobertura includes an ASM version that can't handle Java 8, ASM 5.0.3 handles Java8
+//    force 'org.ow2.asm:asm:5.0.3'
+//    forcedModules = [ 'org.ow2.asm:asm:5.0.3' ]
+//  }
+//}
 
 cobertura.coverageFormats = ['html', 'xml']
 
