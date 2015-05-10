@@ -1,11 +1,15 @@
 language: java
+cache:
+  directories:
+    - "$HOME/.gradle"
+    - "$HOME/.m2"
 jdk:
   - oraclejdk8
 script: mvn clean test package
 script: gradle clean test jar
 
 after_success:
-  - gradle cobertura coveralls
+  - gradle cobertura coveralls --debug --stacktrace
 
 env:
   global:

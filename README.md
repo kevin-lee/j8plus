@@ -1,6 +1,7 @@
 # J8+ (J8Plus) - The Missing Functional Parts of Java 8
 
 [![Build Status](https://travis-ci.org/Kevin-Lee/j8plus.svg?branch=master)](https://travis-ci.org/Kevin-Lee/j8plus)
+[![Coverage Status](https://coveralls.io/repos/Kevin-Lee/j8plus/badge.svg)](https://coveralls.io/r/Kevin-Lee/j8plus)
 [ ![Download](https://api.bintray.com/packages/kevinlee/maven/j8plus/images/download.svg) ](https://bintray.com/kevinlee/maven/j8plus/_latestVersion)
 
 ## Why J8+?
