@@ -9,8 +9,4 @@ script: mvn clean test package
 script: gradle clean test jar
 
 after_success:
-  - gradle jacocoTestReport coveralls --debug --stacktrace
-
-env:
-  global:
-    - secure: "YOsGA/QhwDb9v+R5epPf03kXJ7uBy59iP81qT29Mt/gItnalFRl28Z30a2P/RH4kj8WQI6OAJonUZY11nyRHAnsiyuKpaaE4uGJlq99zllk8vsuUgQwH2Z7Ucn1ABlJTSfFPjzTjNKIXiBnutOYaRAJExbFx0+IHKNw1jYpp/SA="
+  - gradle jacocoTestReport coveralls
