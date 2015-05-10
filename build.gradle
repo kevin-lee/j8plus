@@ -13,7 +13,6 @@ buildscript {
   }
   dependencies {
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
-    classpath 'net.saliman:gradle-cobertura-plugin:2.2.8'
     classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.3.1'
   }
 }
