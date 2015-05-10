@@ -3,6 +3,8 @@ apply plugin: 'idea'
 apply plugin: 'maven'
 apply plugin: 'maven-publish'
 apply plugin: 'com.jfrog.bintray'
+apply plugin: 'cobertura'
+apply plugin: 'com.github.kt3k.coveralls'
 
 buildscript {
   repositories {
@@ -11,8 +13,12 @@ buildscript {
   }
   dependencies {
     classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.0'
+    classpath 'net.saliman:gradle-cobertura-plugin:2.0.0'
+    classpath 'org.kt3k.gradle.plugin:coveralls-gradle-plugin:2.3.1'
   }
 }
+
+cobertura.coverageFormats = ['html', 'xml']
 
 //plugins {
 //  id "com.jfrog.bintray" version "1.1"
@@ -85,8 +91,8 @@ artifacts {
 dependencies {
   testCompile "junit:junit:${junitVersion}",
       "cc.kevinlee:testosterone:${testosteroneVersion}",
-      "org.assertj:assertj-core:1.5.0",
-      "org.mockito:mockito-all:1.9.5"
+      "org.assertj:assertj-core:3.0.0",
+      "org.mockito:mockito-all:1.10.19"
 }
 
 jar {
