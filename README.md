@@ -4,6 +4,9 @@
 [![Coverage Status](https://coveralls.io/repos/Kevin-Lee/j8plus/badge.svg)](https://coveralls.io/r/Kevin-Lee/j8plus)
 [ ![Download](https://api.bintray.com/packages/kevinlee/maven/j8plus/images/download.svg) ](https://bintray.com/kevinlee/maven/j8plus/_latestVersion)
 
+[![views](https://sourcegraph.com/api/repos/github.com/Kevin-Lee/j8plus/.counters/views.svg)](https://sourcegraph.com/github.com/Kevin-Lee/j8plus)
+[![views 24h](https://sourcegraph.com/api/repos/github.com/Kevin-Lee/j8plus/.counters/views-24h.svg)](https://sourcegraph.com/github.com/Kevin-Lee/j8plus)
+
 ## Why J8+?
 Q: Java 8 comes with newly added functional features like Lamba Expressions and Method References so why do we need this library claiming that it contains some functional features that Java 8 does not have?
 
