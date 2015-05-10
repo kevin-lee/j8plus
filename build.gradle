@@ -17,6 +17,13 @@ buildscript {
   }
 }
 
+configurations.all {
+  resolutionStrategy {
+    force 'org.ow2.asm:asm:5.0.3'
+    forcedModules = [ 'org.ow2.asm:asm:5.0.3' ]
+  }
+}
+
 jacocoTestReport {
   reports {
     xml.enabled = true // coveralls plugin depends on xml format report
