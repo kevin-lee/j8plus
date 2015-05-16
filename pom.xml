@@ -15,26 +15,21 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <java.version>1.8</java.version>
     <junit.version>4.11</junit.version>
-    <testosterone.version>[0,)</testosterone.version>
+    <test0ster1.version>[0,)</test0ster1.version>
   </properties>
 
   <repositories>
     <repository>
-      <id>kevin-public-snapshots</id>
-      <name>Kevin's Public Snapshots</name>
-      <url>http://nexus.lckymn.com/content/repositories/kevin-public-snapshots</url>
-    </repository>
-    <repository>
       <id>kevin-public-releases</id>
       <name>Kevin's Public Releases</name>
-      <url>http://nexus.lckymn.com/content/repositories/kevin-public-releases</url>
+      <url>http://dl.bintray.com/kevinlee/maven</url>
     </repository>
   </repositories>
 
   <scm>
     <connection>scm:git:git@kevin-lee-github:Kevin-Lee/j8plus.git</connection>
     <developerConnection>scm:git:git@kevin-lee-github:Kevin-Lee/j8plus.git</developerConnection>
-    <url>https://github.com/Kevin-Lee/test0ster1</url>
+    <url>https://github.com/Kevin-Lee/j8plus</url>
     <tag>HEAD</tag>
   </scm>
 
@@ -130,8 +125,8 @@
     </dependency>
     <dependency>
       <groupId>cc.kevinlee</groupId>
-      <artifactId>testosterone</artifactId>
-      <version>${testosterone.version}</version>
+      <artifactId>test0ster1</artifactId>
+      <version>${test0ster1.version}</version>
       <scope>test</scope>
     </dependency>
     <dependency>
