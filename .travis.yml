@@ -2,11 +2,12 @@ language: java
 cache:
   directories:
     - "$HOME/.gradle"
-    - "$HOME/.m2"
+    - "$HOME/.m2/repository"
 jdk:
   - oraclejdk8
-script: mvn clean test package
-script: gradle clean test jar
+script:
+  - mvn clean test package
+  - gradle clean test jar
 
 after_success:
   - gradle jacocoTestReport coveralls

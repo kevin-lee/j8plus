@@ -2,14 +2,10 @@ package cc.kevinlee.functional.types;
 
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
 import java.util.function.Function;
 
 import static cc.kevinlee.testosterone.Testosterone.test;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 /**
  * @author Lee, Seong Hyun (Kevin)
@@ -32,7 +28,7 @@ public class Function3Test {
         first.andThen(second).apply(input1, input2, input3)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(second.apply(first.apply(input1, input2, input3)))
+              assertThat(actual).isEqualTo(second.apply(first.apply(input1, input2, input3)))
       );
   }
 }

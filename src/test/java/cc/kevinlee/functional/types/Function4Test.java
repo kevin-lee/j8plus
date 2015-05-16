@@ -6,7 +6,6 @@ import java.util.function.Function;
 
 import static cc.kevinlee.testosterone.Testosterone.test;
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.*;
 
 /**
  * @author Lee, Seong Hyun (Kevin)
