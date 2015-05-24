@@ -30,22 +30,22 @@ public class AnnoyingFunctions {
    *
    * e.g.)
    * <pre>
-   *   &lt;E, T> T doItWithAnnoyance(E whatEver) throws Exception {
+   *   &lt;E, T&gt; T doItWithAnnoyance(E whatEver) throws Exception {
    *     throw new Exception("Annoying exception!");
    *   }
    *
-   *   &lt;E, T> T doSomething(Function&lt;E, T> function) {
+   *   &lt;E, T&gt; T doSomething(Function&lt;E, T&gt; function) {
    *     final E someInput = getSomeInput();
    *     return function.apply(someInput);
    *   }
    *
    *   // ...
-   *   doSomething(this::doItWithAnnoyance);    // <- compile time error: Unhandled exception: java.lang.Exception
-   *   doSomething(x -> doItWithAnnoyance(x));  // <- compile time error: Unhandled exception: java.lang.Exception
+   *   doSomething(this::doItWithAnnoyance);    // compile time error: Unhandled exception: java.lang.Exception
+   *   doSomething(x -&gt; doItWithAnnoyance(x));  // compile time error: Unhandled exception: java.lang.Exception
    *
    *   // but if you use shh(),
-   *   doSomething(shh(this::doItWithAnnoyance));    // <- NO compile time error anymore
-   *   doSomething(shh(x -> doItWithAnnoyance(x)));  // <- NO compile time error anymore
+   *   doSomething(shh(this::doItWithAnnoyance));    // NO compile time error anymore
+   *   doSomething(shh(x -&gt; doItWithAnnoyance(x)));  // NO compile time error anymore
    * </pre>
    *
    * @param function The given AnnoyingFunction which may or may not throw a checked Exception.
@@ -69,17 +69,17 @@ public class AnnoyingFunctions {
    *
    * e.g.)
    * <pre>
-   *   &lt;T, U, R> R doItWithAnnoyance2(T input1, U input2) throws Exception {
+   *   &lt;T, U, R&gt; R doItWithAnnoyance2(T input1, U input2) throws Exception {
    *     throw new Exception("Annoying exception!");
    *   }
    *
-   *   &lt;T, U, R> R doSomething(BiFunction&lt;T, U, R> function) {
+   *   &lt;T, U, R&gt; R doSomething(BiFunction&lt;T, U, R&gt; function) {
    *     // ...
    *     return function.apply(someInput1, someInput2);
    *   }
    *
    *   doSomething(shh(this::doItWithAnnoyance2));            // No compile time error
-   *   doSomething(shh((x, y) -> doItWithAnnoyance2(x, y)));  // No compile time error
+   *   doSomething(shh((x, y) -&gt; doItWithAnnoyance2(x, y)));  // No compile time error
    * </pre>
    *
    * @param function The given AnnoyingBiFunction which may or may not throw a checked Exception.
