@@ -49,7 +49,7 @@ version = '0.0.10'
 def projectSourceEncoding = 'UTF-8'
 def projectJavaVersion = '1.8'
 def junitVersion = '4.11'
-def testosteroneVersion = '0+'
+def testosteroneVersion = '0.0.6'
 
 sourceCompatibility = projectJavaVersion
 targetCompatibility = projectJavaVersion
@@ -107,7 +107,7 @@ artifacts {
 
 dependencies {
   testCompile "junit:junit:${junitVersion}",
-      "cc.kevinlee:testosterone:${testosteroneVersion}",
+      "cc.kevinlee:test0ster1:${testosteroneVersion}",
       "org.assertj:assertj-core:3.0.0",
       "org.mockito:mockito-all:1.10.19"
 }
