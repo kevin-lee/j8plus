@@ -109,7 +109,7 @@ It filters out all empty String values and takes only non-empty ones.
   <dependency>
     <groupId>cc.kevinlee</groupId>
     <artifactId>j8plus</artifactId>
-    <version>0.0.9</version>
+    <version>0.0.10</version>
   </dependency>
 
   ...
@@ -140,10 +140,10 @@ repositories {
 * Add Dependency
 
 ```gradle
-compile group: 'cc.kevinlee', name: 'j8plus', version: '0.0.9'
+compile group: 'cc.kevinlee', name: 'j8plus', version: '0.0.10'
 ```
   OR
 
 ```gradle
-compile "cc.kevinlee:testosterone:0.0.9"
+compile "cc.kevinlee:testosterone:0.0.10"
 ```

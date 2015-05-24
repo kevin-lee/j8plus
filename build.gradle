@@ -40,7 +40,7 @@ jacocoTestReport {
 
 description = "j8plus"
 
-version = '0.0.10-SNAPSHOT'
+version = '0.0.10'
 
 //task wrapper(type: Wrapper) {
 //    gradleVersion = '2.3'
