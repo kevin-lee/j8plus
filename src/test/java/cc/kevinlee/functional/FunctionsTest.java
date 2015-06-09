@@ -2254,4 +2254,65 @@ public class FunctionsTest {
     verify(testBean2, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8, param9);
     verify(testBean3, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8, param9);
   }
+
+  @Test
+  public void testUseItIfSatisfyWithNullPredicate() {
+    /* Given */
+    final Integer num1 = 5;
+    final Integer expected = 5;
+
+    test("Test useItIfSatisfy1", "useIfSatisfy should throw NullPointerException when null predicate is given.")
+      .when(
+        () -> useIfSatisfy(num1, null, () -> 1)
+      )
+      .expect(throwing(NullPointerException.class)
+             .containsMessage("predicate must not be null")
+      );
+  }
+
+  @Test
+  public void testUseItIfSatisfyWithNullAlternativeSupplier() {
+    /* Given */
+    final Integer num1 = 5;
+    final Integer expected = 5;
+
+    test("Test useItIfSatisfy1", "useIfSatisfy should throw NullPointerException when the alternative supplier is null.")
+      .when(
+        () -> useIfSatisfy(num1, i -> i > 0, null)
+      )
+      .expect(throwing(NullPointerException.class)
+             .containsMessage("alternative supplier must not be null")
+      );
+  }
+
+  @Test
+  public void testUseItIfSatisfy() {
+    /* Given */
+    final Integer num1 = 5;
+    final Integer expected = 5;
+
+    test("Test useItIfSatisfy1", "useIfSatisfy with predicate satisfied")
+      .when(
+        () -> useIfSatisfy(num1, i -> i > 0, () -> 1)
+      )
+      .then(
+        actual -> assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void testUseItIfSatisfy2() {
+    /* Given */
+    final Integer num1 = 5;
+    final Integer expected = -1;
+    final Integer alternative = expected;
+
+    test("Test useItIfSatisfy1", "useIfSatisfy with predicate not satisfied")
+      .when(
+        () -> useIfSatisfy(num1, i -> i < 0, () -> alternative)
+      )
+      .then(
+        actual -> assertThat(actual).isEqualTo(expected)
+      );
+  }
 }

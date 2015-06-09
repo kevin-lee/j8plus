@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ * http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,12 +17,7 @@ package cc.kevinlee.functional;
 
 import java.util.Comparator;
 import java.util.Objects;
-import java.util.function.BiConsumer;
-import java.util.function.BiFunction;
-import java.util.function.BiPredicate;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Predicate;
+import java.util.function.*;
 
 import cc.kevinlee.functional.types.Consumer10;
 import cc.kevinlee.functional.types.Consumer3;
@@ -131,7 +126,7 @@ public final class Functions {
    * <pre>
    * T -&gt; R -&gt; String
    * </pre>
-   *
+   * <br />
    * <pre>
    * public class SomeType {
    *   private final Long id;
@@ -150,17 +145,15 @@ public final class Functions {
    *     .map(toStringOf(SomeType::getId))
    *     .collect(joining(&quot;, &quot;, &quot;(&quot;, &quot;)&quot;));
    * </pre>
-   *
+   * <br />
    * <pre>
    * result:
    * (1, 2, 3)
    * </pre>
    *
-   * @param function
-   *          function to map T to R
-   * @param <T> the given type T
-   * @param <R> the mapped type of the given type T. The R type's toString() method is called to return the result.
-   *
+   * @param function function to map T to R
+   * @param <T>      the given type T
+   * @param <R>      the mapped type of the given type T. The R type's toString() method is called to return the result.
    * @return A function to map <code>T -&gt; R -&gt; String</code> (using {@link String#valueOf(Object)})
    */
   public static <T, R> Function<T, String> toStringOf(final Function<T, R> function) {
@@ -489,4 +482,23 @@ public final class Functions {
   }
   /* @formatter:on */
 
+  /**
+   * Conditionally uses the given type. So it returns the given value T if the given predicated is satisfied.
+   * Otherwise it uses the value returned from the given Supplier.
+   *
+   * @param value     the given value which might be used.
+   * @param predicate the predicate to be satisfied.
+   * @param otherwise Supplier to get the alternative value.
+   * @param <T>       the given value type.
+   * @return the given value of type T if the predicate is satisfied. Otherwise the value from the Supplier.
+   */
+  public static <T> T useIfSatisfy(T value, Predicate<T> predicate, Supplier<T> otherwise) {
+    /* @formatter:off */
+    Objects.requireNonNull(predicate, "The predicate must not be null.");
+    Objects.requireNonNull(otherwise, "The alternative supplier must not be null.");
+    return predicate.test(value) ?
+              value :
+              otherwise.get();
+    /* @formatter:on */
+  }
 }
