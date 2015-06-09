@@ -126,7 +126,7 @@ public final class Functions {
    * <pre>
    * T -&gt; R -&gt; String
    * </pre>
-   * <br />
+   * <br>
    * <pre>
    * public class SomeType {
    *   private final Long id;
@@ -145,7 +145,7 @@ public final class Functions {
    *     .map(toStringOf(SomeType::getId))
    *     .collect(joining(&quot;, &quot;, &quot;(&quot;, &quot;)&quot;));
    * </pre>
-   * <br />
+   * <br>
    * <pre>
    * result:
    * (1, 2, 3)
