@@ -482,23 +482,4 @@ public final class Functions {
   }
   /* @formatter:on */
 
-  /**
-   * Conditionally uses the given type. So it returns the given value T if the given predicated is satisfied.
-   * Otherwise it uses the value returned from the given Supplier.
-   *
-   * @param value     the given value which might be used.
-   * @param predicate the predicate to be satisfied.
-   * @param otherwise Supplier to get the alternative value.
-   * @param <T>       the given value type.
-   * @return the given value of type T if the predicate is satisfied. Otherwise the value from the Supplier.
-   */
-  public static <T> T useIfSatisfy(T value, Predicate<T> predicate, Supplier<T> otherwise) {
-    /* @formatter:off */
-    Objects.requireNonNull(predicate, "The predicate must not be null.");
-    Objects.requireNonNull(otherwise, "The alternative supplier must not be null.");
-    return predicate.test(value) ?
-              value :
-              otherwise.get();
-    /* @formatter:on */
-  }
 }

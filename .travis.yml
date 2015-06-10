@@ -9,5 +9,5 @@ script:
   - mvn clean test package
   - gradle clean test jar
 
-after_success:
-  - gradle jacocoTestReport coveralls
+#after_success:
+#  - gradle jacocoTestReport coveralls
