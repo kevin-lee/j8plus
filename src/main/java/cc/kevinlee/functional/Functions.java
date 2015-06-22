@@ -93,7 +93,7 @@ public final class Functions {
    *
    * <pre>
    * list.stream()
-   *     .sorted(compare(SomeBean::getDateCreated))
+   *     .sorted(comparing(SomeBean::getDateCreated))
    *     .collect(toList());
    * </pre>
    *
@@ -103,7 +103,7 @@ public final class Functions {
    *
    * <pre>
    * list.stream()
-   *     .sorted(reversed(compare(SomeBean::getDateCreated)))
+   *     .sorted(reversed(comparing(SomeBean::getDateCreated)))
    *     .collect(toList());
    * </pre>
    *
