@@ -9,6 +9,7 @@ apply plugin: 'com.github.kt3k.coveralls'
 buildscript {
   repositories {
     jcenter()
+    mavenLocal()
     mavenCentral()
     maven {
       url  "http://dl.bintray.com/kt3k/gradle-plugins"
@@ -109,7 +110,8 @@ dependencies {
   testCompile "junit:junit:${junitVersion}",
       "cc.kevinlee:test0ster1:${testosteroneVersion}",
       "org.assertj:assertj-core:3.0.0",
-      "org.mockito:mockito-all:1.10.19"
+      "org.mockito:mockito-all:1.10.19",
+      "org.elixirian:kommonlee-test:0.0.18-SNAPSHOT"
 }
 
 jar {

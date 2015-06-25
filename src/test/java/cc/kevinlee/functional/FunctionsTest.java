@@ -14,9 +14,23 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.elixirian.kommonlee.test.CommonTestHelper;
 import org.junit.Test;
 
 public class FunctionsTest {
+
+  @Test
+  public void testFunctions() {
+    /* @formatter:off */
+    test("test Functions()", "Functions() must be private")
+      .when(() ->
+        CommonTestHelper.newConstructorTester(Functions.class, this).mustBePrivate().test()
+      )
+      .expect(throwing(IllegalAccessException.class));
+    /* @formatter:on */
+
+  }
+
   @Test
   public void testIsNull() {
     /* @formatter:off */

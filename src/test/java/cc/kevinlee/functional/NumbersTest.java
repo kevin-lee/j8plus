@@ -1,5 +1,7 @@
 package cc.kevinlee.functional;
 
+import static cc.kevinlee.testosterone.Testosterone.test;
+import static cc.kevinlee.testosterone.Testosterone.throwing;
 import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigDecimal;
@@ -8,6 +10,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
+import org.elixirian.kommonlee.test.CommonTestHelper;
 import org.junit.Test;
 
 import cc.kevinlee.functional.Numbers.BigDecimalNumber;
@@ -19,6 +22,18 @@ import cc.kevinlee.functional.Numbers.BigIntegerNumber;
  *
  */
 public class NumbersTest {
+
+  @Test
+  public final void testNumbers() {
+    /* @formatter:off */
+    test("test Numbers()", "Numbers() must be private")
+      .when(() ->
+        CommonTestHelper.newConstructorTester(Numbers.class, this).mustBePrivate().test()
+      )
+      .expect(throwing(IllegalAccessException.class));
+    /* @formatter:on */
+
+  }
 
   @Test
   public final void testIsOddInt() {

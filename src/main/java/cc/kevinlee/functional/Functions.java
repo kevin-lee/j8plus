@@ -51,8 +51,7 @@ import cc.kevinlee.functional.types.Predicate9;
  */
 public final class Functions {
 
-  private Functions() throws IllegalAccessException {
-    throw new IllegalAccessException(getClass().getName() + " cannot be instantiated.");
+  private Functions() {
   }
 
   public static <T> Predicate<T> isNull() {
