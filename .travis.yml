@@ -10,5 +10,5 @@ script:
   - gradle --version
   - gradle clean test jar
 
-after_success:
-  - gradle jacocoTestReport coveralls
+#after_success:
+#  - gradle jacocoTestReport coveralls
