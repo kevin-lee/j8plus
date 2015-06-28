@@ -40,6 +40,7 @@ public interface Function2<T1, T2, R> extends BiFunction<T1, T2, R> {
    * @param t1 the first input value.
    * @return Function(N-1) where N is from this FunctionN.
    * If this function is Function10, it returns the curried Function9.
+   * If it is Function3, it returns the curried Function2 (not BiFunction).
    * If it is Function2, it returns the curried Function.
    */
   default Function<T2, R> curried(final T1 t1) {

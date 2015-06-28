@@ -54,6 +54,7 @@ public interface Function10<T1, T2, T3, T4, T5, T6, T7, T8, T9, T10, R> {
    * @param t1 the first input value.
    * @return Function(N-1) where N is from this FunctionN.
    * If this function is Function10, it returns the curried Function9.
+   * If it is Function3, it returns the curried Function2 (not BiFunction).
    * If it is Function2, it returns the curried Function.
    */
   default Function9<T2, T3, T4, T5, T6, T7, T8, T9, T10, R> curried(final T1 t1) {
