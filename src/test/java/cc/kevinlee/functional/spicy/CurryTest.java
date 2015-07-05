@@ -21,10 +21,10 @@ public class CurryTest {
   @Test
   public void testCurry() throws Exception {
     test("test Curry()", "Curry() must be private")
-      .when(() ->
-        CommonTestHelper.newConstructorTester(Curry.class, this).mustBePrivate().test()
-      )
-      .expect(throwing(IllegalAccessException.class));
+        .when(() ->
+                CommonTestHelper.newConstructorTester(Curry.class, this).mustBePrivate().test()
+        )
+        .expect(throwing(IllegalAccessException.class));
   }
 
   @Test
@@ -311,9 +311,9 @@ public class CurryTest {
         .when(() ->
                 currying(CurryTest::addAll9, 1)
         )
-    .then(actual ->
-            assertThat(actual.apply(10, 100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000)).isEqualTo(111_111_111)
-    );
+        .then(actual ->
+                assertThat(actual.apply(10, 100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000)).isEqualTo(111_111_111)
+        );
 
   }
 
