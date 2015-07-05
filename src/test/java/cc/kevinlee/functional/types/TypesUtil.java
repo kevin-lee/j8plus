@@ -78,4 +78,36 @@ public interface TypesUtil {
       return Objects.hash(value1, value2);
     }
   }
+
+  static class ContainerStoringOnlyOnce<T> {
+    private volatile T value;
+
+    private ContainerStoringOnlyOnce() {
+    }
+
+    public static <E> ContainerStoringOnlyOnce<E> containerStoringOnlyOnce() {
+      return new ContainerStoringOnlyOnce<E>();
+    }
+
+    public T getValue() {
+      return value;
+    }
+
+    public ContainerStoringOnlyOnce store(T value) {
+      T localValue = this.value;
+
+      if (localValue == null) {
+        synchronized (this) {
+          localValue = this.value;
+          if (localValue == null) {
+            this.value = localValue = value;
+            return this;
+          }
+        }
+      }
+      throw new IllegalStateException("You tried to store the value, " + value +
+          ", into this ContainerStoringOnlyOnce when it already has the value that is " + this.value + ". \n" +
+          "You cannot reuse this ContainerStoringOnlyOnce and store the new value.");
+    }
+  }
 }

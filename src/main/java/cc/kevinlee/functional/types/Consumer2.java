@@ -16,33 +16,21 @@
 package cc.kevinlee.functional.types;
 
 import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author Lee, SeongHyun (Kevin)
- * @version 0.0.1 (2014-06-30)
+ * @version 0.0.1 (2015-07-05)
  * @param <T1>
  *          input1
  * @param <T2>
  *          input2
- * @param <T3>
- *          input3
- * @param <T4>
- *          input4
- * @param <T5>
- *          input5
- * @param <T6>
- *          input6
- * @param <T7>
- *          input7
- * @param <T8>
- *          input8
- * @param <T9>
- *          input9
  */
 @FunctionalInterface
-public interface Consumer9<T1, T2, T3, T4, T5, T6, T7, T8, T9> {
+public interface Consumer2<T1, T2> extends BiConsumer<T1, T2> {
 
-  void accept(T1 input1, T2 input2, T3 input3, T4 input4, T5 input5, T6 input6, T7 input7, T8 input8, T9 input9);
+  void accept(T1 input1, T2 input2);
 
   /**
    * Given this ConsumerN, it returns a curried Consumer(N-1) where the given first input value is set.
@@ -53,12 +41,12 @@ public interface Consumer9<T1, T2, T3, T4, T5, T6, T7, T8, T9> {
    * If it is Consumer3, it returns the curried Consumer2 (not BiConsumer).
    * If it is Consumer2, it returns the curried Consumer.
    */
-  default Consumer8<T2, T3, T4, T5, T6, T7, T8, T9> curried(final T1 t1) {
-    return (t2, t3, t4, t5, t6, t7, t8, t9) -> accept(t1, t2, t3, t4, t5, t6, t7, t8, t9);
+  default Consumer<T2> curried(final T1 t1) {
+    return (t2) -> accept(t1, t2);
   }
 
   /**
-   * Returns a composed {@code Consumer} that performs, in sequence, this operation followed by the {@code after}
+   * Returns a composed {@code Consumer2} that performs, in sequence, this operation followed by the {@code after}
    * operation. If performing either operation throws an exception, it is relayed to the caller of the composed
    * operation. If performing this operation throws an exception, the {@code after} operation will not be performed.
    *
@@ -69,12 +57,11 @@ public interface Consumer9<T1, T2, T3, T4, T5, T6, T7, T8, T9> {
    * @throws NullPointerException
    *           if {@code after} is null
    */
-  default Consumer9<T1, T2, T3, T4, T5, T6, T7, T8, T9> andThen(
-      final Consumer9<? super T1, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9> after) {
+  default Consumer2<T1, T2> andThen(BiConsumer<? super T1, ? super T2> after) {
     Objects.requireNonNull(after);
-    return (input1, input2, input3, input4, input5, input6, input7, input8, input9) -> {
-      accept(input1, input2, input3, input4, input5, input6, input7, input8, input9);
-      after.accept(input1, input2, input3, input4, input5, input6, input7, input8, input9);
+    return (input1, input2) -> {
+      accept(input1, input2);
+      after.accept(input1, input2);
     };
   }
 }
