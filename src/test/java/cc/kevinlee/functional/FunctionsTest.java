@@ -260,7 +260,7 @@ public class FunctionsTest {
   @Test
   public final void testReversedWithNullComparator() {
 
-    final Comparator<?> nullComparator = null;
+    final Comparator<Object> nullComparator = null;
 
     /* @formatter:off */
     test("testReversedWithNullComparator", "reversed(null)")
