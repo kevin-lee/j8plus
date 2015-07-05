@@ -4,15 +4,20 @@ name := "j8plus"
 
 organization := "cc.kevinlee"
 
-val projectVersion = "0.0.11"
+val projectVersion = "0.0.12"
 
 version := projectVersion
 
 scalaVersion := "2.11.7"
 
-javacOptions ++= List(
+javacOptions in (Compile, compile) ++= List(
   "-deprecation",
   "-target", "1.8",
+  "-source", "1.8",
+  "-encoding", "utf8"
+)
+
+javacOptions in (Compile, doc) ++= List(
   "-source", "1.8",
   "-encoding", "utf8"
 )

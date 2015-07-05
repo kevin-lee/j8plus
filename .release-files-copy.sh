@@ -24,8 +24,8 @@ echo "======================================================"
 echo "======================================================"
 echo "Copy packaged files to deploy"
 echo "======================================================"
-echo "ls -l target/scala-2.11/*.jar"
-ls -l target/scala-2.11/*.jar
+echo "ls -l target/*.jar"
+ls -l target/*.jar
 echo ""
 echo "======================================================"
 if [ -d "target/ci" ]; then
@@ -42,8 +42,8 @@ echo "ls -l target/ci/$PROJECT_BUILD_NAME"
 ls -l "target/ci/$PROJECT_BUILD_NAME"
 
 echo "------------------------------------------------------"
-echo "cp target/scala-2.11/*.jar target/ci/$PROJECT_BUILD_NAME/"
-cp target/scala-2.11/*.jar "target/ci/$PROJECT_BUILD_NAME/"
+echo "cp target/*.jar target/ci/$PROJECT_BUILD_NAME/"
+cp target/*.jar "target/ci/$PROJECT_BUILD_NAME/"
 echo "------------------------------------------------------"
 echo "ls -lR target/ci/$PROJECT_BUILD_NAME/"
 ls -lR "target/ci/$PROJECT_BUILD_NAME"
