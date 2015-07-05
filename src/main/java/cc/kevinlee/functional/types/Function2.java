@@ -31,6 +31,15 @@ import java.util.function.Function;
  */
 @FunctionalInterface
 public interface Function2<T1, T2, R> extends BiFunction<T1, T2, R> {
+
+  /**
+   * Applies this function to the given arguments.
+   *
+   * @param input1 the first function argument
+   * @param input2 the second function argument
+   * @return the function result
+   */
+  @Override
   R apply(T1 input1, T2 input2);
 
 

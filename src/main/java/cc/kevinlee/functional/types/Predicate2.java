@@ -16,6 +16,8 @@
 package cc.kevinlee.functional.types;
 
 import java.util.Objects;
+import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 
 /**
  * @author Lee, SeongHyun (Kevin)
@@ -24,22 +26,20 @@ import java.util.Objects;
  *          input1
  * @param <T2>
  *          input2
- * @param <T3>
- *          input3
  */
 @FunctionalInterface
-public interface Predicate3<T1, T2, T3> {
+public interface Predicate2<T1, T2> extends BiPredicate<T1, T2> {
 
   /**
    * valuates this predicate on the given arguments.
    *
    * @param input1 the first input argument
    * @param input2 the second input argument
-   * @param input3 the third input argument
    * @return {@code true} if the input arguments match the predicate,
    * otherwise {@code false}
    */
-  boolean test(final T1 input1, final T2 input2, final T3 input3);
+  @Override
+  boolean test(final T1 input1, final T2 input2);
 
   /**
    * Given this PredicateN, it returns a curried Predicate(N-1) where the given first input value is set.
@@ -50,8 +50,8 @@ public interface Predicate3<T1, T2, T3> {
    * If it is Predicate3, it returns the curried Predicate2 (not BiPredicate).
    * If it is Predicate2, it returns the curried Predicate.
    */
-  default Predicate2<T2, T3> curried(final T1 t1) {
-    return (t2, t3) -> test(t1, t2, t3);
+  default Predicate<T2> curried(final T1 t1) {
+    return (t2) -> test(t1, t2);
   }
 
   /**
@@ -70,13 +70,14 @@ public interface Predicate3<T1, T2, T3> {
    * @throws NullPointerException
    *           if other is null
    */
-  default Predicate3<T1, T2, T3> and(final Predicate3<? super T1, ? super T2, ? super T3> other) {
+  @Override
+  default Predicate2<T1, T2> and(final BiPredicate<? super T1, ? super T2> other) {
     Objects.requireNonNull(other);
     /* @formatter:off */
     return
-        (final T1 input1, final T2 input2, final T3 input3) ->
-          test(input1, input2, input3) &&
-          other.test(input1, input2, input3);
+        (final T1 input1, final T2 input2) ->
+          test(input1, input2) &&
+          other.test(input1, input2);
     /* @formatter:on */
   }
 
@@ -85,12 +86,9 @@ public interface Predicate3<T1, T2, T3> {
    *
    * @return a predicate that represents the logical negation of this predicate
    */
-  default Predicate3<T1, T2, T3> negate() {
-    /* @formatter:off */
-    return
-        (final T1 input1, final T2 input2, final T3 input3) ->
-          !test(input1, input2, input3);
-    /* @formatter:on */
+  @Override
+  default Predicate2<T1, T2> negate() {
+    return (final T1 input1, final T2 input2) -> !test(input1, input2);
   }
 
   /**
@@ -109,13 +107,14 @@ public interface Predicate3<T1, T2, T3> {
    * @throws NullPointerException
    *           if other is null
    */
-  default Predicate3<T1, T2, T3> or(final Predicate3<? super T1, ? super T2, ? super T3> other) {
+  @Override
+  default Predicate2<T1, T2> or(final BiPredicate<? super T1, ? super T2> other) {
     Objects.requireNonNull(other);
     /* @formatter:off */
     return
-        (final T1 input1, final T2 input2, final T3 input3) ->
-          test(input1, input2, input3) ||
-          other.test(input1, input2, input3);
+        (final T1 input1, final T2 input2) ->
+          test(input1, input2) ||
+          other.test(input1, input2);
     /* @formatter:on */
   }
 }
