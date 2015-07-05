@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static cc.kevinlee.functional.types.TypesUtil.ContainerStoringOnlyOnce.containerStoringOnlyOnce;
 import static cc.kevinlee.testosterone.Testosterone.test;
 import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -14,6 +15,25 @@ import static org.assertj.core.api.Assertions.assertThat;
  * @since 2015-05-17
  */
 public class Consumer5Test implements TypesUtil {
+
+  @Test
+  public void testCurried() {
+    /* given */
+    final Integer expected = 11_111;
+    final ContainerStoringOnlyOnce<Integer> actual = containerStoringOnlyOnce();
+    final Consumer5<Integer, Integer, Integer, Integer, Integer> consumer =
+        (t1, t2, t3, t4, t5) -> actual.store(t1 + t2 + t3 + t4 + t5);
+    /* @formatter:off */
+    test("Consumer5.curried", "curried should return Consumer4 and t1 is already set in the consumer")
+      .when(() ->
+        consumer.curried(1)
+      )
+      .then(curried -> {
+        curried.accept(10, 100, 1_000, 10_000);
+        assertThat(actual.getValue()).isEqualTo(expected);
+      });
+    /* @formatter:on */
+  }
 
   @Test
   public void testAndThen() throws Exception {

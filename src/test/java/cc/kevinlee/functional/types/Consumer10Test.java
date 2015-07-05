@@ -1,19 +1,40 @@
 package cc.kevinlee.functional.types;
 
+import cc.kevinlee.testosterone.Testosterone;
 import org.junit.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static cc.kevinlee.testosterone.Testosterone.test;
-import static java.util.stream.Collectors.joining;
+import static cc.kevinlee.testosterone.Testosterone.*;
+import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static cc.kevinlee.functional.types.TypesUtil.ContainerStoringOnlyOnce.*;
 
 /**
  * @author Lee, Seong Hyun (Kevin)
  * @since 2015-05-17
  */
 public class Consumer10Test implements TypesUtil {
+
+  @Test
+  public void testCurried() {
+    /* given */
+    final Integer expected = 1_111_111_111;
+    final ContainerStoringOnlyOnce<Integer> actual = containerStoringOnlyOnce();
+    final Consumer10<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> consumer =
+        (t1, t2, t3, t4, t5, t6, t7, t8, t9, t10) -> actual.store(t1 + t2 + t3 + t4 + t5 + t6 + t7 + t8 + t9 + t10);
+    /* @formatter:off */
+    test("Consumer10.curried", "curried should return Consumer9 and t1 is already set in the consumer")
+      .when(() ->
+        consumer.curried(1)
+      )
+      .then(curried -> {
+        curried.accept(10, 100, 1_000, 10_000, 100_000, 1_000_000, 10_000_000, 100_000_000, 1_000_000_000);
+        assertThat(actual.getValue()).isEqualTo(expected);
+      });
+    /* @formatter:on */
+  }
 
   @Test
   public void testAndThen() throws Exception {

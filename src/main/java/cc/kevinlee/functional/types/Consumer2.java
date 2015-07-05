@@ -16,21 +16,22 @@
 package cc.kevinlee.functional.types;
 
 import java.util.Objects;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
 
 /**
  * @author Lee, SeongHyun (Kevin)
- * @version 0.0.1 (2014-06-30)
+ * @version 0.0.1 (2015-07-05)
  * @param <T1>
  *          input1
  * @param <T2>
  *          input2
- * @param <T3>
- *          input3
  */
 @FunctionalInterface
-public interface Consumer3<T1, T2, T3> {
+public interface Consumer2<T1, T2> extends BiConsumer<T1, T2> {
 
-  void accept(T1 input1, T2 input2, T3 input3);
+  @Override
+  void accept(T1 input1, T2 input2);
 
   /**
    * Given this ConsumerN, it returns a curried Consumer(N-1) where the given first input value is set.
@@ -41,12 +42,12 @@ public interface Consumer3<T1, T2, T3> {
    * If it is Consumer3, it returns the curried Consumer2 (not BiConsumer).
    * If it is Consumer2, it returns the curried Consumer.
    */
-  default Consumer2<T2, T3> curried(final T1 t1) {
-    return (t2, t3) -> accept(t1, t2, t3);
+  default Consumer<T2> curried(final T1 t1) {
+    return (t2) -> accept(t1, t2);
   }
 
   /**
-   * Returns a composed {@code Consumer} that performs, in sequence, this operation followed by the {@code after}
+   * Returns a composed {@code Consumer2} that performs, in sequence, this operation followed by the {@code after}
    * operation. If performing either operation throws an exception, it is relayed to the caller of the composed
    * operation. If performing this operation throws an exception, the {@code after} operation will not be performed.
    *
@@ -57,11 +58,12 @@ public interface Consumer3<T1, T2, T3> {
    * @throws NullPointerException
    *           if {@code after} is null
    */
-  default Consumer3<T1, T2, T3> andThen(Consumer3<? super T1, ? super T2, ? super T3> after) {
+  @Override
+  default Consumer2<T1, T2> andThen(BiConsumer<? super T1, ? super T2> after) {
     Objects.requireNonNull(after);
-    return (input1, input2, input3) -> {
-      accept(input1, input2, input3);
-      after.accept(input1, input2, input3);
+    return (input1, input2) -> {
+      accept(input1, input2);
+      after.accept(input1, input2);
     };
   }
 }
