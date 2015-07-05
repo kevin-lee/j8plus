@@ -55,9 +55,7 @@ public final class Numbers {
   public static final Predicate<BigDecimal> POSITIVE_BIG_DECIMAL = Numbers::isPositive;
   /* @formatter:on */
 
-  private Numbers() throws IllegalAccessException {
-    throw new IllegalAccessException(getClass().getName() + " cannot be instantiated.");
-  }
+  private Numbers() {}
 
   public static boolean isOdd(final int number) {
     return (number & 1) != 0;

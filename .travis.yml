@@ -6,8 +6,9 @@ cache:
 jdk:
   - oraclejdk8
 script:
-  - mvn clean test package
+#  - mvn clean test package
+  - gradle --version
   - gradle clean test jar
 
-after_success:
-  - gradle jacocoTestReport coveralls
+#after_success:
+#  - gradle jacocoTestReport coveralls

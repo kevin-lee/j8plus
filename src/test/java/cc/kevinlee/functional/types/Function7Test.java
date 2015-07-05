@@ -4,14 +4,28 @@ import org.junit.Test;
 
 import java.util.function.Function;
 
-import static cc.kevinlee.testosterone.Testosterone.test;
-import static org.assertj.core.api.Assertions.assertThat;
+import static cc.kevinlee.testosterone.Testosterone.*;
+import static org.assertj.core.api.Assertions.*;
 
 /**
  * @author Lee, Seong Hyun (Kevin)
  * @since 2015-05-16
  */
 public class Function7Test {
+
+  @Test
+  public void testCurried() {
+    /* given */
+    final Function7<Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> function =
+        (t1, t2, t3, t4, t5, t6, t7) -> t1 + t2 + t3 + t4 + t5 + t6 + t7;
+    test("Function7.curried", "curried should return Function6 and t1 is already set in the function")
+        .when(() ->
+                function.curried(1)
+        )
+        .then(actual ->
+                assertThat(actual.apply(10, 100, 1_000, 10_000, 100_000, 1_000_000)).isEqualTo(1_111_111)
+        );
+  }
 
   @Test
   public void testAndThen() throws Exception {

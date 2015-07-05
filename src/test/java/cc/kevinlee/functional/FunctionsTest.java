@@ -14,9 +14,23 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
+import org.elixirian.kommonlee.test.CommonTestHelper;
 import org.junit.Test;
 
 public class FunctionsTest {
+
+  @Test
+  public void testFunctions() {
+    /* @formatter:off */
+    test("test Functions()", "Functions() must be private")
+      .when(() ->
+        CommonTestHelper.newConstructorTester(Functions.class, this).mustBePrivate().test()
+      )
+      .expect(throwing(IllegalAccessException.class));
+    /* @formatter:on */
+
+  }
+
   @Test
   public void testIsNull() {
     /* @formatter:off */
@@ -246,7 +260,7 @@ public class FunctionsTest {
   @Test
   public final void testReversedWithNullComparator() {
 
-    final Comparator<?> nullComparator = null;
+    final Comparator<Object> nullComparator = null;
 
     /* @formatter:off */
     test("testReversedWithNullComparator", "reversed(null)")
@@ -2255,64 +2269,4 @@ public class FunctionsTest {
     verify(testBean3, times(1)).run(param1, param2, param3, param4, param5, param6, param7, param8, param9);
   }
 
-  @Test
-  public void testUseItIfSatisfyWithNullPredicate() {
-    /* Given */
-    final Integer num1 = 5;
-    final Integer expected = 5;
-
-    test("Test useItIfSatisfy1", "useIfSatisfy should throw NullPointerException when null predicate is given.")
-      .when(
-        () -> useIfSatisfy(num1, null, () -> 1)
-      )
-      .expect(throwing(NullPointerException.class)
-             .containsMessage("predicate must not be null")
-      );
-  }
-
-  @Test
-  public void testUseItIfSatisfyWithNullAlternativeSupplier() {
-    /* Given */
-    final Integer num1 = 5;
-    final Integer expected = 5;
-
-    test("Test useItIfSatisfy1", "useIfSatisfy should throw NullPointerException when the alternative supplier is null.")
-      .when(
-        () -> useIfSatisfy(num1, i -> i > 0, null)
-      )
-      .expect(throwing(NullPointerException.class)
-             .containsMessage("alternative supplier must not be null")
-      );
-  }
-
-  @Test
-  public void testUseItIfSatisfy() {
-    /* Given */
-    final Integer num1 = 5;
-    final Integer expected = 5;
-
-    test("Test useItIfSatisfy1", "useIfSatisfy with predicate satisfied")
-      .when(
-        () -> useIfSatisfy(num1, i -> i > 0, () -> 1)
-      )
-      .then(
-        actual -> assertThat(actual).isEqualTo(expected)
-      );
-  }
-
-  @Test
-  public void testUseItIfSatisfy2() {
-    /* Given */
-    final Integer num1 = 5;
-    final Integer expected = -1;
-    final Integer alternative = expected;
-
-    test("Test useItIfSatisfy1", "useIfSatisfy with predicate not satisfied")
-      .when(
-        () -> useIfSatisfy(num1, i -> i < 0, () -> alternative)
-      )
-      .then(
-        actual -> assertThat(actual).isEqualTo(expected)
-      );
-  }
 }

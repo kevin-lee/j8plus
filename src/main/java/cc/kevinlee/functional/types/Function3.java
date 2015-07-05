@@ -35,6 +35,19 @@ public interface Function3<T1, T2, T3, R> {
   R apply(T1 input1, T2 input2, T3 input3);
 
   /**
+   * Given this FunctionN, it returns a curried Function(N-1) where the given first input value is set.
+   *
+   * @param t1 the first input value.
+   * @return Function(N-1) where N is from this FunctionN.
+   * If this function is Function10, it returns the curried Function9.
+   * If it is Function3, it returns the curried Function2 (not BiFunction).
+   * If it is Function2, it returns the curried Function.
+   */
+  default Function2<T2, T3, R> curried(final T1 t1) {
+    return (t2, t3) -> apply(t1, t2, t3);
+  }
+
+  /**
    * Returns a composed function that first applies this function to its input, and then applies the {@code after}
    * function to the result. If evaluation of either function throws an exception, it is relayed to the caller of the
    * composed function.

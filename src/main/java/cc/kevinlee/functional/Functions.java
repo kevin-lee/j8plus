@@ -51,24 +51,23 @@ import cc.kevinlee.functional.types.Predicate9;
  */
 public final class Functions {
 
-  private Functions() throws IllegalAccessException {
-    throw new IllegalAccessException(getClass().getName() + " cannot be instantiated.");
+  private Functions() {
   }
 
-  public static <T> Predicate<T> isNull() {
+  public static <T> Predicate<? super T> isNull() {
     return t -> t == null;
   }
 
-  public static <T> Predicate<T> isNotNull() {
+  public static <T> Predicate<? super T> isNotNull() {
     return t -> t != null;
   }
 
-  public static <T> Predicate<T> not(final Predicate<T> predicate) {
+  public static <T> Predicate<? super T> not(final Predicate<? super T> predicate) {
     Objects.requireNonNull(predicate, "The predicate: Predicate<T> cannot be null.");
     return predicate.negate();
   }
 
-  public static <T> Comparator<T> reversed(final Comparator<T> comparator) {
+  public static <T> Comparator<? super T> reversed(final Comparator<? super T> comparator) {
     Objects.requireNonNull(comparator, "The comparator: Comparator<T> cannot be null.");
     return comparator.reversed();
   }
@@ -93,7 +92,7 @@ public final class Functions {
    *
    * <pre>
    * list.stream()
-   *     .sorted(compare(SomeBean::getDateCreated))
+   *     .sorted(comparing(SomeBean::getDateCreated))
    *     .collect(toList());
    * </pre>
    *
@@ -103,7 +102,7 @@ public final class Functions {
    *
    * <pre>
    * list.stream()
-   *     .sorted(reversed(compare(SomeBean::getDateCreated)))
+   *     .sorted(reversed(comparing(SomeBean::getDateCreated)))
    *     .collect(toList());
    * </pre>
    *
@@ -115,7 +114,7 @@ public final class Functions {
    *         the mapper which is passed as the parameter of this {@link #comparing(Function)} method to map the T type to
    *         something {@link Comparable} and use them to compare.
    */
-  public static <T, C extends Comparable<C>> Comparator<T> comparing(final Function<T, C> toComparable) {
+  public static <T, C extends Comparable<? super C>> Comparator<T> comparing(final Function<? super T, ? extends C> toComparable) {
     Objects.requireNonNull(toComparable, "The toComparable: Function<T, C> cannot be null.");
     return (t1, t2) -> toComparable.apply(t1)
                                    .compareTo(toComparable.apply(t2));
@@ -156,8 +155,8 @@ public final class Functions {
    * @param <R>      the mapped type of the given type T. The R type's toString() method is called to return the result.
    * @return A function to map <code>T -&gt; R -&gt; String</code> (using {@link String#valueOf(Object)})
    */
-  public static <T, R> Function<T, String> toStringOf(final Function<T, R> function) {
-    Objects.requireNonNull(function, "function: Function<T, R> cannot be null.");
+  public static <T, R> Function<? super T, String> toStringOf(final Function<? super T, ? extends R> function) {
+    Objects.requireNonNull(function, "function: Function<? super T, ? extends R> cannot be null.");
     /* @formatter:off */
     return input -> function.andThen(String::valueOf)
                             .apply(input);
@@ -173,7 +172,7 @@ public final class Functions {
   }
 
   /* @formatter:off */
-  public static <O, T> Predicate<O> satisfying(final BiPredicate<O, T> predicate,
+  public static <O, T> Predicate<O> satisfying(final BiPredicate<? super O, ? super T> predicate,
                                                final T param1) {
     Objects.requireNonNull(predicate, "The function cannot be null.");
     return object -> predicate.test(object, param1);
@@ -181,7 +180,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2> Predicate<O> satisfying(final Predicate3<O, T, T2> predicate,
+  public static <O, T, T2> Predicate<O> satisfying(final Predicate3<? super O, ? super T, ? super T2> predicate,
                                                    final T param1,
                                                    final T2 param2) {
     Objects.requireNonNull(predicate, "The function cannot be null.");
@@ -190,7 +189,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3> Predicate<O> satisfying(final Predicate4<O, T, T2, T3> predicate,
+  public static <O, T, T2, T3> Predicate<O> satisfying(final Predicate4<? super O, ? super T, ? super T2, ? super T3> predicate,
                                                        final T param1,
                                                        final T2 param2,
                                                        final T3 param3) {
@@ -200,7 +199,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4> Predicate<O> satisfying(final Predicate5<O, T, T2, T3, T4> predicate,
+  public static <O, T, T2, T3, T4> Predicate<O> satisfying(final Predicate5<? super O, ? super T, ? super T2, ? super T3, ? super T4> predicate,
                                                            final T param1,
                                                            final T2 param2,
                                                            final T3 param3,
@@ -211,7 +210,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5> Predicate<O> satisfying(final Predicate6<O, T, T2, T3, T4, T5> predicate,
+  public static <O, T, T2, T3, T4, T5> Predicate<O> satisfying(final Predicate6<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5> predicate,
                                                                final T param1,
                                                                final T2 param2,
                                                                final T3 param3,
@@ -223,7 +222,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6> Predicate<O> satisfying(final Predicate7<O, T, T2, T3, T4, T5, T6> predicate,
+  public static <O, T, T2, T3, T4, T5, T6> Predicate<O> satisfying(final Predicate7<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6> predicate,
                                                                    final T param1,
                                                                    final T2 param2,
                                                                    final T3 param3,
@@ -236,7 +235,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7> Predicate<O> satisfying(final Predicate8<O, T, T2, T3, T4, T5, T6, T7> predicate,
+  public static <O, T, T2, T3, T4, T5, T6, T7> Predicate<O> satisfying(final Predicate8<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7> predicate,
                                                                        final T param1,
                                                                        final T2 param2,
                                                                        final T3 param3,
@@ -250,7 +249,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8> Predicate<O> satisfying(final Predicate9<O, T, T2, T3, T4, T5, T6, T7, T8> predicate,
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8> Predicate<O> satisfying(final Predicate9<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8> predicate,
                                                                            final T param1,
                                                                            final T2 param2,
                                                                            final T3 param3,
@@ -265,7 +264,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9> Predicate<O> satisfying(final Predicate10<O, T, T2, T3, T4, T5, T6, T7, T8, T9> predicate,
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9> Predicate<O> satisfying(final Predicate10<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9> predicate,
                                                                                final T param1,
                                                                                final T2 param2,
                                                                                final T3 param3,
@@ -280,18 +279,18 @@ public final class Functions {
   }
   /* @formatter:on */
 
-  public static <O, T, R> Function<O, R> applying(final BiFunction<O, T, R> function, final T param) {
+  public static <O, T, R> Function<O, R> applying(final BiFunction<? super O, ? super T, ? extends R> function, final T param) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param);
   }
 
-  public static <O, T, T2, R> Function<O, R> applying(final Function3<O, T, T2, R> function, final T param1, final T2 param2) {
+  public static <O, T, T2, R> Function<O, R> applying(final Function3<? super O, ? super T, ? super T2, ? extends R> function, final T param1, final T2 param2) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.apply(object, param1, param2);
   }
 
   /* @formatter:off */
-  public static <O, T, T2, T3, R> Function<O, R> applying(final Function4<O, T, T2, T3, R> function,
+  public static <O, T, T2, T3, R> Function<O, R> applying(final Function4<? super O, ? super T, ? super T2, ? super T3, ? extends R> function,
                                                           final T param1,
                                                           final T2 param2,
                                                           final T3 param3) {
@@ -301,7 +300,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, R> Function<O, R> applying(final Function5<O, T, T2, T3, T4, R> function,
+  public static <O, T, T2, T3, T4, R> Function<O, R> applying(final Function5<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? extends R> function,
                                                               final T param1,
                                                               final T2 param2,
                                                               final T3 param3,
@@ -312,7 +311,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, R> Function<O, R> applying(final Function6<O, T, T2, T3, T4, T5, R> function,
+  public static <O, T, T2, T3, T4, T5, R> Function<O, R> applying(final Function6<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? extends R> function,
                                                                   final T param1,
                                                                   final T2 param2,
                                                                   final T3 param3,
@@ -324,7 +323,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, R> Function<O, R> applying(final Function7<O, T, T2, T3, T4, T5, T6, R> function,
+  public static <O, T, T2, T3, T4, T5, T6, R> Function<O, R> applying(final Function7<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? extends R> function,
                                                                       final T param1,
                                                                       final T2 param2,
                                                                       final T3 param3,
@@ -337,7 +336,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, R> Function<O, R> applying(final Function8<O, T, T2, T3, T4, T5, T6, T7, R> function,
+  public static <O, T, T2, T3, T4, T5, T6, T7, R> Function<O, R> applying(final Function8<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? extends R> function,
                                                                           final T param1,
                                                                           final T2 param2,
                                                                           final T3 param3,
@@ -351,7 +350,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8, R> Function<O, R> applying(final Function9<O, T, T2, T3, T4, T5, T6, T7, T8, R> function,
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, R> Function<O, R> applying(final Function9<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? extends R> function,
                                                                               final T param1,
                                                                               final T2 param2,
                                                                               final T3 param3,
@@ -366,7 +365,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> Function<O, R> applying(final Function10<O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> function,
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9, R> Function<O, R> applying(final Function10<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9, ? extends R> function,
                                                                                   final T param1,
                                                                                   final T2 param2,
                                                                                   final T3 param3,
@@ -381,18 +380,18 @@ public final class Functions {
   }
   /* @formatter:on */
 
-  public static <O, T> Consumer<O> accepting(final BiConsumer<O, T> function, final T param) {
+  public static <O, T> Consumer<O> accepting(final BiConsumer<? super O, ? super T> function, final T param) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.accept(object, param);
   }
 
-  public static <O, T, T2> Consumer<O> accepting(final Consumer3<O, T, T2> function, final T param1, final T2 param2) {
+  public static <O, T, T2> Consumer<O> accepting(final Consumer3<? super O, ? super T, ? super T2> function, final T param1, final T2 param2) {
     Objects.requireNonNull(function, "The function cannot be null.");
     return object -> function.accept(object, param1, param2);
   }
 
   /* @formatter:off */
-  public static <O, T, T2, T3> Consumer<O> accepting(final Consumer4<O, T, T2, T3> function,
+  public static <O, T, T2, T3> Consumer<O> accepting(final Consumer4<? super O, ? super T, ? super T2, ? super T3> function,
                                                      final T param1,
                                                      final T2 param2,
                                                      final T3 param3) {
@@ -402,7 +401,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4> Consumer<O> accepting(final Consumer5<O, T, T2, T3, T4> function,
+  public static <O, T, T2, T3, T4> Consumer<O> accepting(final Consumer5<? super O, ? super T, ? super T2, ? super T3, ? super T4> function,
                                                          final T param1,
                                                          final T2 param2,
                                                          final T3 param3,
@@ -413,7 +412,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5> Consumer<O> accepting(final Consumer6<O, T, T2, T3, T4, T5> function,
+  public static <O, T, T2, T3, T4, T5> Consumer<O> accepting(final Consumer6<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5> function,
                                                              final T param1,
                                                              final T2 param2,
                                                              final T3 param3,
@@ -425,7 +424,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6> Consumer<O> accepting(final Consumer7<O, T, T2, T3, T4, T5, T6> function,
+  public static <O, T, T2, T3, T4, T5, T6> Consumer<O> accepting(final Consumer7<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6> function,
                                                                  final T param1,
                                                                  final T2 param2,
                                                                  final T3 param3,
@@ -438,7 +437,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7> Consumer<O> accepting(final Consumer8<O, T, T2, T3, T4, T5, T6, T7> function,
+  public static <O, T, T2, T3, T4, T5, T6, T7> Consumer<O> accepting(final Consumer8<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7> function,
                                                                      final T param1,
                                                                      final T2 param2,
                                                                      final T3 param3,
@@ -452,7 +451,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8> Consumer<O> accepting(final Consumer9<O, T, T2, T3, T4, T5, T6, T7, T8> function,
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8> Consumer<O> accepting(final Consumer9<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8> function,
                                                                          final T param1,
                                                                          final T2 param2,
                                                                          final T3 param3,
@@ -467,7 +466,7 @@ public final class Functions {
   /* @formatter:on */
 
   /* @formatter:off */
-  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9> Consumer<O> accepting(final Consumer10<O, T, T2, T3, T4, T5, T6, T7, T8, T9> function,
+  public static <O, T, T2, T3, T4, T5, T6, T7, T8, T9> Consumer<O> accepting(final Consumer10<? super O, ? super T, ? super T2, ? super T3, ? super T4, ? super T5, ? super T6, ? super T7, ? super T8, ? super T9> function,
                                                                              final T param1,
                                                                              final T2 param2,
                                                                              final T3 param3,
@@ -482,23 +481,4 @@ public final class Functions {
   }
   /* @formatter:on */
 
-  /**
-   * Conditionally uses the given type. So it returns the given value T if the given predicated is satisfied.
-   * Otherwise it uses the value returned from the given Supplier.
-   *
-   * @param value     the given value which might be used.
-   * @param predicate the predicate to be satisfied.
-   * @param otherwise Supplier to get the alternative value.
-   * @param <T>       the given value type.
-   * @return the given value of type T if the predicate is satisfied. Otherwise the value from the Supplier.
-   */
-  public static <T> T useIfSatisfy(T value, Predicate<T> predicate, Supplier<T> otherwise) {
-    /* @formatter:off */
-    Objects.requireNonNull(predicate, "The predicate must not be null.");
-    Objects.requireNonNull(otherwise, "The alternative supplier must not be null.");
-    return predicate.test(value) ?
-              value :
-              otherwise.get();
-    /* @formatter:on */
-  }
 }

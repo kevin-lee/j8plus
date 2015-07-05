@@ -29,7 +29,21 @@ import java.util.Objects;
  */
 @FunctionalInterface
 public interface Consumer3<T1, T2, T3> {
+
   void accept(T1 input1, T2 input2, T3 input3);
+
+  /**
+   * Given this ConsumerN, it returns a curried Consumer(N-1) where the given first input value is set.
+   *
+   * @param t1 the first input value.
+   * @return Consumer(N-1) where N is from this ConsumerN (e.g. Consumer10 -&gt; N = 10).
+   * If this consumer is Consumer10, it returns the curried Consumer9.
+   * If it is Consumer3, it returns the curried Consumer2 (not BiConsumer).
+   * If it is Consumer2, it returns the curried Consumer.
+   */
+  default Consumer2<T2, T3> curried(final T1 t1) {
+    return (t2, t3) -> accept(t1, t2, t3);
+  }
 
   /**
    * Returns a composed {@code Consumer} that performs, in sequence, this operation followed by the {@code after}
