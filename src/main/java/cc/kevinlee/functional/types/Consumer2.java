@@ -30,13 +30,14 @@ import java.util.function.Consumer;
 @FunctionalInterface
 public interface Consumer2<T1, T2> extends BiConsumer<T1, T2> {
 
+  @Override
   void accept(T1 input1, T2 input2);
 
   /**
    * Given this ConsumerN, it returns a curried Consumer(N-1) where the given first input value is set.
    *
    * @param t1 the first input value.
-   * @return Consumer(N-1) where N is from this ConsumerN (e.g. Consumer10 -> N = 10).
+   * @return Consumer(N-1) where N is from this ConsumerN (e.g. Consumer10 -&gt; N = 10).
    * If this consumer is Consumer10, it returns the curried Consumer9.
    * If it is Consumer3, it returns the curried Consumer2 (not BiConsumer).
    * If it is Consumer2, it returns the curried Consumer.
@@ -57,6 +58,7 @@ public interface Consumer2<T1, T2> extends BiConsumer<T1, T2> {
    * @throws NullPointerException
    *           if {@code after} is null
    */
+  @Override
   default Consumer2<T1, T2> andThen(BiConsumer<? super T1, ? super T2> after) {
     Objects.requireNonNull(after);
     return (input1, input2) -> {

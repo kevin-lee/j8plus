@@ -40,7 +40,7 @@ public interface Consumer5<T1, T2, T3, T4, T5> {
    * Given this ConsumerN, it returns a curried Consumer(N-1) where the given first input value is set.
    *
    * @param t1 the first input value.
-   * @return Consumer(N-1) where N is from this ConsumerN (e.g. Consumer10 -> N = 10).
+   * @return Consumer(N-1) where N is from this ConsumerN (e.g. Consumer10 -&gt; N = 10).
    * If this consumer is Consumer10, it returns the curried Consumer9.
    * If it is Consumer3, it returns the curried Consumer2 (not BiConsumer).
    * If it is Consumer2, it returns the curried Consumer.
