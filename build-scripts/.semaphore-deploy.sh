@@ -77,8 +77,8 @@ if [ "$THIS_BRANCH" == "release" ];
 
   fi
 
-  ./.release-files-copy.sh
-  ./.deploy-to-github.sh
+  $BUILD_SCRIPTS_DIR/.release-files-copy.sh
+  $BUILD_SCRIPTS_DIR/.deploy-to-github.sh
 
   echo "======================================================"
   echo "Build and Deploy: Done"
