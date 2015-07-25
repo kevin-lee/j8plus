@@ -4,7 +4,7 @@ name := "j8plus"
 
 organization := "cc.kevinlee"
 
-val projectVersion = "0.0.12"
+val projectVersion = "0.0.13"
 
 version := projectVersion
 
