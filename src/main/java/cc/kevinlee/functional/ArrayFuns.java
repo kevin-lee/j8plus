@@ -20,7 +20,7 @@ public class ArrayFuns {
   }
 
   /**
-   * Checks if the given array is neither null nor empty (must be != null && length != 0)
+   * Checks if the given array is neither null nor empty (must be != null AND length != 0)
    *
    * @param array the given Array of T
    * @param <T>   The type of element stored in the array
@@ -42,7 +42,7 @@ public class ArrayFuns {
   }
 
   /**
-   * Checks if the given array is neither null nor empty (must be != null && length != 0)
+   * Checks if the given array is neither null nor empty (must be != null AND length != 0)
    *
    * @param array the given int Array
    * @return true if it is null or empty. Otherwise, false.
@@ -62,7 +62,7 @@ public class ArrayFuns {
   }
 
   /**
-   * Checks if the given array is neither null nor empty (must be != null && length != 0)
+   * Checks if the given array is neither null nor empty (must be != null AND length != 0)
    *
    * @param array the given long Array
    * @return true if it is null or empty. Otherwise, false.
@@ -82,7 +82,7 @@ public class ArrayFuns {
   }
 
   /**
-   * Checks if the given array is neither null nor empty (must be != null && length != 0)
+   * Checks if the given array is neither null nor empty (must be != null AND length != 0)
    *
    * @param array the given double Array
    * @return true if it is null or empty. Otherwise, false.
