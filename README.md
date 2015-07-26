@@ -78,7 +78,7 @@ List<String> nonEmptyStrings = list.stream()
 It filters out all empty String values and takes only non-empty ones.
 
 # More About J8+
-
+Please check out [J8+ Wiki](https://github.com/Kevin-Lee/j8plus/wiki) (work in progress)
 
 # Get J8+
 
