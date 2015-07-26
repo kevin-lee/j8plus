@@ -5,7 +5,7 @@ import org.junit.Test;
 import java.util.function.BiFunction;
 import java.util.function.Function;
 
-import static cc.kevinlee.functional.types.annoying.AnnoyingFunctions.shh;
+import static cc.kevinlee.functional.types.annoying.AnnoyingFuns.shh;
 
 import static cc.kevinlee.testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
@@ -14,7 +14,7 @@ import static org.assertj.core.api.Assertions.*;
  * @author Lee, Seong Hyun (Kevin)
  * @since 2015-05-24
  */
-public class AnnoyingFunctionsTest {
+public class AnnoyingFunsTest {
 
   private <E, T> T doItWithAnnoyance(E whatEver) throws Exception {
     throw new Exception("Annoying exception!");

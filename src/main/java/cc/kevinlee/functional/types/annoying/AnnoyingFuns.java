@@ -23,7 +23,7 @@ import java.util.function.Function;
  * @author Lee, Seong Hyun (Kevin)
  * @since 2015-05-24
  */
-public class AnnoyingFunctions {
+public class AnnoyingFuns {
 
   /**
    * Returns Function which does exactly the same as the given AnnoyingFunction but without throwing a checked exception that that annoying one might throw.
