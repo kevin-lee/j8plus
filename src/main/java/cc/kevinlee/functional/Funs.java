@@ -49,9 +49,9 @@ import cc.kevinlee.functional.types.Predicate9;
  * @version 0.0.1 (2014-06-20)
  *
  */
-public final class Functions {
+public final class Funs {
 
-  private Functions() {
+  private Funs() {
   }
 
   public static <T> Predicate<? super T> isNull() {
