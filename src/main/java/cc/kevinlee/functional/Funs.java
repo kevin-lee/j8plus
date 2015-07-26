@@ -49,9 +49,9 @@ import cc.kevinlee.functional.types.Predicate9;
  * @version 0.0.1 (2014-06-20)
  *
  */
-public final class Functions {
+public final class Funs {
 
-  private Functions() {
+  private Funs() {
   }
 
   public static <T> Predicate<? super T> isNull() {
@@ -67,7 +67,7 @@ public final class Functions {
     return predicate.negate();
   }
 
-  public static <T> Comparator<? super T> reversed(final Comparator<? super T> comparator) {
+  public static <T> Comparator<T> reversed(final Comparator<T> comparator) {
     Objects.requireNonNull(comparator, "The comparator: Comparator<T> cannot be null.");
     return comparator.reversed();
   }

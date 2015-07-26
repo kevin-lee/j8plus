@@ -1,6 +1,6 @@
 package cc.kevinlee.functional;
 
-import static cc.kevinlee.functional.Functions.*;
+import static cc.kevinlee.functional.Funs.*;
 import static cc.kevinlee.testosterone.Testosterone.*;
 import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.*;
@@ -17,14 +17,14 @@ import java.util.function.Predicate;
 import org.elixirian.kommonlee.test.CommonTestHelper;
 import org.junit.Test;
 
-public class FunctionsTest {
+public class FunsTest {
 
   @Test
-  public void testFunctions() {
+  public void testFuns() {
     /* @formatter:off */
-    test("test Functions()", "Functions() must be private")
+    test("test Funs()", "Funs() must be private")
       .when(() ->
-        CommonTestHelper.newConstructorTester(Functions.class, this).mustBePrivate().test()
+        CommonTestHelper.newConstructorTester(Funs.class, this).mustBePrivate().test()
       )
       .expect(throwing(IllegalAccessException.class));
     /* @formatter:on */
@@ -34,8 +34,8 @@ public class FunctionsTest {
   @Test
   public void testIsNull() {
     /* @formatter:off */
-    test("testIsNull", "Functions.isNull()")
-    .when(() -> Functions.isNull())
+    test("testIsNull", "Funs.isNull()")
+    .when(() -> Funs.isNull())
     .then(actual -> assertThat(actual.test(null)).isTrue());
     /* @formatter:on */
   }
@@ -46,8 +46,8 @@ public class FunctionsTest {
     final String string = null;
 
     /* @formatter:off */
-    test("testIsNull2", "Functions.isNull().test(null)")
-    .when(() -> Functions.isNull()
+    test("testIsNull2", "Funs.isNull().test(null)")
+    .when(() -> Funs.isNull()
                          .test(string))
     .then(actual -> assertThat(actual).isTrue());
     /* @formatter:on */
@@ -59,8 +59,8 @@ public class FunctionsTest {
     final String string = "Some string";
 
     /* @formatter:off */
-    test("testIsNull3", "Functions.isNull().test(" + string + ")")
-    .when(() -> Functions.isNull()
+    test("testIsNull3", "Funs.isNull().test(" + string + ")")
+    .when(() -> Funs.isNull()
                          .test(string))
     .then(actual ->
       assertThat(actual).isFalse()
@@ -74,9 +74,9 @@ public class FunctionsTest {
     final String string = "";
 
     /* @formatter:off */
-    test("testIsNull4", "Functions.isNull().test(\"" + string + "\")")
+    test("testIsNull4", "Funs.isNull().test(\"" + string + "\")")
     .when(() ->
-      Functions.isNull().test(string)
+      Funs.isNull().test(string)
     )
     .then(actual ->
       assertThat(actual).isFalse()
@@ -87,9 +87,9 @@ public class FunctionsTest {
   @Test
   public void testIsNotNull() {
     /* @formatter:off */
-    test("testIsNotNull", "Functions.isNotNull()")
+    test("testIsNotNull", "Funs.isNotNull()")
     .when(() ->
-      Functions.isNotNull()
+      Funs.isNotNull()
     )
     .then(actual ->
       assertThat(actual.test(null)).isFalse()
@@ -103,7 +103,7 @@ public class FunctionsTest {
     final String string = null;
 
     /* when */
-    final boolean actual = Functions.isNotNull()
+    final boolean actual = Funs.isNotNull()
         .test(string);
 
     /* then */
@@ -116,7 +116,7 @@ public class FunctionsTest {
     final String string = "Some string";
 
     /* when */
-    final boolean actual = Functions.isNotNull()
+    final boolean actual = Funs.isNotNull()
         .test(string);
 
     /* then */
@@ -129,7 +129,7 @@ public class FunctionsTest {
     final String string = "";
 
     /* when */
-    final boolean actual = Functions.isNotNull()
+    final boolean actual = Funs.isNotNull()
         .test(string);
 
     /* then */
@@ -186,7 +186,7 @@ public class FunctionsTest {
 
     /* when */
     final List<Integer> actual = numbers.stream()
-        .filter(not(FunctionsTest::positiveNumber))
+        .filter(not(FunsTest::positiveNumber))
         .collect(toList());
 
     /* then */
@@ -219,6 +219,25 @@ public class FunctionsTest {
 
     /* then */
     assertThat(actual).isEqualTo(expected);
+  }
+
+  @Test
+  public final void testReversedWithoutStream() {
+    /* given */
+    final int number1 = 1;
+    final int number2 = 2;
+    final int expected = 1;
+
+    final Comparator<Integer> integerComparator = Integer::compareTo;
+    final Comparator<Integer> reversedIntegerComparator = reversed(integerComparator);
+
+    test("Test reversed()", "reversed(Integer::compareTo)")
+        .when(
+            () -> reversedIntegerComparator.compare(number1, number2)
+        )
+        .then(actual ->
+            assertThat(actual).isEqualTo(expected)
+        );
   }
 
   @Test
@@ -474,7 +493,7 @@ public class FunctionsTest {
     /* given */
     final String value = "test";
     /* when */
-    final Function<String, Boolean> toTrue = Functions.toTrue();
+    final Function<String, Boolean> toTrue = Funs.toTrue();
     final boolean actual = toTrue.apply(value);
 
     /* then */
@@ -486,7 +505,7 @@ public class FunctionsTest {
     /* given */
     final Integer value = 1;
     /* when */
-    final Function<Integer, Boolean> toTrue = Functions.toTrue();
+    final Function<Integer, Boolean> toTrue = Funs.toTrue();
     final boolean actual = toTrue.apply(value);
 
     /* then */
@@ -498,7 +517,7 @@ public class FunctionsTest {
     /* given */
     final long value = 1L;
     /* when */
-    final Function<Long, Boolean> toTrue = Functions.toTrue();
+    final Function<Long, Boolean> toTrue = Funs.toTrue();
     final boolean actual = toTrue.apply(value);
 
     /* then */
@@ -510,7 +529,7 @@ public class FunctionsTest {
     /* given */
     final Boolean value = false;
     /* when */
-    final Function<Boolean, Boolean> toTrue = Functions.toTrue();
+    final Function<Boolean, Boolean> toTrue = Funs.toTrue();
     final boolean actual = toTrue.apply(value);
 
     /* then */
@@ -522,7 +541,7 @@ public class FunctionsTest {
     /* given */
     final Boolean value = false;
     /* when */
-    final Function<? super Object, Boolean> toTrue = Functions.toTrue();
+    final Function<? super Object, Boolean> toTrue = Funs.toTrue();
     final boolean actual = toTrue.apply(value);
 
     /* then */
@@ -534,7 +553,7 @@ public class FunctionsTest {
     /* given */
     final String value = "test";
     /* when */
-    final Function<String, Boolean> toFalse = Functions.toFalse();
+    final Function<String, Boolean> toFalse = Funs.toFalse();
     final boolean actual = toFalse.apply(value);
 
     /* then */
@@ -546,7 +565,7 @@ public class FunctionsTest {
     /* given */
     final Integer value = 1;
     /* when */
-    final Function<Integer, Boolean> toFalse = Functions.toFalse();
+    final Function<Integer, Boolean> toFalse = Funs.toFalse();
     final boolean actual = toFalse.apply(value);
 
     /* then */
@@ -558,7 +577,7 @@ public class FunctionsTest {
     /* given */
     final long value = 1L;
     /* when */
-    final Function<Long, Boolean> toFalse = Functions.toFalse();
+    final Function<Long, Boolean> toFalse = Funs.toFalse();
     final boolean actual = toFalse.apply(value);
 
     /* then */
@@ -570,7 +589,7 @@ public class FunctionsTest {
     /* given */
     final Boolean value = false;
     /* when */
-    final Function<Boolean, Boolean> toFalse = Functions.toFalse();
+    final Function<Boolean, Boolean> toFalse = Funs.toFalse();
     final boolean actual = toFalse.apply(value);
 
     /* then */
@@ -582,7 +601,7 @@ public class FunctionsTest {
     /* given */
     final Boolean value = false;
     /* when */
-    final Function<? super Object, Boolean> toFalse = Functions.toFalse();
+    final Function<? super Object, Boolean> toFalse = Funs.toFalse();
     final boolean actual = toFalse.apply(value);
 
     /* then */
@@ -755,9 +774,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfyingWithNull() {
     /* @formatter:off */
-    test("testSatisfyingWithNull", "Functions.satisfying(null, param1)")
+    test("testSatisfyingWithNull", "Funs.satisfying(null, param1)")
     .when(() -> {
-      Functions.satisfying(null, param1);
+      Funs.satisfying(null, param1);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -838,9 +857,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying2WithNull() {
     /* @formatter:off */
-    test("testSatisfying2WithNull", "Functions.satisfying(null, param1, param2)")
+    test("testSatisfying2WithNull", "Funs.satisfying(null, param1, param2)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2);
+      Funs.satisfying(null, param1, param2);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -921,9 +940,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying3WithNull() {
     /* @formatter:off */
-    test("testSatisfying3WithNull", "Functions.satisfying(null, param1, param2, param3)")
+    test("testSatisfying3WithNull", "Funs.satisfying(null, param1, param2, param3)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2, param3);
+      Funs.satisfying(null, param1, param2, param3);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1004,9 +1023,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying4WithNull() {
     /* @formatter:off */
-    test("testSatisfying4WithNull", "Functions.satisfying(null, param1, param2, param3, param4)")
+    test("testSatisfying4WithNull", "Funs.satisfying(null, param1, param2, param3, param4)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2, param3, param4);
+      Funs.satisfying(null, param1, param2, param3, param4);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1087,9 +1106,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying5WithNull() {
     /* @formatter:off */
-    test("testSatisfying5WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5)")
+    test("testSatisfying5WithNull", "Funs.satisfying(null, param1, param2, param3, param4, param5)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2, param3, param4, param5);
+      Funs.satisfying(null, param1, param2, param3, param4, param5);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1170,9 +1189,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying6WithNull() {
     /* @formatter:off */
-    test("testSatisfying6WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6)")
+    test("testSatisfying6WithNull", "Funs.satisfying(null, param1, param2, param3, param4, param5, param6)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2, param3, param4, param5, param6);
+      Funs.satisfying(null, param1, param2, param3, param4, param5, param6);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1253,9 +1272,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying7WithNull() {
     /* @formatter:off */
-    test("testSatisfying7WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7)")
+    test("testSatisfying7WithNull", "Funs.satisfying(null, param1, param2, param3, param4, param5, param6, param7)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7);
+      Funs.satisfying(null, param1, param2, param3, param4, param5, param6, param7);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1336,9 +1355,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying8WithNull() {
     /* @formatter:off */
-    test("testSatisfying8WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8)")
+    test("testSatisfying8WithNull", "Funs.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8);
+      Funs.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1419,9 +1438,9 @@ public class FunctionsTest {
   @Test
   public void testSatisfying9WithNull() {
     /* @formatter:off */
-    test("testSatisfying9WithNull", "Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
+    test("testSatisfying9WithNull", "Funs.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
     .when(() -> {
-      Functions.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+      Funs.satisfying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1502,9 +1521,9 @@ public class FunctionsTest {
   @Test
   public void testApplyingWithNull() {
     /* @formatter:off */
-    test("testApplyingWithNull", "Functions.applying(null, param1)")
+    test("testApplyingWithNull", "Funs.applying(null, param1)")
     .when(() -> {
-      Functions.applying(null, param1);
+      Funs.applying(null, param1);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1517,7 +1536,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1544,9 +1563,9 @@ public class FunctionsTest {
   @Test
   public void testApplying2WithNull() {
     /* @formatter:off */
-    test("testApplying2WithNull", "Functions.applying(null, param1, param2)")
+    test("testApplying2WithNull", "Funs.applying(null, param1, param2)")
     .when(() -> {
-      Functions.applying(null, param1, param2);
+      Funs.applying(null, param1, param2);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1559,7 +1578,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1586,9 +1605,9 @@ public class FunctionsTest {
   @Test
   public void testApplying3WithNull() {
     /* @formatter:off */
-    test("testApplying3WithNull", "Functions.applying(null, param1, param2, param3)")
+    test("testApplying3WithNull", "Funs.applying(null, param1, param2, param3)")
     .when(() -> {
-      Functions.applying(null, param1, param2, param3);
+      Funs.applying(null, param1, param2, param3);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1602,7 +1621,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2, param3);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2, param3);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1629,9 +1648,9 @@ public class FunctionsTest {
   @Test
   public void testApplying4WithNull() {
     /* @formatter:off */
-    test("testApplying4WithNull", "Functions.applying(null, param1, param2, param3, param4)")
+    test("testApplying4WithNull", "Funs.applying(null, param1, param2, param3, param4)")
     .when(() -> {
-      Functions.applying(null, param1, param2, param3, param4);
+      Funs.applying(null, param1, param2, param3, param4);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1645,7 +1664,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2, param3, param4);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2, param3, param4);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1672,9 +1691,9 @@ public class FunctionsTest {
   @Test
   public void testApplying5WithNull() {
     /* @formatter:off */
-    test("testApplying5WithNull", "Functions.applying(null, param1, param2, param3, param4, param5)")
+    test("testApplying5WithNull", "Funs.applying(null, param1, param2, param3, param4, param5)")
     .when(() -> {
-      Functions.applying(null, param1, param2, param3, param4, param5);
+      Funs.applying(null, param1, param2, param3, param4, param5);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1687,7 +1706,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2, param3, param4, param5);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1714,9 +1733,9 @@ public class FunctionsTest {
   @Test
   public void testApplying6WithNull() {
     /* @formatter:off */
-    test("testApplying6WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6)")
+    test("testApplying6WithNull", "Funs.applying(null, param1, param2, param3, param4, param5, param6)")
     .when(() -> {
-      Functions.applying(null, param1, param2, param3, param4, param5, param6);
+      Funs.applying(null, param1, param2, param3, param4, param5, param6);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1729,7 +1748,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2, param3, param4, param5, param6);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1757,9 +1776,9 @@ public class FunctionsTest {
   @Test
   public void testApplying7WithNull() {
     /* @formatter:off */
-    test("testApplying7WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6, param7)")
+    test("testApplying7WithNull", "Funs.applying(null, param1, param2, param3, param4, param5, param6, param7)")
     .when(() -> {
-      Functions.applying(null, param1, param2, param3, param4, param5, param6, param7);
+      Funs.applying(null, param1, param2, param3, param4, param5, param6, param7);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1772,7 +1791,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1800,9 +1819,9 @@ public class FunctionsTest {
   @Test
   public void testApplying8WithNull() {
     /* @formatter:off */
-    test("testApplying8WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8)")
+    test("testApplying8WithNull", "Funs.applying(null, param1, param2, param3, param4, param5, param6, param7, param8)")
     .when(() -> {
-      Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8);
+      Funs.applying(null, param1, param2, param3, param4, param5, param6, param7, param8);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1815,7 +1834,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7, param8);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8);
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8);
     final String actual = f.apply(new TestBean(name));
 
     /* then */
@@ -1843,9 +1862,9 @@ public class FunctionsTest {
   @Test
   public void testApplying9WithNull() {
     /* @formatter:off */
-    test("testApplying9WithNull", "Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
+    test("testApplying9WithNull", "Funs.applying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
     .when(() -> {
-      Functions.applying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+      Funs.applying(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1858,7 +1877,7 @@ public class FunctionsTest {
     final String expected = new TestBean(name).call(param1, param2, param3, param4, param5, param6, param7, param8, param9);
 
     /* when */
-    final Function<TestBean, String> f = Functions.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8,
+    final Function<TestBean, String> f = Funs.applying(TestBean::call, param1, param2, param3, param4, param5, param6, param7, param8,
         param9);
     final String actual = f.apply(new TestBean(name));
 
@@ -1888,9 +1907,9 @@ public class FunctionsTest {
   @Test
   public void testAcceptingWithNull() {
     /* @formatter:off */
-    test("testAcceptingWithNull", "Functions.accepting(null, param1)")
+    test("testAcceptingWithNull", "Funs.accepting(null, param1)")
     .when(() -> {
-      Functions.accepting(null, param1);
+      Funs.accepting(null, param1);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1904,7 +1923,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1);
     r.accept(testBean);
 
     /* then */
@@ -1934,9 +1953,9 @@ public class FunctionsTest {
   @Test
   public void testAccepting2WithNull() {
     /* @formatter:off */
-    test("testAccepting2WithNull", "Functions.accepting(null, param1, param2)")
+    test("testAccepting2WithNull", "Funs.accepting(null, param1, param2)")
     .when(() -> {
-      Functions.accepting(null, param1, param2);
+      Funs.accepting(null, param1, param2);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -1950,7 +1969,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2);
     r.accept(testBean);
 
     /* then */
@@ -1980,8 +1999,8 @@ public class FunctionsTest {
 
   @Test
   public void testAccepting3WithNull() {
-    test("testAccepting3WithNull", "Functions.accepting(null, param1, param2, param3)").when(() -> {
-      Functions.accepting(null, param1, param2, param3);
+    test("testAccepting3WithNull", "Funs.accepting(null, param1, param2, param3)").when(() -> {
+      Funs.accepting(null, param1, param2, param3);
     })
         .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
   }
@@ -1992,7 +2011,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2, param3);
     r.accept(testBean);
 
     /* then */
@@ -2020,9 +2039,9 @@ public class FunctionsTest {
   @Test
   public void testAccepting4WithNull() {
     /* @formatter:off */
-    test("testAccepting4WithNull", "Functions.accepting(null, param1, param2, param3, param4)")
+    test("testAccepting4WithNull", "Funs.accepting(null, param1, param2, param3, param4)")
     .when(() -> {
-      Functions.accepting(null, param1, param2, param3, param4);
+      Funs.accepting(null, param1, param2, param3, param4);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -2034,7 +2053,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2, param3, param4);
     r.accept(testBean);
 
     /* then */
@@ -2062,9 +2081,9 @@ public class FunctionsTest {
   @Test
   public void testAccepting5WithNull() {
     /* @formatter:off */
-    test("testAccepting5WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5)")
+    test("testAccepting5WithNull", "Funs.accepting(null, param1, param2, param3, param4, param5)")
     .when(() -> {
-      Functions.accepting(null, param1, param2, param3, param4, param5);
+      Funs.accepting(null, param1, param2, param3, param4, param5);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -2076,7 +2095,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2, param3, param4, param5);
     r.accept(testBean);
 
     /* then */
@@ -2104,9 +2123,9 @@ public class FunctionsTest {
   @Test
   public void testAccepting6WithNull() {
     /* @formatter:off */
-    test("testAccepting6WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6)")
+    test("testAccepting6WithNull", "Funs.accepting(null, param1, param2, param3, param4, param5, param6)")
     .when(() -> {
-      Functions.accepting(null, param1, param2, param3, param4, param5, param6);
+      Funs.accepting(null, param1, param2, param3, param4, param5, param6);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -2118,7 +2137,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2, param3, param4, param5, param6);
     r.accept(testBean);
 
     /* then */
@@ -2146,9 +2165,9 @@ public class FunctionsTest {
   @Test
   public void testAccepting7WithNull() {
     /* @formatter:off */
-    test("testAccepting7WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7)")
+    test("testAccepting7WithNull", "Funs.accepting(null, param1, param2, param3, param4, param5, param6, param7)")
     .when(() -> {
-      Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7);
+      Funs.accepting(null, param1, param2, param3, param4, param5, param6, param7);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -2160,7 +2179,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7);
     r.accept(testBean);
 
     /* then */
@@ -2188,9 +2207,9 @@ public class FunctionsTest {
   @Test
   public void testAccepting8WithNull() {
     /* @formatter:off */
-    test("testAccepting8WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8)")
+    test("testAccepting8WithNull", "Funs.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8)")
     .when(() -> {
-      Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8);
+      Funs.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -2202,7 +2221,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8);
     r.accept(testBean);
 
     /* then */
@@ -2230,9 +2249,9 @@ public class FunctionsTest {
   @Test
   public void testAccepting9WithNull() {
     /* @formatter:off */
-    test("testAccepting9WithNull", "Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
+    test("testAccepting9WithNull", "Funs.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8, param9)")
     .when(() -> {
-      Functions.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+      Funs.accepting(null, param1, param2, param3, param4, param5, param6, param7, param8, param9);
     })
     .expect(throwing(NullPointerException.class).containsMessage("cannot be null"));
     /* @formatter:on */
@@ -2244,7 +2263,7 @@ public class FunctionsTest {
     final TestBean testBean = mock(TestBean.class);
 
     /* when */
-    final Consumer<TestBean> r = Functions.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8, param9);
+    final Consumer<TestBean> r = Funs.accepting(TestBean::run, param1, param2, param3, param4, param5, param6, param7, param8, param9);
     r.accept(testBean);
 
     /* then */
