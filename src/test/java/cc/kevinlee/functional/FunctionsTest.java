@@ -222,6 +222,25 @@ public class FunctionsTest {
   }
 
   @Test
+  public final void testReversedWithoutStream() {
+    /* given */
+    final int number1 = 1;
+    final int number2 = 2;
+    final int expected = 1;
+
+    final Comparator<Integer> integerComparator = Integer::compareTo;
+    final Comparator<Integer> reversedIntegerComparator = reversed(integerComparator);
+
+    test("Test reversed()", "reversed(Integer::compareTo)")
+        .when(
+            () -> reversedIntegerComparator.compare(number1, number2)
+        )
+        .then(actual ->
+            assertThat(actual).isEqualTo(expected)
+        );
+  }
+
+  @Test
   public final void testReversed2() {
     /* given */
     final List<Integer> numbers = Arrays.asList(4, 2, 0, 3, 10, 32, 99, 57, 100);
