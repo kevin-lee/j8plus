@@ -4,17 +4,17 @@ echo "============================================"
 echo "Build projects"
 echo "--------------------------------------------"
 echo ""
-echo "============================================"
-echo "Run: sbt clean coverage test package"
-echo "--------------------------------------------"
-if sbt clean coverage test package ; then
-  echo "Done: sbt clean coverage test doc package"
-  echo "============================================"
-else
-  echo "Failed: sbt clean coverage test package" 1>&2
-  echo "============================================"
-  exit 1
-fi
+# echo "============================================"
+# echo "Run: sbt clean coverage test package"
+# echo "--------------------------------------------"
+# if sbt clean coverage test doc package ; then
+#   echo "Done: sbt clean coverage test doc package"
+#   echo "============================================"
+# else
+#   echo "Failed: sbt clean coverage test package" 1>&2
+#   echo "============================================"
+#   exit 1
+# fi
 
 echo ""
 
