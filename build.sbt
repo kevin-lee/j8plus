@@ -4,7 +4,7 @@ name := "j8plus"
 
 organization := "cc.kevinlee"
 
-val projectVersion = "0.0.14"
+val projectVersion = "0.0.15"
 
 version := projectVersion
 
@@ -33,11 +33,11 @@ resolvers ++= List(
 )
 
 libraryDependencies ++= List(
-  "junit" % "junit" % s"${junitVersion}",
+  "junit" % "junit" % s"${junitVersion}" % "test",
   "cc.kevinlee" % "test0ster1" % s"${testosteroneVersion}" % "test",
-  "org.assertj" % "assertj-core" % "3.0.0",
-  "org.mockito" % "mockito-all" % "1.10.19",
-  "org.elixirian" % "kommonlee-test" % "0.0.18-SNAPSHOT"
+  "org.assertj" % "assertj-core" % "3.0.0" % "test",
+  "org.mockito" % "mockito-all" % "1.10.19" % "test",
+  "org.elixirian" % "kommonlee-test" % "0.0.18-SNAPSHOT" % "test"
 
 )
 
