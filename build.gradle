@@ -42,7 +42,7 @@ jacocoTestReport {
 description = "j8plus"
 
 // WARNING!!! Check out build.sbt
-version = '0.0.14'
+version = '0.0.15'
 
 //task wrapper(type: Wrapper) {
 //    gradleVersion = '2.3'
