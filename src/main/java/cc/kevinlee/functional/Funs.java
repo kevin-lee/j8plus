@@ -16,7 +16,9 @@
 package cc.kevinlee.functional;
 
 import java.util.Comparator;
+import java.util.Map;
 import java.util.Objects;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.*;
 
 import cc.kevinlee.functional.types.Consumer10;
@@ -480,5 +482,22 @@ public final class Funs {
     return object -> function.accept(object, param1, param2, param3, param4, param5, param6, param7, param8, param9);
   }
   /* @formatter:on */
+
+
+    /**
+     * 기본으로 제공되는 list.stream().distinct() 는 특정 property 를 지정할 수 없기 때문에,
+     * 특정 property 를 지정하여 중복을 제거하는 함수를 추가.
+     *
+     * persons.stream().filter(distinctByKey(p -> p.getName()) 와 같이 호출하면 됨.
+     *
+     * @param keyExtractor 중복제거 키 추출 함수
+     * @param <T>
+     * @return 중복인지 아닌지 판별하는 Predicate 함수
+     */
+    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+        Map<Object, Boolean> seen = new ConcurrentHashMap<>();
+
+        return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
+    }
 
 }
