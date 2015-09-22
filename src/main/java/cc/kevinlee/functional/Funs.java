@@ -494,7 +494,7 @@ public final class Funs {
      * @param <T>
      * @return 중복인지 아닌지 판별하는 Predicate 함수
      */
-    private static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
+    public static <T> Predicate<T> distinctByKey(Function<? super T, Object> keyExtractor) {
         Map<Object, Boolean> seen = new ConcurrentHashMap<>();
 
         return t -> seen.putIfAbsent(keyExtractor.apply(t), Boolean.TRUE) == null;
