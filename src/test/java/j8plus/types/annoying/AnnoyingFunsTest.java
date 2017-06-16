@@ -1,5 +1,6 @@
 package j8plus.types.annoying;
 
+import j8plus.types.Runner;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
@@ -98,4 +99,95 @@ public class AnnoyingFunsTest {
           assertThat(actual).isEqualTo(expected)
         );
   }
+
+
+  private void runItWithAnnoyance() throws Exception {
+    throw new Exception("Annoying exception!");
+  }
+
+
+  private void runSomething(final Runnable runnable) {
+    runnable.run();
+  }
+
+
+
+
+  @Test
+  public void testShhForAnnoyingRunnable() throws Exception {
+
+    test("testShhForAnnoyingRunnable", "testShh with a method reference to AnnoyingRunnable throwing checked Exception")
+        .when(() ->
+            runSomething(AnnoyingFuns.shh(this::runItWithAnnoyance))
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhForAnnoyingRunnable (2)", "testShh with a lambda expression for AnnoyingRunnable throwing checked Exception")
+        .when(() ->
+            runSomething(AnnoyingFuns.shh(() -> runItWithAnnoyance()))
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    final boolean expected = true;
+    final boolean[] actual = {false};
+    test("testShhForAnnoyingRunnable (3)", "testShh with a lambda expression for AnnoyingRunnable throwing no exception")
+        .when(() ->
+            runSomething(AnnoyingFuns.shh(() -> actual[0] = true))
+        )
+        .then(() ->
+            assertThat(actual[0]).isEqualTo(expected)
+        );
+  }
+
+
+
+  private void runWithRunner(final Runner runnable) {
+    runnable.run();
+  }
+
+
+
+  @Test
+  public void testShhForAnnoyingRunner() throws Exception {
+
+    test("testShhForAnnoyingRunner", "testShh with a method reference to AnnoyingRunner throwing checked Exception")
+        .when(() ->
+            runWithRunner(AnnoyingFuns.shh(this::runItWithAnnoyance))
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhForAnnoyingRunner (2)", "testShh with a lambda expression for AnnoyingRunner throwing checked Exception")
+        .when(() ->
+            runWithRunner(AnnoyingFuns.shh(() -> runItWithAnnoyance()))
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    final boolean expected = true;
+    final boolean[] actual = { false };
+    test("testShhForAnnoyingRunner (3)", "testShh with a lambda expression for AnnoyingRunner throwing no exception")
+        .when(() -> {
+          AnnoyingRunner f = () -> actual[0] = true;
+          runWithRunner(AnnoyingFuns.shh(f));
+        })
+        .then(() ->
+            assertThat(actual[0]).isEqualTo(expected)
+        );
+  }
+
 }

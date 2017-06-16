@@ -6,7 +6,6 @@ import org.junit.jupiter.api.Test;
 import static kevinlee.testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
 
-
 /**
  * @author Lee, Seong Hyun (Kevin)
  * @since 2015-06-29

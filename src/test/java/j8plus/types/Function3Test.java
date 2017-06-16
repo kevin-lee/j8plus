@@ -39,10 +39,10 @@ public class Function3Test {
     test("Function3.andThen(Function)", "f3.andThen(f) should apply f3.apply(p1, p2, p3) then f.apply(f3Result). \n" +
         "In other words, f3.andThen(f) == f(f3(p1, p2, p3))")
         .when(() ->
-                first.andThen(second).apply(input1, input2, input3)
+          first.andThen(second).apply(input1, input2, input3)
         )
         .then(actual ->
-                assertThat(actual).isEqualTo(second.apply(first.apply(input1, input2, input3)))
+          assertThat(actual).isEqualTo(second.apply(first.apply(input1, input2, input3)))
         );
   }
 }

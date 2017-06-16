@@ -20,10 +20,10 @@ public class Function6Test {
         (t1, t2, t3, t4, t5, t6) -> t1 + t2 + t3 + t4 + t5 + t6;
     test("Function6.curried", "curried should return Function5 and t1 is already set in the function")
         .when(() ->
-                function.curried(1)
+          function.curried(1)
         )
         .then(actual ->
-                assertThat(actual.apply(10, 100, 1_000, 10_000, 100_000)).isEqualTo(111_111)
+          assertThat(actual.apply(10, 100, 1_000, 10_000, 100_000)).isEqualTo(111_111)
         );
   }
 
