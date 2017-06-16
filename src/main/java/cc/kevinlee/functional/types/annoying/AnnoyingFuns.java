@@ -15,6 +15,8 @@
  */
 package cc.kevinlee.functional.types.annoying;
 
+import cc.kevinlee.functional.types.Runner;
+
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
@@ -98,4 +100,16 @@ public class AnnoyingFuns {
       }
     };
   }
+
+  public static Runner shh(final AnnoyingRunnable annoyingRunnable) {
+    Objects.requireNonNull(annoyingRunnable, "The given AnnoyingRunner cannot be null.");
+    return () -> {
+      try {
+        annoyingRunnable.run();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    };
+  }
+
 }
