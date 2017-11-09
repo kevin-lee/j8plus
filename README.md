@@ -10,7 +10,7 @@
 [![views 24h](https://sourcegraph.com/api/repos/github.com/Kevin-Lee/j8plus/.counters/views-24h.svg)](https://sourcegraph.com/github.com/Kevin-Lee/j8plus)
 
 ## Why J8+?
-Q: Java 8 comes with newly added functional features like Lamba Expressions and Method References so why do we need this library claiming that it contains some functional features that Java 8 does not have?
+Q: Java 8 comes with newly added functional features like Lambda Expressions and Method References so why do we need this library claiming that it contains some functional features that Java 8 does not have?
 
 A: Java 8 has nicely implemented Lambda Expressions and Method References which meke all the existing libraries really useful and reusable, yet it still lacks some useful features that can make our lives a lot easiler. J8+ provides those missing functional features to make your life easier.
 
