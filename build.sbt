@@ -1,5 +1,3 @@
-import org.scoverage.coveralls.Imports.CoverallsKeys._
-
 val ProjectVersion = "0.0.15"
 
 val testosteroneVersion = "0.0.7"
@@ -16,6 +14,7 @@ lazy val j8plus = (project in file("."))
   )
   .enablePlugins(DevOopsJavaPlugin)
   .enablePlugins(DevOopsGitReleasePlugin)
+  .enablePlugins(JacocoCoverallsPlugin)
   .settings(
     javacOptions in (Compile, compile) ++= List(
       "-g",
@@ -57,7 +56,23 @@ lazy val j8plus = (project in file("."))
           <connection>scm:git:git@github.com:Kevin-Lee/j8plus.git</connection>
         </scm>)
   , licenses += ("Apache-2.0", url("http://opensource.org/licenses/apache2.0"))
-  , coverallsTokenFile := Option(s"""${sys.props("user.home")}/.coveralls-credentials""")
+  , jacocoReportSettings := JacocoReportSettings(
+      "Jacoco Coverage Report"
+    , None
+    , JacocoThresholds()
+    , Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML)
+    , "utf-8"
+    )
+  , jacocoCoverallsServiceName := "semaphore-ci"
+  , jacocoCoverallsBuildNumber := sys.env.get("SEMAPHORE_BUILD_NUMBER")
+  , jacocoCoverallsJobId :=
+      sys.env.get("SEMAPHORE_CURRENT_JOB").map(jobId => s"$jobId-${jacocoCoverallsBuildNumber.value}")
+        .getOrElse("")
+  , jacocoCoverallsPullRequest := sys.env.get("PULL_REQUEST_NUMBER").filter(_.forall(_.isDigit))
+  , jacocoCoverallsRepoToken :=
+      sys.props.get("user.home")
+        .map(home => file(s"$home/.coveralls-credentials"))
+        .map(IO.readBytes).map(bs => new String(bs, "UTF-8"))
   /* GitHub Release { */
   , devOopsPackagedArtifacts := List(s"target/${name.value}*.jar")
   /* } GitHub Release */
