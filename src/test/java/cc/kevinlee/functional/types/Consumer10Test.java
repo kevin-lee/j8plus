@@ -1,12 +1,12 @@
 package cc.kevinlee.functional.types;
 
-import cc.kevinlee.testosterone.Testosterone;
-import org.junit.Test;
+import kevinlee.testosterone.Testosterone;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static cc.kevinlee.testosterone.Testosterone.*;
+import static kevinlee.testosterone.Testosterone.*;
 import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.assertThat;
 import static cc.kevinlee.functional.types.TypesUtil.ContainerStoringOnlyOnce.*;

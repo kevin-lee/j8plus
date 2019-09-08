@@ -3,7 +3,8 @@ package cc.kevinlee.functional.spicy;
 import cc.kevinlee.functional.types.*;
 import org.elixirian.kommonlee.test.CommonTestHelper;
 import cc.kevinlee.functional.types.TypesUtil.ContainerStoringOnlyOnce;
-import org.junit.Test;
+
+import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
 import java.util.function.Consumer;
@@ -11,7 +12,7 @@ import java.util.function.Function;
 import java.util.function.Predicate;
 
 import static cc.kevinlee.functional.spicy.Curry.*;
-import static cc.kevinlee.testosterone.Testosterone.*;
+import static kevinlee.testosterone.Testosterone.*;
 
 import static org.assertj.core.api.Assertions.*;
 

@@ -65,10 +65,10 @@ repositories {
   mavenLocal()
   mavenCentral()
   maven {
-    url 'http://nexus.lckymn.com/content/repositories/kevin-public-releases'
+    url 'https://repo.kevinlee.io/repository/kevin-public-releases'
   }
   maven {
-    url 'http://nexus.lckymn.com/content/repositories/kevin-public-snapshots'
+    url 'https://repo.kevinlee.io/repository/kevin-public-snapshots'
   }
   maven {
     url  "http://dl.bintray.com/kevinlee/maven"

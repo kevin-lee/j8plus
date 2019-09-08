@@ -1,9 +1,9 @@
 package cc.kevinlee.functional.types;
 
-import cc.kevinlee.testosterone.Testosterone;
-import org.junit.Test;
+import kevinlee.testosterone.Testosterone;
+import org.junit.jupiter.api.Test;
 
-import static cc.kevinlee.testosterone.Testosterone.*;
+import static kevinlee.testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
 
 

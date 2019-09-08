@@ -37,14 +37,14 @@
     <repository>
       <id>kevin-public-releases</id>
       <name>Kevin's Public Releases</name>
-      <url>http://nexus.lckymn.com/content/repositories/kevin-public-releases</url>
+      <url>https://repo.kevinlee.io/repository/kevin-public-releases</url>
       <uniqueVersion>true</uniqueVersion>
       <layout>default</layout>
     </repository>
     <snapshotRepository>
       <id>kevin-public-snapshots</id>
       <name>Kevin's Public Snapshots</name>
-      <url>http://nexus.lckymn.com/content/repositories/kevin-public-snapshots</url>
+      <url>https://repo.kevinlee.io/repository/kevin-public-snapshots</url>
       <uniqueVersion>true</uniqueVersion>
       <layout>default</layout>
     </snapshotRepository>

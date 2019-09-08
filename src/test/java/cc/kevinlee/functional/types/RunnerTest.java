@@ -1,12 +1,12 @@
 package cc.kevinlee.functional.types;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import static cc.kevinlee.testosterone.Testosterone.*;
+import static kevinlee.testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
 
 

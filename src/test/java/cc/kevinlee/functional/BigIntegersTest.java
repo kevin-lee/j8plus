@@ -1,6 +1,6 @@
 package cc.kevinlee.functional;
 
-import static cc.kevinlee.testosterone.Testosterone.*;
+import static kevinlee.testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigInteger;
@@ -8,7 +8,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 public class BigIntegersTest {
 
