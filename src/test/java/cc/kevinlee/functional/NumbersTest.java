@@ -1,7 +1,7 @@
 package cc.kevinlee.functional;
 
-import static cc.kevinlee.testosterone.Testosterone.test;
-import static cc.kevinlee.testosterone.Testosterone.throwing;
+import static kevinlee.testosterone.Testosterone.test;
+import static kevinlee.testosterone.Testosterone.throwing;
 import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigDecimal;
@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.function.Predicate;
 
 import org.elixirian.kommonlee.test.CommonTestHelper;
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import cc.kevinlee.functional.Numbers.BigDecimalNumber;
 import cc.kevinlee.functional.Numbers.BigIntegerNumber;

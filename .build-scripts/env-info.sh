@@ -8,7 +8,7 @@ echo "Scala Info"
 scala -version
 echo "--------------------------------------------"
 echo "SBT Info"
-sbt --version || :
+sbt sbtVersion || :
 echo "--------------------------------------------"
 echo "Memory Info"
 echo "--------------------------------------------"

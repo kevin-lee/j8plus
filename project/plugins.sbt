@@ -1,11 +1,11 @@
 logLevel := Level.Warn
 
-addSbtPlugin("me.lessis" % "bintray-sbt" % "0.3.0")
+addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.5")
 
-addSbtPlugin("org.scoverage" % "sbt-scoverage" % "1.0.4")
+addSbtPlugin("com.github.sbt" % "sbt-jacoco" % "3.1.0")
 
-addSbtPlugin("org.scoverage" % "sbt-coveralls" % "1.0.0")
+addSbtPlugin("kevinlee" % "sbt-devoops" % "0.3.1")
 
-resolvers += "Github-API" at "http://repo.jenkins-ci.org/public/"
-resolvers += "Era7 maven releases" at "https://s3-eu-west-1.amazonaws.com/releases.era7.com"
-addSbtPlugin("ohnosequences" % "sbt-github-release" % "0.3.0")
+resolvers += Resolver.jcenterRepo
+
+addSbtPlugin("net.aichler" % "sbt-jupiter-interface" % "0.8.2")

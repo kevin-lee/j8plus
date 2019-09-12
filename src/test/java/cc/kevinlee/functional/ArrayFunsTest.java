@@ -1,13 +1,13 @@
 package cc.kevinlee.functional;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import java.util.Arrays;
 
 import static java.util.stream.Collectors.toList;
 
 import static org.assertj.core.api.Assertions.*;
-import static cc.kevinlee.testosterone.Testosterone.*;
+import static kevinlee.testosterone.Testosterone.*;
 
 /**
  * @author Lee, Seong Hyun (Kevin)
