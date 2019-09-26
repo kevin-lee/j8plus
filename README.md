@@ -21,8 +21,9 @@ Java 8's JVM does still not support [tail call optimization](http://en.wikipedia
 public static BigInteger factorial(final BigInteger acc, final BigInteger n) {
   if (n.equals(BigInteger.ONE)) {
     return acc;
+  } else {
+    return factorial(acc.multiply(n), n.subtract(BigInteger.ONE));
   }
-  return factorial(acc.multiply(n), n.subtract(BigInteger.ONE));
 }
 ```
 
@@ -31,18 +32,20 @@ public static BigInteger factorial(final BigInteger acc, final BigInteger n) {
 Another example is Stream in Java 8's collections. The Stream has a useful method called filter, yet, unlike Scala, it does not have a method like filterNot which does the opposite operation. Let's say you need to get all non empty String from the list. You do something like this using functional features in Java 8.
 
 ```java
-List<String> nonEmptyStrings = list.stream()
-                                   .filter(text -> !text.isEmpty())
-                                   .collect(toList())
+List<String> nonEmptyStrings =
+    list.stream()
+      .filter(text -> !text.isEmpty())
+      .collect(toList())
 
 ```
 
 It can be even more concise with Method References, but unfortunate, you can't use it as Stream does not have the opposite operation method of filter.  So if it's taking all empty Strings you do like
 
 ```java
-List<String> nonEmptyStrings = list.stream()
-                                   .filter(String::isEmpty) // no filterNot method in Stream
-                                   .collect(toList())
+List<String> nonEmptyStrings =
+    list.stream()
+      .filter(String::isEmpty) // no filterNot method in Stream
+      .collect(toList())
 
 ```
 But you can't use a method reference to filter out the empty String.
@@ -53,11 +56,15 @@ But you can't use a method reference to filter out the empty String.
 [StackOverflowError](http://docs.oracle.com/javase/8/docs/api/java/lang/StackOverflowError.html) when using recursive method can be solved using Trampoline provided in J8+. It requires only a little changes in your code.
 
 ```java
-public static TailCallable<BigInteger> factorial(final BigInteger acc, final BigInteger n) {
+public static TailCallable<BigInteger> factorial(
+    final BigInteger acc
+  , final BigInteger n
+) {
   if (n.equals(BigInteger.ONE)) {
     return done(acc);
+  } else {
+    return () -> factorial(acc.multiply(n), n.subtract(BigInteger.ONE));
   }
-  return () -> factorial(acc.multiply(n), n.subtract(BigInteger.ONE));
 }
 ```
 Now, you don't need to worry about StackOverflowError.
@@ -67,9 +74,10 @@ Now, you don't need to worry about StackOverflowError.
 Opposite operation when using method reference can easily be done using a higher-order function provided by J8+.
 
 ```java
-List<String> nonEmptyStrings = list.stream()
-                                   .filter(not(String::isEmpty))
-                                   .collect(toList())
+List<String> nonEmptyStrings =
+    list.stream()
+      .filter(not(String::isEmpty))
+      .collect(toList())
 
 ```
 It filters out all empty String values and takes only non-empty ones.
