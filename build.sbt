@@ -4,7 +4,7 @@ val testosteroneVersion = "0.0.7"
 val junitJupiterVersion = "5.5.0"
 
 
-ThisBuild / scalaVersion     := "2.13.0"
+ThisBuild / scalaVersion     := "2.13.1"
 ThisBuild / version          := ProjectVersion
 ThisBuild / organization     := "kevinlee"
 
@@ -21,13 +21,14 @@ lazy val j8plus = (project in file("."))
       "-deprecation"
     )
   , resolvers ++= List(
+      Resolver.jcenterRepo,
       "kevin-public-releases" at "https://repo.kevinlee.io/repository/kevin-public-releases",
       "kevin-public-snapshots" at "https://repo.kevinlee.io/repository/kevin-public-snapshots",
       "kevin-bintray" at "http://dl.bintray.com/kevinlee/maven"
     )
   , libraryDependencies ++= List(
       "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
-      "net.aichler" % "jupiter-interface" % "0.8.2" % Test,
+      "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test,
       "kevinlee" % "test0ster1" % s"${testosteroneVersion}" % Test,
       "org.assertj" % "assertj-core" % "3.12.2" % Test,
       "org.mockito" % "mockito-core" % "3.0.0" % Test,
