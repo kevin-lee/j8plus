@@ -24,7 +24,7 @@ lazy val j8plus = (project in file("."))
       Resolver.jcenterRepo,
       "kevin-public-releases" at "https://repo.kevinlee.io/repository/kevin-public-releases",
       "kevin-public-snapshots" at "https://repo.kevinlee.io/repository/kevin-public-snapshots",
-      "kevin-bintray" at "http://dl.bintray.com/kevinlee/maven"
+      "kevin-bintray" at "https://dl.bintray.com/kevinlee/maven"
     )
   , libraryDependencies ++= List(
       "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test,
@@ -56,7 +56,7 @@ lazy val j8plus = (project in file("."))
           <url>git@github.com:Kevin-Lee/j8plus.git</url>
           <connection>scm:git:git@github.com:Kevin-Lee/j8plus.git</connection>
         </scm>)
-  , licenses += ("Apache-2.0", url("http://opensource.org/licenses/apache2.0"))
+  , licenses += ("Apache-2.0", url("https://opensource.org/licenses/apache2.0"))
   , jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report"
     , None
