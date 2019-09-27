@@ -2,7 +2,10 @@ package j8plus.types;
 
 import java.io.Serializable;
 import java.util.Objects;
+import java.util.Optional;
+import java.util.function.Consumer;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author Lee, Seong Hyun (Kevin)
@@ -22,38 +25,38 @@ public abstract class Either<A, B> implements Serializable {
 
   public abstract <C> Either<C, B> leftFlatMap(Function<? super A, Either<C, B>> f);
 
-  public Either<B, A> swap() {
-    return Either.swap(this);
-  }
+  public abstract <C> Either<A, C> ap(Supplier<Either<A, Function<? super B, C>>> f);
 
-  public <C> C fold(final Function<? super A, C> leftFunction, final Function<? super B, C> rightFunction) {
-    return isLeft() ?
-        leftFunction.apply(toLeft(this).value) :
-        rightFunction.apply(((Right<A, B>) this).value);
-  }
+  public abstract Either<B, A> swap();
 
-  public static <A, B> Either<B, A> swap(final Either<A, B> either) {
-    if (either.isLeft()) {
-      return Either.right(toLeft(either).value);
-    }
-    return Either.left(toRight(either).value);
-  }
+  public abstract <C> C fold(
+    final Function<? super A, C> leftFunction
+  , final Function<? super B, C> rightFunction
+  );
+
+  public abstract void forEach(Consumer<? super B> f);
 
   public static <A, B> Either<A, B> left(final A value) {
-    return Either.left(value);
+    @SuppressWarnings("unchecked")
+    final Either<A, B> left = new Left(value);
+    return left;
   }
 
   public static <A, B> Either<A, B> right(final B value) {
-    return Either.right(value);
+    @SuppressWarnings("unchecked")
+    final Either<A, B> right = new Right(value);
+    return right;
   }
 
-
-  private static <A, B> Left<A, B> toLeft(final Either<A, B> either) {
-    return (Left<A, B>) either;
-  }
-
-  private static <A, B> Right<A, B> toRight(final Either<A, B> either) {
-    return (Right<A, B>) either;
+  public static <A, B> Either<A, B> fromOptional(
+    final Optional<? extends B> optional
+  , final Supplier<? extends A> ifNone
+  ) {
+    if (optional.isPresent()) {
+      return Either.right(optional.get());
+    } else {
+      return Either.left(ifNone.get());
+    }
   }
 
   private static class Left<A, B> extends Either<A, B> {
@@ -75,12 +78,16 @@ public abstract class Either<A, B> implements Serializable {
 
     @Override
     public <C> Either<A, C> map(final Function<? super B, C> f) {
-      return (Either<A, C>) this;
+      @SuppressWarnings("unchecked")
+      final Either<A, C> acEither = (Either<A, C>) this;
+      return acEither;
     }
 
     @Override
     public <C> Either<A, C> flatMap(final Function<? super B, Either<A, C>> f) {
-      return (Either<A, C>) this;
+      @SuppressWarnings("unchecked")
+      final Either<A, C> acEither = (Either<A, C>) this;
+      return acEither;
     }
 
     @Override
@@ -94,6 +101,30 @@ public abstract class Either<A, B> implements Serializable {
     }
 
     @Override
+    public <C> Either<A, C> ap(final Supplier<Either<A, Function<? super B, C>>> f) {
+      @SuppressWarnings("unchecked")
+      final Either<A, C> acEither = (Either<A, C>) this;
+      return acEither;
+    }
+
+    @Override
+    public Either<B, A> swap() {
+      return Either.right(this.value);
+    }
+
+    @Override
+    public <C> C fold(
+      final Function<? super A, C> leftFunction
+    , final Function<? super B, C> rightFunction
+    ) {
+      return leftFunction.apply(this.value);
+    }
+
+    @Override
+    public void forEach(final Consumer<? super B> f) {
+    }
+
+    @Override
     public boolean equals(final Object o) {
       if (this == o) return true;
       if (!(o instanceof Left)) return false;
@@ -103,7 +134,7 @@ public abstract class Either<A, B> implements Serializable {
 
     @Override
     public int hashCode() {
-      return Objects.hash(value);
+      return Objects.hashCode(value);
     }
 
     @Override
@@ -141,12 +172,39 @@ public abstract class Either<A, B> implements Serializable {
 
     @Override
     public <C> Either<C, B> leftMap(final Function<? super A, C> f) {
-      return (Either<C, B>) this;
+      @SuppressWarnings("unchecked")
+      final Either<C, B> cbEither = (Either<C, B>) this;
+      return cbEither;
     }
 
     @Override
     public <C> Either<C, B> leftFlatMap(final Function<? super A, Either<C, B>> f) {
-      return (Either<C, B>) this;
+      @SuppressWarnings("unchecked")
+      final Either<C, B> cbEither = (Either<C, B>) this;
+      return cbEither;
+    }
+
+    @Override
+    public <C> Either<A, C> ap(final Supplier<Either<A, Function<? super B, C>>> f) {
+      return f.get().flatMap(this::map);
+    }
+
+    @Override
+    public Either<B, A> swap() {
+      return Either.left(this.value);
+    }
+
+    @Override
+    public <C> C fold(
+      final Function<? super A, C> leftFunction
+    , final Function<? super B, C> rightFunction
+    ) {
+      return rightFunction.apply(this.value);
+    }
+
+    @Override
+    public void forEach(final Consumer<? super B> f) {
+      f.accept(this.value);
     }
 
     @Override
@@ -159,7 +217,7 @@ public abstract class Either<A, B> implements Serializable {
 
     @Override
     public int hashCode() {
-      return Objects.hash(value);
+      return Objects.hashCode(value);
     }
 
     @Override
