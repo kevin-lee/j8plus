@@ -64,16 +64,10 @@ lazy val j8plus = (project in file("."))
     , Seq(JacocoReportFormats.ScalaHTML, JacocoReportFormats.XML)
     , "utf-8"
     )
-  , jacocoCoverallsServiceName := "semaphore-ci"
-  , jacocoCoverallsBuildNumber := sys.env.get("SEMAPHORE_BUILD_NUMBER")
-  , jacocoCoverallsJobId :=
-      sys.env.get("SEMAPHORE_CURRENT_JOB").map(jobId => s"$jobId-${jacocoCoverallsBuildNumber.value}")
-        .getOrElse("")
-  , jacocoCoverallsPullRequest := sys.env.get("PULL_REQUEST_NUMBER").filter(_.forall(_.isDigit))
-  , jacocoCoverallsRepoToken :=
-      sys.props.get("user.home")
-        .map(home => file(s"$home/.coveralls-credentials"))
-        .map(IO.readBytes).map(bs => new String(bs, "UTF-8"))
+  , jacocoCoverallsServiceName := "github-actions"
+  , jacocoCoverallsBranch := sys.env.get("CI_BRANCH")
+  , jacocoCoverallsPullRequest := sys.env.get("GITHUB_EVENT_NAME")
+  , jacocoCoverallsRepoToken := sys.env.get("COVERALLS_REPO_TOKEN")
   /* GitHub Release { */
   , devOopsPackagedArtifacts := List(s"target/${name.value}*.jar")
   /* } GitHub Release */
