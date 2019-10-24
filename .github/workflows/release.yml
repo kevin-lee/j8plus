@@ -1,0 +1,31 @@
+name: Release
+
+on:
+  push:
+    tags:
+      - '*'
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - name: sbt GitHub Release
+      env:
+        CI_BRANCH: ${GITHUB_REF#refs/heads/}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_AUTH_TOKEN }}
+      run: |
+        echo "Run] sbt GitHub release"
+        echo 'sbt -J-Xmx2048m "; clean; test; packagedArtifacts; gitHubRelease"'
+        sbt -J-Xmx2048m "; clean; test; packagedArtifacts; gitHubRelease"
+    - name: sbt Publish
+      env:
+        CI_BRANCH: ${GITHUB_REF#refs/heads/}
+        BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+        BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
+      run: |
+        echo "Run] sbt publish"
+        echo 'sbt -J-Xmx2048m "; clean; publish"'
+        sbt -J-Xmx2048m "; clean; publish"

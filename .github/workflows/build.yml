@@ -1,0 +1,16 @@
+name: Build
+
+on: [push]
+
+jobs:
+
+  build_java_project:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v1
+      - name: Build Java Project
+        env:
+          COVERALLS_REPO_TOKEN: ${{ secrets.COVERALLS_REPO_TOKEN }}
+        run: |
+          export CI_BRANCH="${GITHUB_REF#refs/heads/}"
+          .github/workflows/sbt-build.sh 2.13.1
