@@ -6,7 +6,7 @@ val junitJupiterVersion = "5.5.0"
 
 ThisBuild / scalaVersion     := "2.13.1"
 ThisBuild / version          := ProjectVersion
-ThisBuild / organization     := "kevinlee"
+ThisBuild / organization     := "io.kevinlee"
 
 lazy val j8plus = (project in file("."))
   .settings(
