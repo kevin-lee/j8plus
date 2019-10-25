@@ -16,23 +16,18 @@ lazy val j8plus = (project in file("."))
   .enablePlugins(DevOopsGitReleasePlugin)
   .enablePlugins(JacocoCoverallsPlugin)
   .settings(
-    javacOptions in (Compile, compile) ++= List(
-      "-g",
-      "-deprecation"
+    javacOptions := Seq(
+      "-source", javaVersion.value
+    , "-encoding", "UTF-8"
     )
-  , javacOptions := {
-      def removeInvalidOptions(settings: Seq[String], acc: Seq[String]): Seq[String] = settings match {
-        case "-target" +: javaVersion +: rest =>
-          removeInvalidOptions(rest, acc)
-        case "-Xlint:unchecked" +: rest =>
-          removeInvalidOptions(rest, acc)
-        case x :: xs =>
-          removeInvalidOptions(xs, acc :+ x)
-        case Seq() =>
-          acc
-      }
-      removeInvalidOptions(javacOptions.value, Seq.empty)
-    }
+  , javacOptions ++= Seq(
+      "-g"
+    , "-deprecation"
+    )
+  , javacOptions in Compile ++= Seq(
+      "-target", javaVersion.value
+    , "-Xlint:unchecked"
+    )
   , resolvers ++= List(
       Resolver.jcenterRepo,
       "kevin-public-releases" at "https://repo.kevinlee.io/repository/kevin-public-releases",
