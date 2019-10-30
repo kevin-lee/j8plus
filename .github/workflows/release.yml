@@ -14,7 +14,6 @@ jobs:
     - uses: actions/checkout@v1
     - name: sbt GitHub Release
       env:
-        CI_BRANCH: ${GITHUB_REF#refs/heads/}
         GITHUB_TOKEN: ${{ secrets.GITHUB_AUTH_TOKEN }}
       run: |
         echo "Run] sbt GitHub release"
@@ -22,7 +21,6 @@ jobs:
         sbt -J-Xmx2048m "; clean; test; packagedArtifacts; gitHubRelease"
     - name: sbt Publish
       env:
-        CI_BRANCH: ${GITHUB_REF#refs/heads/}
         BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
         BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
       run: |
