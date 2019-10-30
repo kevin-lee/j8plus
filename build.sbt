@@ -20,14 +20,13 @@ lazy val j8plus = (project in file("."))
       "-source", javaVersion.value
     , "-encoding", "UTF-8"
     )
-  , javacOptions ++= Seq(
-      "-deprecation"
-    )
-  , javacOptions in Compile ++= Seq(
+  , javacOptions in (Compile, compile) ++= Seq(
       "-target", javaVersion.value
     , "-Xlint:unchecked"
     , "-g"
+    , "-deprecation"
     )
+  , javacOptions in (Compile, test) := (javacOptions in (Compile, compile)).value
   , resolvers ++= List(
       Resolver.jcenterRepo,
       "kevin-public-releases" at "https://repo.kevinlee.io/repository/kevin-public-releases",
