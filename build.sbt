@@ -21,12 +21,12 @@ lazy val j8plus = (project in file("."))
     , "-encoding", "UTF-8"
     )
   , javacOptions ++= Seq(
-      "-g"
-    , "-deprecation"
+      "-deprecation"
     )
   , javacOptions in Compile ++= Seq(
       "-target", javaVersion.value
     , "-Xlint:unchecked"
+    , "-g"
     )
   , resolvers ++= List(
       Resolver.jcenterRepo,
