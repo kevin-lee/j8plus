@@ -59,10 +59,10 @@ public abstract class Either<A, B> implements Serializable {
     }
   }
 
-  private static class Left<A, B> extends Either<A, B> {
+  static final class Left<A, B> extends Either<A, B> {
     final A value;
 
-    public Left(A value) {
+    Left(A value) {
       this.value = value;
     }
 
@@ -143,10 +143,10 @@ public abstract class Either<A, B> implements Serializable {
     }
   }
 
-  private static class Right<A, B> extends Either<A, B> {
+  static final class Right<A, B> extends Either<A, B> {
     final B value;
 
-    public Right(B value) {
+    Right(B value) {
       this.value = value;
     }
 
