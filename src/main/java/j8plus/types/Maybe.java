@@ -1,5 +1,6 @@
 package j8plus.types;
 
+import java.io.Serializable;
 import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Consumer;
@@ -11,7 +12,7 @@ import java.util.function.Supplier;
  * @author Kevin Lee
  * @since 2019-11-13
  */
-public abstract class Maybe<A> {
+public abstract class Maybe<A> implements Serializable {
 
   public abstract boolean isNothing();
   public abstract boolean isJust();
