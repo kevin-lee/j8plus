@@ -66,6 +66,32 @@ public class EitherTest {
   }
 
   @Test
+  public void fromMaybe_JustCase() {
+    final Integer expectedValue = 999;
+    final Maybe<Integer> input = Maybe.just(expectedValue);
+    test("Either.fromMaybe(just)", "Either.fromMaybe(Just(someValue)) should create Right")
+      .when(() ->
+        Either.fromMaybe(input, () -> "Some error")
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(Either.right(expectedValue))
+      );
+  }
+
+  @Test
+  public void fromMaybe_NothingCase() {
+    final String expectedValue =  "Some error";
+    final Maybe<Integer> input = Maybe.nothing();
+    test("Either.fromMaybe(Nothing)", "Either.fromMaybe(Nothing) should create Left")
+      .when(() ->
+        Either.fromMaybe(input, () -> expectedValue)
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(Either.left(expectedValue))
+      );
+  }
+
+  @Test
   public void isLeft_LeftCase() {
     test("Either.isLeft", "Either.isLeft should return true for Left")
       .when(() ->
