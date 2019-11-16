@@ -22,7 +22,7 @@ import java.util.Objects;
  * @version 0.0.1 (2014-06-30)
  */
 @FunctionalInterface
-public interface Runner {
+public interface Runner extends Runnable {
   void run();
 
   /**
