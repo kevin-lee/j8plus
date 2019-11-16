@@ -5,6 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 import static j8plus.types.annoying.AnnoyingFuns.shh;
 
@@ -140,7 +141,7 @@ public class AnnoyingFunsTest {
     final boolean[] actual = {false};
     test("testShhForAnnoyingRunnable (3)", "testShh with a lambda expression for AnnoyingRunnable throwing no exception")
         .when(() ->
-            runSomething(AnnoyingFuns.shh(() -> actual[0] = true))
+            runSomething(AnnoyingFuns.shh(() -> { actual[0] = true; }))
         )
         .then(() ->
             assertThat(actual[0]).isEqualTo(expected)
@@ -187,6 +188,49 @@ public class AnnoyingFunsTest {
         })
         .then(() ->
             assertThat(actual[0]).isEqualTo(expected)
+        );
+  }
+
+
+  private String getWithAnnoyance() throws Exception {
+    throw new Exception("Annoying exception!");
+  }
+
+  private <T> T processSupplier(final Supplier<T> supplier) {
+    return supplier.get();
+  }
+
+  @Test
+  public void testShhForAnnoyingSupplier() throws Exception {
+
+    test("testShhForAnnoyingSupplier", "testShh with a method reference to AnnoyingSupplier throwing checked Exception")
+        .when(() ->
+            processSupplier(shh(this::getWithAnnoyance))
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhForAnnoyingSupplier (2)", "testShh with a lambda expression for AnnoyingSupplier throwing checked Exception")
+        .when(() ->
+            processSupplier(shh(() -> getWithAnnoyance()))
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    final String expected = "Whatever";
+    test("testShhForAnnoyingSupplier (3)", "testShh with a lambda expression for AnnoyingSupplier throwing no exception")
+        .when(() -> {
+          AnnoyingSupplier<String> f = () -> expected;
+          return processSupplier(shh(f));
+        })
+        .then(actual ->
+            assertThat(actual).isEqualTo(expected)
         );
   }
 
