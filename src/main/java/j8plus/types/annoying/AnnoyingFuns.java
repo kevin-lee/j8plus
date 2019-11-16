@@ -20,6 +20,7 @@ import j8plus.types.Runner;
 import java.util.Objects;
 import java.util.function.BiFunction;
 import java.util.function.Function;
+import java.util.function.Supplier;
 
 /**
  * @author Lee, Seong Hyun (Kevin)
@@ -112,4 +113,14 @@ public class AnnoyingFuns {
     };
   }
 
+  public static <T> Supplier<T> shh(final AnnoyingSupplier<T> annoyingSupplier) {
+    Objects.requireNonNull(annoyingSupplier, "The given AnnoyingSupplier cannot be null.");
+    return () -> {
+      try {
+        return annoyingSupplier.get();
+      } catch (Exception e) {
+        throw new RuntimeException(e);
+      }
+    };
+  }
 }
