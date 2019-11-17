@@ -3,10 +3,7 @@ package j8plus.types.annoying;
 import j8plus.types.Runner;
 import org.junit.jupiter.api.Test;
 
-import java.util.function.BiFunction;
-import java.util.function.Consumer;
-import java.util.function.Function;
-import java.util.function.Supplier;
+import java.util.function.*;
 
 import static j8plus.types.annoying.AnnoyingFuns.*;
 
@@ -273,10 +270,109 @@ public class AnnoyingFunsTest {
     test("testShhForAnnoyingConsumer (3)", "testShh with a lambda expression for AnnoyingConsumer throwing no exception")
         .when(() -> {
           final AnnoyingConsumer<String> f = x -> { valueAfterConsumer[0] = x; };
-          processConsumer(consumer.shh(f), expected);
+          this.processConsumer(consumer.shh(f), expected);
         })
         .then(() ->
             assertThat(valueAfterConsumer[0]).isEqualTo(expected)
+        );
+  }
+
+
+  private <T> boolean checkWithAnnoyance(final T t) throws Exception {
+    throw new Exception("Annoying exception!");
+  }
+
+  private <T> boolean processPredicate(final Predicate<T> predicate, T value) {
+    return predicate.test(value);
+  }
+
+  private <T, U> boolean checkWithAnnoyance2(final T t, U u) throws Exception {
+    throw new Exception("Annoying exception!");
+  }
+
+  private <T, U> boolean processPredicate2(final BiPredicate<T, U> biPredicate, T value1, U value2) {
+    return biPredicate.test(value1, value2);
+  }
+
+  @Test
+  public void testShhForAnnoyingPredicate() throws Exception {
+
+    test("testShhForAnnoyingPredicate", "testShh with a method reference to AnnoyingPredicate throwing checked Exception")
+        .when(() ->
+          processPredicate(predicate.shh(this::checkWithAnnoyance), null)
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhAnnoyingPredicate (2)", "testShh with a lambda expression for AnnoyingPredicate throwing checked Exception")
+        .when(() ->
+          this.processPredicate(predicate.shh(t -> checkWithAnnoyance(t)), null)
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhAnnoyingPredicate (3)", "testShh with a lambda expression for AnnoyingConsumer throwing no exception")
+        .when(() -> {
+          final AnnoyingPredicate<Integer> f = x -> x > 0;
+          return this.processPredicate(predicate.shh(f), 1);
+        })
+        .then(actual ->
+            assertThat(actual).isTrue()
+        );
+
+    test("testShhAnnoyingPredicate (4)", "testShh with a lambda expression for AnnoyingConsumer throwing no exception")
+        .when(() -> {
+          return this.processPredicate(predicate.shh(x -> x > 0), 0);
+        })
+        .then(actual ->
+            assertThat(actual).isFalse()
+        );
+  }
+
+  @Test
+  public void testShhForAnnoyingBiPredicate() throws Exception {
+
+    test("testShhForAnnoyingBiPredicate", "testShh with a method reference to AnnoyingBiPredicate throwing checked Exception")
+        .when(() ->
+          processPredicate2(predicate.shh(this::checkWithAnnoyance2), null, null)
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhAnnoyingBiPredicate (2)", "testShh with a lambda expression for AnnoyingBiPredicate throwing checked Exception")
+        .when(() ->
+          this.processPredicate2(predicate.shh((t, u) -> checkWithAnnoyance2(t, u)), null, null)
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhAnnoyingBiPredicate (3)", "testShh with a lambda expression for AnnoyingBiPredicate throwing no exception")
+        .when(() -> {
+          final AnnoyingBiPredicate<Integer, Integer> f = (x, y) -> x.intValue() == y.intValue();
+          return this.processPredicate2(predicate.shh(f), 1, 1);
+        })
+        .then(actual ->
+            assertThat(actual).isTrue()
+        );
+
+    test("testShhAnnoyingBiPredicate (4)", "testShh with a lambda expression for AnnoyingBiPredicate throwing no exception")
+        .when(() -> {
+          return this.processPredicate2(predicate.shh((x, y) -> x.intValue() == y.intValue()), 0, 1);
+        })
+        .then(actual ->
+            assertThat(actual).isFalse()
         );
   }
 
