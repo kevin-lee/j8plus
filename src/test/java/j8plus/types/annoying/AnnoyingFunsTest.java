@@ -4,10 +4,11 @@ import j8plus.types.Runner;
 import org.junit.jupiter.api.Test;
 
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
-import static j8plus.types.annoying.AnnoyingFuns.shh;
+import static j8plus.types.annoying.AnnoyingFuns.*;
 
 import static kevinlee.testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
@@ -231,6 +232,51 @@ public class AnnoyingFunsTest {
         })
         .then(actual ->
             assertThat(actual).isEqualTo(expected)
+        );
+  }
+
+
+  private <T> void runWithAnnoyance(final T t) throws Exception {
+    throw new Exception("Annoying exception!");
+  }
+
+  private <T> void processConsumer(final Consumer<T> consumer, T value) {
+    consumer.accept(value);
+  }
+
+
+  @Test
+  public void testShhForAnnoyingConsumer() throws Exception {
+
+    test("testShhForAnnoyingConsumer", "testShh with a method reference to AnnoyingConsumer throwing checked Exception")
+        .when(() ->
+          processConsumer(consumer.shh(this::runWithAnnoyance), null)
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    test("testShhForAnnoyingConsumer (2)", "testShh with a lambda expression for AnnoyingConsumer throwing checked Exception")
+        .when(() ->
+          this.processConsumer(consumer.shh(t -> runWithAnnoyance(t)), null)
+        )
+        .expect(
+            throwing(RuntimeException.class)
+                .causedBy(Exception.class)
+                .hasMessage("Annoying exception!")
+        );
+
+    final String expected = "Whatever";
+    final String[] valueAfterConsumer = new String[1];
+    test("testShhForAnnoyingConsumer (3)", "testShh with a lambda expression for AnnoyingConsumer throwing no exception")
+        .when(() -> {
+          final AnnoyingConsumer<String> f = x -> { valueAfterConsumer[0] = x; };
+          processConsumer(consumer.shh(f), expected);
+        })
+        .then(() ->
+            assertThat(valueAfterConsumer[0]).isEqualTo(expected)
         );
   }
 
