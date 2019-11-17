@@ -1,7 +1,7 @@
 package j8plus.types.annoying;
 
 /**
- * This is a FunctionalInterface to handle () -> void case
+ * This is a FunctionalInterface to handle () -&gt; void case
  * which may or may not throw a checked exception.
  *
  * @author Kevin Lee
