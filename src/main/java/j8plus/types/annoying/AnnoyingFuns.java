@@ -19,6 +19,7 @@ import j8plus.types.Runner;
 
 import java.util.Objects;
 import java.util.function.BiFunction;
+import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Supplier;
 
@@ -123,4 +124,20 @@ public class AnnoyingFuns {
       }
     };
   }
+
+  public static class consumer {
+
+    public static <T> Consumer<T> shh(final AnnoyingConsumer<T> annoyingConsumer) {
+      Objects.requireNonNull(annoyingConsumer, "The given AnnoyingConsumer cannot be null.");
+      return input -> {
+        try {
+          annoyingConsumer.accept(input);
+        } catch (Exception e) {
+          throw new RuntimeException(e);
+        }
+      };
+    }
+
+  }
+
 }
