@@ -114,9 +114,9 @@ Please check out [J8+ Wiki](https://github.com/Kevin-Lee/j8plus/wiki) (work in p
   ...
 
   <dependency>
-    <groupId>cc.kevinlee</groupId>
+    <groupId>io.kevinlee</groupId>
     <artifactId>j8plus</artifactId>
-    <version>0.0.15</version>
+    <version>0.1.0</version>
   </dependency>
 
   ...
@@ -147,10 +147,10 @@ repositories {
 * Add Dependency
 
 ```gradle
-compile group: 'cc.kevinlee', name: 'j8plus', version: '0.0.15'
+compile group: 'io.kevinlee', name: 'j8plus', version: '0.1.0'
 ```
   OR
 
 ```gradle
-compile "cc.kevinlee:testosterone:0.0.15"
+compile "io.kevinlee:testosterone:0.1.0"
 ```

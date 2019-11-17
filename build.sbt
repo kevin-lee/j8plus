@@ -1,23 +1,15 @@
-val ProjectVersion = "0.0.15"
+import ProjectInfo._
 
 val testosteroneVersion = "0.0.7"
 val junitJupiterVersion = "5.5.0"
 
-
 ThisBuild / scalaVersion := "2.13.1"
 ThisBuild / version      := ProjectVersion
 ThisBuild / organization := "io.kevinlee"
-ThisBuild / developers   := List(
-    Developer(
-      "Kevin-Lee", "Kevin Lee"
-    , "kevin.code@kevinlee.io"
-    , url("https://github.com/Kevin-Lee")
-    ))
-ThisBuild / homepage := Some(url("https://github.com/Kevin-Lee/j8plus"))
-ThisBuild / scmInfo := Some(ScmInfo(
-      url("https://github.com/Kevin-Lee/j8plus")
-    , "git@github.com:Kevin-Lee/j8plus.git"
-    ))
+
+ThisBuild / developers   := projectDevelopers
+ThisBuild / homepage     := projectHomePage
+ThisBuild / scmInfo      := projectScmInfo
 
 lazy val j8plus = (project in file("."))
   .enablePlugins(DevOopsJavaPlugin)
