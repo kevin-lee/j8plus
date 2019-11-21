@@ -4,6 +4,7 @@
 [![Release Status](https://github.com/Kevin-Lee/j8plus/workflows/Release/badge.svg)](https://github.com/Kevin-Lee/j8plus/actions?workflow=Release) [![Coverage Status](https://coveralls.io/repos/Kevin-Lee/j8plus/badge.svg)](https://coveralls.io/r/Kevin-Lee/j8plus)
 
 [![Download](https://api.bintray.com/packages/kevinlee/maven/j8plus/images/download.svg) ](https://bintray.com/kevinlee/maven/j8plus/_latestVersion)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.kevinlee/j8plus/badge.svg)](https://search.maven.org/artifact/io.kevinlee/j8plus)
 
 
 ## Why J8+?
@@ -88,26 +89,6 @@ Please check out [J8+ Wiki](https://github.com/Kevin-Lee/j8plus/wiki) (work in p
 # Get J8+
 
 ### Maven
-* Add maven repository
-
-```xml
-<repositories>
-  ...
-
-  <repository>
-    <snapshots>
-      <enabled>false</enabled>
-    </snapshots>
-    <id>bintray-kevinlee-maven</id>
-    <name>bintray</name>
-    <url>http://dl.bintray.com/kevinlee/maven</url>
-  </repository>
-
-  ...
-</repositories>
-```
-
-* Add dependency
 
 ```xml
 <dependencies>
@@ -124,26 +105,6 @@ Please check out [J8+ Wiki](https://github.com/Kevin-Lee/j8plus/wiki) (work in p
 ```
 
 ### Gradle
-* Add maven repository
-
-  In `build.gradle`, add the following repository to `repositories`.
-
-```gradle
-maven {
-  url  "http://dl.bintray.com/kevinlee/maven"
-}
-```
-  e.g.)
-
-```gradle
-repositories {
-  mavenCentral()
-  maven {
-    url  "http://dl.bintray.com/kevinlee/maven"
-  }
-}
-```
-
 * Add Dependency
 
 ```gradle
