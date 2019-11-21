@@ -51,18 +51,6 @@ lazy val j8plus = (project in file("."))
   , publishMavenStyle := true
   , publishArtifact in Test := false
   , pomIncludeRepository := { _ => false }
-  , pomExtra := (
-      <url>https://github.com/Kevin-Lee/j8plus</url>
-        <licenses>
-          <license>
-            <name>The Apache License</name>
-            <url>https://github.com/Kevin-Lee/j8plus/blob/master/LICENSE</url>
-          </license>
-        </licenses>
-        <scm>
-          <url>git@github.com:Kevin-Lee/j8plus.git</url>
-          <connection>scm:git:git@github.com:Kevin-Lee/j8plus.git</connection>
-        </scm>)
   , licenses += ("Apache-2.0", url("https://opensource.org/licenses/apache2.0"))
   , jacocoReportSettings := JacocoReportSettings(
       "Jacoco Coverage Report"
