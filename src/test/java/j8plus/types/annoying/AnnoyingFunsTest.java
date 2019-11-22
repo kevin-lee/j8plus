@@ -7,7 +7,7 @@ import java.util.function.*;
 
 import static j8plus.types.annoying.AnnoyingFuns.*;
 
-import static kevinlee.testosterone.Testosterone.*;
+import static testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
 
 /**

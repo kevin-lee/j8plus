@@ -1,6 +1,6 @@
 package j8plus;
 
-import static kevinlee.testosterone.Testosterone.*;
+import static testosterone.Testosterone.*;
 import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigInteger;

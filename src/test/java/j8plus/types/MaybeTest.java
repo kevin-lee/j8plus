@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 import java.util.Objects;
 import java.util.Optional;
 
-import static kevinlee.testosterone.Testosterone.test;
+import static testosterone.Testosterone.test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

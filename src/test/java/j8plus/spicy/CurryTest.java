@@ -11,7 +11,7 @@ import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import static kevinlee.testosterone.Testosterone.*;
+import static testosterone.Testosterone.*;
 
 import static org.assertj.core.api.Assertions.*;
 

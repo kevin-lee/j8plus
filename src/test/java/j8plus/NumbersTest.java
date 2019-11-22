@@ -1,7 +1,7 @@
 package j8plus;
 
-import static kevinlee.testosterone.Testosterone.test;
-import static kevinlee.testosterone.Testosterone.throwing;
+import static testosterone.Testosterone.test;
+import static testosterone.Testosterone.throwing;
 import static org.assertj.core.api.Assertions.*;
 
 import java.math.BigDecimal;

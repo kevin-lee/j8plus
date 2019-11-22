@@ -7,7 +7,7 @@ import java.util.Arrays;
 import static java.util.stream.Collectors.toList;
 
 import static org.assertj.core.api.Assertions.*;
-import static kevinlee.testosterone.Testosterone.*;
+import static testosterone.Testosterone.*;
 
 /**
  * @author Lee, Seong Hyun (Kevin)

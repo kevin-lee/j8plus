@@ -1,6 +1,6 @@
 package j8plus;
 
-import static kevinlee.testosterone.Testosterone.*;
+import static testosterone.Testosterone.*;
 import static java.util.stream.Collectors.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
