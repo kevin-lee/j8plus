@@ -6,7 +6,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-import static kevinlee.testosterone.Testosterone.test;
+import static testosterone.Testosterone.test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 /**

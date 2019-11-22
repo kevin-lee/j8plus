@@ -1,6 +1,6 @@
 import ProjectInfo._
 
-val testosteroneVersion = "0.0.7"
+val testosteroneVersion = "0.1.0"
 val junitJupiterVersion = "5.5.0"
 
 ThisBuild / scalaVersion := "2.13.1"
@@ -32,12 +32,11 @@ lazy val j8plus = (project in file("."))
       Resolver.jcenterRepo
     , "kevin-public-releases" at "https://repo.kevinlee.io/repository/kevin-public-releases"
     , "kevin-public-snapshots" at "https://repo.kevinlee.io/repository/kevin-public-snapshots"
-    , "kevin-bintray" at "https://dl.bintray.com/kevinlee/maven"
     )
   , libraryDependencies ++= List(
       "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test
     , "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
-    , "kevinlee" % "test0ster1" % s"${testosteroneVersion}" % Test
+    , "io.kevinlee" % "test0ster1" % testosteroneVersion % Test
     , "org.assertj" % "assertj-core" % "3.12.2" % Test
     , "org.mockito" % "mockito-core" % "3.0.0" % Test
     , "org.elixirian" % "kommonlee-test" % "0.0.18-SNAPSHOT" % Test

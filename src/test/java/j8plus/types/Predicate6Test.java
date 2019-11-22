@@ -1,9 +1,9 @@
 package j8plus.types;
 
-import kevinlee.testosterone.Testosterone;
+import testosterone.Testosterone;
 import org.junit.jupiter.api.Test;
 
-import static kevinlee.testosterone.Testosterone.test;
+import static testosterone.Testosterone.test;
 import static org.assertj.core.api.Assertions.assertThat;
 
 

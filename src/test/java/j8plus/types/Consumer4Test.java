@@ -6,7 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import static j8plus.types.TypesUtil.ContainerStoringOnlyOnce.containerStoringOnlyOnce;
-import static kevinlee.testosterone.Testosterone.test;
+import static testosterone.Testosterone.test;
 import static java.util.stream.Collectors.joining;
 import static org.assertj.core.api.Assertions.assertThat;
 
