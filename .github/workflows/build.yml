@@ -13,7 +13,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.cache/coursier
-          key: ${{ runner.os }}-coursier-${{ hashFiles('**/*.sbt') }}
+          key: ${{ runner.os }}-coursier-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
           restore-keys: |
             ${{ runner.os }}-coursier-
 
@@ -21,7 +21,7 @@ jobs:
         uses: actions/cache@v1
         with:
           path: ~/.ivy2/cache
-          key: ${{ runner.os }}-ivy-${{ hashFiles('**/*.sbt') }}
+          key: ${{ runner.os }}-ivy-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
           restore-keys: |
             ${{ runner.os }}-ivy-
 
