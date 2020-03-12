@@ -2,7 +2,7 @@ logLevel := Level.Warn
 
 addSbtPlugin("org.foundweekends" % "sbt-bintray" % "0.5.5")
 
-addSbtPlugin("io.kevinlee" % "sbt-devoops" % "1.0.2")
+addSbtPlugin("io.kevinlee" % "sbt-devoops" % "1.0.3")
 
 resolvers += Resolver.url("Kevin's bintray", url("https://dl.bintray.com/kevinlee/sbt-plugins"))(Resolver.ivyStylePatterns)
 
