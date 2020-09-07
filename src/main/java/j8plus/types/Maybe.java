@@ -24,7 +24,7 @@ public abstract class Maybe<A> implements Serializable {
 
   public abstract Maybe<A> filter(Predicate<? super A> p);
 
-  public abstract <B> B fold(Function<? super A, B> justCase, Supplier<B> nothingCase);
+  public abstract <B> B fold(Supplier<B> nothingCase, Function<? super A, B> justCase);
 
   public abstract void forEach(Consumer<? super A> f);
 
@@ -70,7 +70,7 @@ public abstract class Maybe<A> implements Serializable {
     }
 
     @Override
-    public <B> B fold(final Function<? super Object, B> justCase, final Supplier<B> nothingCase) {
+    public <B> B fold(final Supplier<B> nothingCase, final Function<? super Object, B> justCase) {
       return nothingCase.get();
     }
 
@@ -143,7 +143,7 @@ public abstract class Maybe<A> implements Serializable {
     }
 
     @Override
-    public <B> B fold(final Function<? super A, B> justCase, final Supplier<B> nothingCase) {
+    public <B> B fold(final Supplier<B> nothingCase, final Function<? super A, B> justCase) {
       return justCase.apply(value);
     }
 
