@@ -3,7 +3,7 @@ import ProjectInfo._
 val testosteroneVersion = "0.1.0"
 val junitJupiterVersion = "5.5.0"
 
-ThisBuild / scalaVersion := "2.13.1"
+ThisBuild / scalaVersion := "2.13.3"
 ThisBuild / version      := ProjectVersion
 ThisBuild / organization := "io.kevinlee"
 
