@@ -1,7 +1,7 @@
 import ProjectInfo._
 
 val testosteroneVersion = "0.1.0"
-val junitJupiterVersion = "5.5.0"
+val junitJupiterVersion = "5.6.2"
 
 ThisBuild / scalaVersion := "2.13.3"
 ThisBuild / version      := ProjectVersion
@@ -37,8 +37,8 @@ lazy val j8plus = (project in file("."))
       "org.junit.jupiter" % "junit-jupiter" % junitJupiterVersion % Test
     , "net.aichler" % "jupiter-interface" % JupiterKeys.jupiterVersion.value % Test
     , "io.kevinlee" % "test0ster1" % testosteroneVersion % Test
-    , "org.assertj" % "assertj-core" % "3.12.2" % Test
-    , "org.mockito" % "mockito-core" % "3.0.0" % Test
+    , "org.assertj" % "assertj-core" % "3.17.2" % Test
+    , "org.mockito" % "mockito-core" % "3.5.10" % Test
     , "org.elixirian" % "kommonlee-test" % "0.0.18-SNAPSHOT" % Test
     )
   , testOptions += Tests.Argument(TestFrameworks.JUnit, "-a")
