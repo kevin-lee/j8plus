@@ -13,7 +13,7 @@ else
   echo "Build projects"
   echo "--------------------------------------------"
   echo ""
-  if [[ "$CI_BRANCH" == "master" || "$CI_BRANCH" == "release" ]]
+  if [[ "$CI_BRANCH" == "main" || "$CI_BRANCH" == "release" ]]
   then
     sbt -d -J-Xmx2048m "; ++ ${SCALA_VERSION}!; clean; jacoco"
     sbt -d -J-Xmx2048m "; ++ ${SCALA_VERSION}!; packagedArtifacts"
