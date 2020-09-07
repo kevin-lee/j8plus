@@ -63,7 +63,7 @@ public abstract class Either<A, B> implements Serializable {
     final Maybe<? extends B> maybe
   , final Supplier<? extends A> ifNone
   ) {
-    return maybe.fold(Either::right, () -> Either.left(ifNone.get()));
+    return maybe.fold(() -> Either.left(ifNone.get()), Either::right);
   }
 
   static final class Left<A, B> extends Either<A, B> {

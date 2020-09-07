@@ -492,7 +492,7 @@ public class MaybeTest {
         assertThat(actual.isNothing()).isTrue()
       )
       .then(actual ->
-        assertThat(actual.fold(i -> String.valueOf(i), () -> expectedValue)).isEqualTo(expectedValue)
+        assertThat(actual.fold(() -> expectedValue, i -> String.valueOf(i))).isEqualTo(expectedValue)
       );
   }
 
@@ -509,7 +509,7 @@ public class MaybeTest {
         assertThat(actual.isJust()).isTrue()
       )
       .then(actual ->
-        assertThat(actual.fold(i -> String.valueOf(i + additional), () -> "Nothing")).isEqualTo(expectedValue)
+        assertThat(actual.fold(() -> "Nothing", i -> String.valueOf(i + additional))).isEqualTo(expectedValue)
       );
 
   }
