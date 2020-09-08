@@ -34,6 +34,10 @@ public abstract class Maybe<A> implements Serializable {
 
   public abstract Optional<A> toOptional();
 
+  public <B> Either<B, A> toEither(Supplier<B> leftValue) {
+    return Either.fromMaybe(this, leftValue);
+  }
+
   static final class Nothing extends Maybe<Object> {
     @Override
     public boolean isNothing() {
