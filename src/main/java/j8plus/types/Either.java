@@ -36,6 +36,8 @@ public abstract class Either<A, B> implements Serializable {
 
   public abstract void forEach(Consumer<? super B> f);
 
+  public abstract Optional<B> toOptional();
+
   public static <A, B> Either<A, B> left(final A value) {
     @SuppressWarnings("unchecked")
     final Either<A, B> left = new Left(value);
@@ -132,6 +134,11 @@ public abstract class Either<A, B> implements Serializable {
     }
 
     @Override
+    public Optional<B> toOptional() {
+      return Optional.empty();
+    }
+
+    @Override
     public boolean equals(final Object o) {
       if (this == o) return true;
       if (!(o instanceof Left)) return false;
@@ -212,6 +219,11 @@ public abstract class Either<A, B> implements Serializable {
     @Override
     public void forEach(final Consumer<? super B> f) {
       f.accept(this.value);
+    }
+
+    @Override
+    public Optional<B> toOptional() {
+      return Optional.ofNullable(value);
     }
 
     @Override
