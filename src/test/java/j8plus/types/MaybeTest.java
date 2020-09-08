@@ -457,6 +457,43 @@ public class MaybeTest {
   }
 
   @Test
+  public void toEither_NothingCase() {
+    final String leftValue = "Some Error";
+    final Either<String, Integer> expected = Either.left(leftValue);
+
+    test(
+      "Maybe.nothing().toEither(leftValue)",
+      "Maybe.nothing().toEither(leftValue) should return Left(leftValue)"
+    )
+      .when(() ->
+        Maybe.<Integer> nothing()
+          .toEither(() -> leftValue)
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toEither_JustCase() {
+    final Integer input = 1;
+    final String leftValue = "Some Error";
+    final Either<String, Integer> expected = Either.right(input);
+
+    test(
+        "Maybe.just(original).toEither(leftValue)",
+        "Maybe.just(original).toEither(leftValue) should return Either.right(original)"
+      )
+      .when(() ->
+        Maybe.just(input)
+          .toEither(() -> leftValue)
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
   public void filter_NothingCase() {
     test("Maybe.nothing.filter", "Maybe.nothing.filter should return Nothing itself")
       .when(() ->
