@@ -30,6 +30,8 @@ public abstract class Maybe<A> implements Serializable {
 
   public abstract Maybe<A> orElse(Supplier<Maybe<A>> alternative);
 
+  public abstract Optional<A> toOptional();
+
   public abstract A getOrElse(Supplier<A> alternativeValue);
 
   static final class Nothing extends Maybe<Object> {
@@ -86,6 +88,11 @@ public abstract class Maybe<A> implements Serializable {
     @Override
     public Object getOrElse(final Supplier<Object> alternativeValue) {
       return alternativeValue.get();
+    }
+
+    @Override
+    public Optional<Object> toOptional() {
+      return Optional.empty();
     }
 
     @Override
@@ -160,6 +167,11 @@ public abstract class Maybe<A> implements Serializable {
     @Override
     public A getOrElse(final Supplier<A> alternativeValue) {
       return this.value;
+    }
+
+    @Override
+    public Optional<A> toOptional() {
+      return Optional.ofNullable(value);
     }
 
     @Override
