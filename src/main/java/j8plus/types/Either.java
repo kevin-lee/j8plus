@@ -38,6 +38,10 @@ public abstract class Either<A, B> implements Serializable {
 
   public abstract Optional<B> toOptional();
 
+  public Maybe<B> toMaybe() {
+    return Maybe.fromEither(this);
+  }
+
   public static <A, B> Either<A, B> left(final A value) {
     @SuppressWarnings("unchecked")
     final Either<A, B> left = new Left(value);
