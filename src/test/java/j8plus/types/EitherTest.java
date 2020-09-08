@@ -394,6 +394,40 @@ public class EitherTest {
   }
 
   @Test
+  public void toMaybe_LeftCase() {
+    final String leftValue = "Some Error";
+    final Maybe<Integer> expected = Maybe.nothing();
+    test(
+      "Either.left().toMaybe()",
+      "Either.left().toMaybe() should return Maybe.nothing()"
+    )
+      .when(() ->
+        Either.<String, Integer>left(leftValue)
+          .toMaybe()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toMaybe_RighttCase() {
+    final Integer rightValue = 1;
+    final Maybe<Integer> expected = Maybe.just(rightValue);
+    test(
+        "Either.right(rightValue).toMaybe()",
+        "Either.right(rightValue).toMaybe() should return Just(rightValue)"
+      )
+      .when(() ->
+        Either.<String, Integer>right(rightValue)
+          .toMaybe()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
   public void hashCode_LeftCase() {
     final String input = "Some error";
     final int expected = Objects.hashCode(input);
