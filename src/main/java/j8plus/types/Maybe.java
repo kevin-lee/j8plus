@@ -30,9 +30,9 @@ public abstract class Maybe<A> implements Serializable {
 
   public abstract Maybe<A> orElse(Supplier<Maybe<A>> alternative);
 
-  public abstract Optional<A> toOptional();
-
   public abstract A getOrElse(Supplier<A> alternativeValue);
+
+  public abstract Optional<A> toOptional();
 
   static final class Nothing extends Maybe<Object> {
     @Override
