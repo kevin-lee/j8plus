@@ -422,6 +422,41 @@ public class MaybeTest {
   }
 
   @Test
+  public void toOptional_NothingCase() {
+    final Optional<Integer> expected = Optional.empty();
+
+    test(
+      "Maybe.nothing().toOptional()",
+      "Maybe.nothing().toOptional() should return Optional.empty()"
+    )
+      .when(() ->
+        Maybe.nothing()
+          .toOptional()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toOptional_JustCase() {
+    final Integer input = 1;
+    final Optional<Integer> expected = Optional.ofNullable(input);
+
+    test(
+        "Maybe.just(original).toOptional()",
+        "Maybe.just(original).toOptional() should return Optional.ofNullable(original)"
+      )
+      .when(() ->
+        Maybe.just(input)
+          .toOptional()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
   public void filter_NothingCase() {
     test("Maybe.nothing.filter", "Maybe.nothing.filter should return Nothing itself")
       .when(() ->
