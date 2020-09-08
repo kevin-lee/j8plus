@@ -360,6 +360,40 @@ public class EitherTest {
   }
 
   @Test
+  public void toOptional_LeftCase() {
+    final String leftValue = "Some Error";
+    final Optional<Integer> expected = Optional.empty();
+    test(
+      "Either.left().toOptional()",
+      "Either.left().toOptional() should return Optional.empty()"
+    )
+      .when(() ->
+        Either.<String, Integer>left(leftValue)
+          .toOptional()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toOptional_RighttCase() {
+    final Integer rightValue = 1;
+    final Optional<Integer> expected = Optional.ofNullable(rightValue);
+    test(
+        "Either.right(rightValue).toOptional()",
+        "Either.right(rightValue).toOptional() should return Optional(rightValue)"
+      )
+      .when(() ->
+        Either.<String, Integer>right(rightValue)
+          .toOptional()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
   public void hashCode_LeftCase() {
     final String input = "Some error";
     final int expected = Objects.hashCode(input);
