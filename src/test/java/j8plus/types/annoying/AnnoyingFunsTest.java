@@ -420,4 +420,37 @@ public class AnnoyingFunsTest {
       );
   }
 
+  @Test
+  public void testRunOrRethrowCauseForAnnoyingFunction() throws Exception {
+
+    test("test runOrRethrowCauseForAnnoyingFunction", "test runOrRethrowCause with a lambda expression throwing checked Exception and ssh applied")
+      .when(() ->
+        AnnoyingFuns.runOrRethrowCause(MyException.class, AnnoyingFuns.shh((AnnoyingRunner) this::doItThrowingMyException))
+      )
+      .expect(
+        throwing(MyException.class)
+          .hasMessage("This is MyException!")
+      );
+
+    test("test runOrRethrowCauseForAnnoyingFunction (2)", "test runOrRethrowCause with a lambda expression throwing checked Exception but it's not the expected one")
+      .when(() ->
+        AnnoyingFuns.runOrRethrowCause(MyException.class, () -> doSomething(AnnoyingFuns.shh(x -> doItWithAnnoyance(x))))
+      )
+      .expect(
+        throwing(RuntimeException.class)
+          .causedBy(Exception.class)
+          .hasMessage("Annoying exception!")
+      );
+
+    final String expected = "OK";
+    final AnnoyingFunction<Object, String> functionWithoutThrowingException = (x) -> expected;
+    test("test runOrRethrowCauseForAnnoyingFunction (3)", "test runOrRethrowCause with a lambda expression throwing no exception")
+      .when(() ->
+        AnnoyingFuns.runOrRethrowCause(MyException.class, () -> doSomething(AnnoyingFuns.shh(functionWithoutThrowingException)))
+      )
+      .then(() ->
+        assertThat(true).isTrue()
+      );
+  }
+
 }

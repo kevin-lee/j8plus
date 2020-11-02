@@ -234,4 +234,21 @@ public class AnnoyingFuns {
     }
   }
 
+  public static <EX extends Throwable> void runOrRethrowCause(
+    final Class<EX> expectedCause, final Runner runner
+  ) throws EX {
+    try {
+      runner.run();
+    } catch (final Throwable throwable) {
+      final Throwable cause = throwable.getCause();
+      if (expectedCause.isAssignableFrom(cause.getClass())) {
+        @SuppressWarnings("unchecked")
+        final EX causeEx = (EX) cause;
+        throw causeEx;
+      } else {
+        throw throwable;
+      }
+    }
+  }
+
 }
