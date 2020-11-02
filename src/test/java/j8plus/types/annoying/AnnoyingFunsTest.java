@@ -16,6 +16,16 @@ import static org.assertj.core.api.Assertions.*;
  */
 public class AnnoyingFunsTest {
 
+  public static class MyException extends Exception {
+    public MyException(final String message) {
+      super(message);
+    }
+  }
+
+  private <T> T doItThrowingMyException() throws Exception {
+    throw new MyException("This is MyException!");
+  }
+
   private <E, T> T doItWithAnnoyance(E whatEver) throws Exception {
     throw new Exception("Annoying exception!");
   }
@@ -374,6 +384,40 @@ public class AnnoyingFunsTest {
         .then(actual ->
             assertThat(actual).isFalse()
         );
+  }
+
+
+  @Test
+  public void testGetOrRethrowCauseForAnnoyingFunction() throws Exception {
+
+    test("test getOrRethrowCauseForAnnoyingFunction", "test getOrRethrowCause with a lambda expression throwing checked Exception and ssh applied")
+      .when(() ->
+        AnnoyingFuns.getOrRethrowCause(MyException.class, AnnoyingFuns.shh((AnnoyingSupplier<Integer>) this::doItThrowingMyException))
+      )
+      .expect(
+        throwing(MyException.class)
+          .hasMessage("This is MyException!")
+      );
+
+    test("test getOrRethrowCauseForAnnoyingFunction (2)", "test getOrRethrowCause with a lambda expression throwing checked Exception but it's not the expected one")
+      .when(() ->
+        AnnoyingFuns.getOrRethrowCause(MyException.class, () -> doSomething(AnnoyingFuns.shh(x -> doItWithAnnoyance(x))))
+      )
+      .expect(
+        throwing(RuntimeException.class)
+          .causedBy(Exception.class)
+          .hasMessage("Annoying exception!")
+      );
+
+    final String expected = "OK";
+    final AnnoyingFunction<Object, String> functionWithoutThrowingException = (x) -> expected;
+    test("test getOrRethrowCauseForAnnoyingFunction (3)", "test getOrRethrowCause with a lambda expression throwing no exception")
+      .when(() ->
+        AnnoyingFuns.getOrRethrowCause(MyException.class, () -> doSomething(AnnoyingFuns.shh(functionWithoutThrowingException)))
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
   }
 
 }
