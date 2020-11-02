@@ -217,4 +217,21 @@ public class AnnoyingFuns {
     }
   }
 
+  public static <T, EX extends Throwable> T getOrRethrowCause(
+    final Class<EX> expectedCause, final Supplier<T> supplier
+  ) throws EX {
+    try {
+      return supplier.get();
+    } catch (final Throwable throwable) {
+      final Throwable cause = throwable.getCause();
+      if (expectedCause.isAssignableFrom(cause.getClass())) {
+        @SuppressWarnings("unchecked")
+        final EX causeEx = (EX) cause;
+        throw causeEx;
+      } else {
+        throw throwable;
+      }
+    }
+  }
+
 }
