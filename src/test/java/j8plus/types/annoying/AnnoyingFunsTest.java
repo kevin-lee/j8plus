@@ -453,4 +453,55 @@ public class AnnoyingFunsTest {
       );
   }
 
+  @Test
+  public void testGetOrRethrowCauseWithPredicateForAnnoyingFunction() throws Exception {
+
+    test(
+      "test getOrRethrowCauseWithPredicateForAnnoyingFunction",
+      "test getOrRethrowCause with a Predicate and a lambda expression throwing checked Exception and ssh applied"
+    )
+      .when(() ->
+        AnnoyingFuns.getOrRethrowCause(
+          throwable -> throwable instanceof MyException,
+          AnnoyingFuns.shh((AnnoyingSupplier<Integer>) this::doItThrowingMyException)
+        )
+      )
+      .expect(
+        throwing(MyException.class)
+          .hasMessage("This is MyException!")
+      );
+
+    test(
+      "test getOrRethrowCauseWithPredicateForAnnoyingFunction (2)",
+      "test getOrRethrowCause with a Predicate and a lambda expression throwing checked Exception but it's not the expected one"
+    )
+      .when(() ->
+        AnnoyingFuns.getOrRethrowCause(
+          throwable -> throwable instanceof MyException,
+          () -> doSomething(AnnoyingFuns.shh(x -> doItWithAnnoyance(x)))
+        )
+      )
+      .expect(
+        throwing(RuntimeException.class)
+          .causedBy(Exception.class)
+          .hasMessage("Annoying exception!")
+      );
+
+    final String expected = "OK";
+    final AnnoyingFunction<Object, String> functionWithoutThrowingException = (x) -> expected;
+    test(
+      "test getOrRethrowCauseWithPredicateForAnnoyingFunction (3)",
+      "test getOrRethrowCause with a Predicate and a lambda expression throwing no exception"
+    )
+      .when(() ->
+        AnnoyingFuns.getOrRethrowCause(
+          throwable -> throwable instanceof MyException,
+          () -> doSomething(AnnoyingFuns.shh(functionWithoutThrowingException))
+        )
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
 }
