@@ -234,6 +234,21 @@ public class AnnoyingFuns {
     }
   }
 
+  public static <T> T getOrRethrowCause(
+    final Predicate<Throwable> rethrowableCause, final Supplier<T> supplier
+  ) throws Throwable {
+    try {
+      return supplier.get();
+    } catch (final Throwable throwable) {
+      final Throwable cause = throwable.getCause();
+      if (rethrowableCause.test(cause)) {
+        throw cause;
+      } else {
+        throw throwable;
+      }
+    }
+  }
+
   public static <EX extends Throwable> void runOrRethrowCause(
     final Class<EX> expectedCause, final Runner runner
   ) throws EX {

@@ -1,6 +1,6 @@
 import ProjectInfo._
 
-val testosteroneVersion = "0.1.0"
+val testosteroneVersion = "0.2.0"
 val junitJupiterVersion = "5.6.2"
 
 ThisBuild / scalaVersion := "2.13.3"
