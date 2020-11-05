@@ -234,6 +234,23 @@ public class AnnoyingFuns {
     }
   }
 
+  public static <EX extends Throwable> void runOrRethrowCause(
+    final Class<EX> expectedCause, final Runner runner
+  ) throws EX {
+    try {
+      runner.run();
+    } catch (final Throwable throwable) {
+      final Throwable cause = throwable.getCause();
+      if (expectedCause.isAssignableFrom(cause.getClass())) {
+        @SuppressWarnings("unchecked")
+        final EX causeEx = (EX) cause;
+        throw causeEx;
+      } else {
+        throw throwable;
+      }
+    }
+  }
+
   public static <T> T getOrRethrowCause(
     final Predicate<Throwable> rethrowableCause, final Supplier<T> supplier
   ) throws Throwable {
@@ -249,17 +266,15 @@ public class AnnoyingFuns {
     }
   }
 
-  public static <EX extends Throwable> void runOrRethrowCause(
-    final Class<EX> expectedCause, final Runner runner
-  ) throws EX {
+  public static void runOrRethrowCause(
+    final Predicate<Throwable> rethrowableCause, final Runner runner
+  ) throws Throwable {
     try {
       runner.run();
     } catch (final Throwable throwable) {
       final Throwable cause = throwable.getCause();
-      if (expectedCause.isAssignableFrom(cause.getClass())) {
-        @SuppressWarnings("unchecked")
-        final EX causeEx = (EX) cause;
-        throw causeEx;
+      if (rethrowableCause.test(cause)) {
+        throw cause;
       } else {
         throw throwable;
       }
