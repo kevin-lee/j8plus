@@ -1,7 +1,7 @@
 import sbt.{Developer, ScmInfo, url}
 
 object ProjectInfo {
-  val ProjectVersion: String = "0.3.0"
+  val ProjectVersion: String = "0.4.0"
 
   val projectDevelopers: List[Developer] = List(
     Developer(
