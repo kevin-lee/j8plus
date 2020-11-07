@@ -121,4 +121,4 @@ List<String> nonEmptyStrings =
 It filters out all empty String values and takes only non-empty ones.
 
 # More About J8+
-Please check out [the rest of docs](funs) (work in progress)
+Please check out [the rest of docs](functions/funs) (work in progress)
