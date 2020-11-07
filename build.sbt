@@ -3,6 +3,9 @@ import ProjectInfo._
 val testosteroneVersion = "0.2.0"
 val junitJupiterVersion = "5.6.2"
 
+val GitHubUsername = "Kevin-Lee"
+val ProjectName = "j8plus"
+
 ThisBuild / scalaVersion := "2.13.3"
 ThisBuild / version      := ProjectVersion
 ThisBuild / organization := "io.kevinlee"
@@ -12,11 +15,14 @@ ThisBuild / homepage     := projectHomePage
 ThisBuild / scmInfo      := projectScmInfo
 
 lazy val j8plus = (project in file("."))
-  .enablePlugins(DevOopsJavaPlugin)
-  .enablePlugins(DevOopsGitReleasePlugin)
-  .enablePlugins(JacocoCoverallsPlugin)
+  .enablePlugins(
+    DevOopsJavaPlugin,
+    DevOopsGitReleasePlugin,
+    JacocoCoverallsPlugin,
+    DocusaurPlugin,
+  )
   .settings(
-    name := "j8plus"
+    name := ProjectName
   , javacOptions := Seq(
       "-source", javaVersion.value
     , "-encoding", "UTF-8"
@@ -44,7 +50,7 @@ lazy val j8plus = (project in file("."))
   , testOptions += Tests.Argument(TestFrameworks.JUnit, "-a")
 
   , bintrayPackageLabels := Seq("maven", "java", "fp", "functional programming")
-  , bintrayVcsUrl := Some("git@github.com:Kevin-Lee/j8plus.git")
+  , bintrayVcsUrl := Some(s"git@github.com:$GitHubUsername/$ProjectName.git")
   , bintrayRepository := "maven"
 
   , publishMavenStyle := true
@@ -65,4 +71,13 @@ lazy val j8plus = (project in file("."))
   /* GitHub Release { */
   , devOopsPackagedArtifacts := List(s"target/${name.value}*.jar")
   /* } GitHub Release */
+
+  /* Docs { */
+  , docusaurDir := (ThisBuild / baseDirectory).value / "website"
+  , docusaurBuildDir := docusaurDir.value / "build"
+
+  , gitHubPagesOrgName := GitHubUsername
+  , gitHubPagesRepoName := ProjectName
+  /* } Docs */
+
   )

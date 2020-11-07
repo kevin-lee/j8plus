@@ -1,4 +1,15 @@
-module.exports = {
+const algoliaConfig = require('./algolia.config.json');
+const googleAnalyticsConfig = require('./google-analytics.config.json');
+
+const isEmptyObject = obj => {
+  for (field in obj) return false;
+  return true;
+};
+
+const isSearchable = !isEmptyObject(algoliaConfig);
+const hasGoogleAnalytics = !isEmptyObject(googleAnalyticsConfig);
+
+const websiteConfig = {
   title: 'J8+',
   tagline: 'The Missing Functional Parts of Java 8',
   url: 'https://j8plus.kevinly.dev',
@@ -75,3 +86,12 @@ module.exports = {
     ],
   ],
 };
+
+if (isSearchable) {
+  websiteConfig['themeConfig']['algolia'] = algoliaConfig;
+}
+if (hasGoogleAnalytics) {
+  websiteConfig['themeConfig']['googleAnalytics'] = googleAnalyticsConfig;
+}
+
+module.exports = websiteConfig;
