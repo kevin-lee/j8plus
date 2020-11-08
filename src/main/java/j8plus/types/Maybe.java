@@ -135,7 +135,7 @@ public abstract class Maybe<A> implements Serializable {
 
     @Override
     public <B> Maybe<B> map(final Function<? super A, B> f) {
-      return Maybe.just(f.apply(value));
+      return Maybe.maybe(f.apply(value));
     }
 
     @Override
@@ -145,7 +145,7 @@ public abstract class Maybe<A> implements Serializable {
 
     @Override
     public <B> Maybe<B> ap(final Supplier<Maybe<Function<? super A, B>>> f) {
-      return f.get().flatMap(g -> Maybe.just(g.apply(value)));
+      return f.get().flatMap(g -> Maybe.maybe(g.apply(value)));
     }
 
     @Override
@@ -207,16 +207,16 @@ public abstract class Maybe<A> implements Serializable {
     return nothing;
   }
 
-  public static <A> Maybe<A> just(final A value) {
+  public static <A> Maybe<A> maybe(final A value) {
     return value == null ? nothing() : new Just<A>(value);
   }
 
   public static <A> Maybe<A> fromOptional(final Optional<A> o) {
-    return o.map(Maybe::just).orElseGet(Maybe::nothing);
+    return o.map(Maybe::maybe).orElseGet(Maybe::nothing);
   }
 
   public static <B> Maybe<B> fromEither(final Either<?, B> e) {
-    return e.fold(a -> Maybe.nothing(), Maybe::just);
+    return e.fold(a -> Maybe.nothing(), Maybe::maybe);
   }
 
 }
