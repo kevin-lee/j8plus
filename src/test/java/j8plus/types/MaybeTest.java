@@ -642,7 +642,7 @@ public class MaybeTest {
 
   @Test
   public void toString_NothingCase() {
-    final String expected = "Nothing";
+    final String expected = "Maybe = Nothing";
     test("Maybe.toString on Nothing", "Maybe.toString on Nothing should return \"Nothing\"")
       .when(() ->
         Maybe.<Integer>nothing().toString()
@@ -655,7 +655,7 @@ public class MaybeTest {
   @Test
   public void toString_JustCase() {
     final Integer input = 999;
-    final String expected = "Just(" + input + ")";
+    final String expected = "Maybe<Integer> = Just(" + input + ")";
     test("Maybe.toString on Just", "Maybe.toString on Just should return Just(\"data\")")
       .when(() ->
         Maybe.just(input).toString()

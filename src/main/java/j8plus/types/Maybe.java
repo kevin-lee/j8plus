@@ -111,7 +111,7 @@ public abstract class Maybe<A> implements Serializable {
 
     @Override
     public String toString() {
-      return "Nothing";
+      return "Maybe = Nothing";
     }
   }
 
@@ -193,7 +193,7 @@ public abstract class Maybe<A> implements Serializable {
 
     @Override
     public String toString() {
-      return "Just(" + String.valueOf(value) + ")";
+      return "Maybe<" + value.getClass().getSimpleName() + "> = Just(" + String.valueOf(value) + ")";
     }
   }
 
