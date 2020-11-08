@@ -26,7 +26,7 @@ J8+ (J8Plus) - The Missing Functional Parts of Java 8
   <dependency>
     <groupId>io.kevinlee</groupId>
     <artifactId>j8plus</artifactId>
-    <version>0.4.0</version>
+    <version>1.0.0</version>
   </dependency>
 
   ...
@@ -37,12 +37,12 @@ J8+ (J8Plus) - The Missing Functional Parts of Java 8
 * Add Dependency
 
 ```gradle
-compile group: 'io.kevinlee', name: 'j8plus', version: '0.4.0'
+compile group: 'io.kevinlee', name: 'j8plus', version: '1.0.0'
 ```
   OR
 
 ```gradle
-compile "io.kevinlee:testosterone:0.4.0"
+compile "io.kevinlee:testosterone:1.0.0"
 ```
 
 
