@@ -656,9 +656,75 @@ public class MaybeTest {
   public void toString_JustCase() {
     final Integer input = 999;
     final String expected = "Maybe<Integer> = Just(" + input + ")";
-    test("Maybe.toString on Just", "Maybe.toString on Just should return Just(\"data\")")
+    test(
+      "Maybe.toString on Maybe.maybe(" + input + ")",
+      "Maybe.toString on Just should return " + expected
+    )
       .when(() ->
         Maybe.maybe(input).toString()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toString_Nested_JustCase() {
+    final Integer input = 999;
+    final String expected = "Maybe<Maybe<Integer>> = Just(Just(" + input + "))";
+    test(
+      "Maybe.toString on Maybe.maybe(Maybe.maybe(" + input + "))",
+      "Maybe.toString on Just should return " + expected
+    )
+      .when(() ->
+        Maybe.maybe(Maybe.maybe(input)).toString()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toString_Nested_JustCase2() {
+    final Integer input = 999;
+    final String expected = "Maybe<Maybe<Maybe<Integer>>> = Just(Just(Just(" + input + ")))";
+    test(
+      "Maybe.toString on Maybe.maybe(Maybe.maybe(Maybe.maybe(" + input +")))",
+      "Maybe.toString on Just should return " + expected
+    )
+      .when(() ->
+        Maybe.maybe(Maybe.maybe(Maybe.maybe(input))).toString()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toString_Nested_JustCase3() {
+    final Integer input = 999;
+    final String expected = "Maybe<Maybe<Maybe<Maybe<Integer>>>> = Just(Just(Just(Just(" + input + "))))";
+    test(
+      "Maybe.toString on Maybe.maybe(Maybe.maybe(Maybe.maybe(Maybe.maybe(" + input + "))))",
+      "Maybe.toString on Just should return " + expected
+    )
+      .when(() ->
+        Maybe.maybe(Maybe.maybe(Maybe.maybe(Maybe.maybe(input)))).toString()
+      )
+      .then(actual ->
+        assertThat(actual).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void toString_Nested_JustCase_with_Nothing() {
+    final String expected = "Maybe<Maybe<Maybe<Maybe>>> = Just(Just(Just(Nothing)))";
+    test(
+      "Maybe.toString on Maybe.maybe(Maybe.maybe(Maybe.maybe(Maybe.nothing())))",
+      "Maybe.toString on Just should return " + expected
+    )
+      .when(() ->
+        Maybe.maybe(Maybe.maybe(Maybe.maybe(Maybe.nothing()))).toString()
       )
       .then(actual ->
         assertThat(actual).isEqualTo(expected)
