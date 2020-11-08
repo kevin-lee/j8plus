@@ -29,12 +29,12 @@ public class MaybeTest {
   @Test
   public void just() {
     final Integer expectedValue = 999;
-    test("Maybe.just", "Maybe.just should create Just")
+    test("Maybe.maybe", "Maybe.maybe should create Just")
       .when(() ->
-        Maybe.just(expectedValue)
+        Maybe.maybe(expectedValue)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -47,7 +47,7 @@ public class MaybeTest {
         Maybe.fromOptional(input)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -85,7 +85,7 @@ public class MaybeTest {
         Maybe.fromEither(input)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -104,7 +104,7 @@ public class MaybeTest {
   public void isNothing_JustCase() {
     test("Maybe.isNothing", "Maybe.isNothing should return false for Just")
       .when(() ->
-        Maybe.<Integer>just(1)
+        Maybe.<Integer>maybe(1)
       )
       .then(actual ->
         assertThat(actual.isNothing()).isFalse()
@@ -126,7 +126,7 @@ public class MaybeTest {
   public void isJust_JustCase() {
     test("Maybe.isJust", "Maybe.isJust should return true for Just")
       .when(() ->
-        Maybe.<Integer>just(1)
+        Maybe.<Integer>maybe(1)
       )
       .then(actual ->
         assertThat(actual.isJust()).isTrue()
@@ -152,10 +152,10 @@ public class MaybeTest {
     final Integer expectedValue = input + additional;
     test("Maybe.map on Just", "Maybe.map on Just should apply the given function")
       .when(() ->
-        Maybe.<Integer>just(input).map(i -> i + additional)
+        Maybe.<Integer>maybe(input).map(i -> i + additional)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -165,7 +165,7 @@ public class MaybeTest {
     test("Maybe.flatMap on Nothing", "Maybe.flatMap on Nothing should just return itself")
       .when(() ->
         Maybe.<Integer>nothing()
-          .flatMap(i -> Maybe.just(i * 2))
+          .flatMap(i -> Maybe.maybe(i * 2))
       )
       .then(actual ->
         assertThat(actual).isEqualTo(Maybe.nothing())
@@ -179,10 +179,10 @@ public class MaybeTest {
     final Integer expectedValue = input + additional;
     test("Maybe.flatMap on Just", "Maybe.flatMap on Just should apply the given function")
       .when(() ->
-        Maybe.just(input).flatMap(i -> Maybe.just(i + additional))
+        Maybe.maybe(input).flatMap(i -> Maybe.maybe(i + additional))
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -204,14 +204,14 @@ public class MaybeTest {
   public void orElse_Nothing_JustCase() {
     final Integer expectedValue = 999;
     test(
-        "Maybe.just.orElse(Maybe.nothing)"
-      , "Maybe.just.orElse(Maybe.nothing) should return Just"
+        "Maybe.maybe.orElse(Maybe.nothing)"
+      , "Maybe.maybe.orElse(Maybe.nothing) should return Just"
       )
       .when(() ->
-        Maybe.just(expectedValue).orElse(() -> Maybe.nothing())
+        Maybe.maybe(expectedValue).orElse(() -> Maybe.nothing())
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -219,14 +219,14 @@ public class MaybeTest {
   public void orElse_Just_NothingCase() {
     final Integer expectedValue = 999;
     test(
-        "Maybe.just.orElse(Maybe.nothing)"
-      , "Maybe.just.orElse(Maybe.nothing) should return Just"
+        "Maybe.maybe.orElse(Maybe.nothing)"
+      , "Maybe.maybe.orElse(Maybe.nothing) should return Just"
       )
       .when(() ->
-        Maybe.just(expectedValue).orElse(() -> Maybe.nothing())
+        Maybe.maybe(expectedValue).orElse(() -> Maybe.nothing())
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -235,14 +235,14 @@ public class MaybeTest {
     final Integer unexpectedValue = 0;
     final Integer expectedValue = 999;
     test(
-        "Maybe.just(original).orElse(Maybe.just(another))"
-      , "Maybe.just(original).orElse(Maybe.just(another)) should return Just(original)"
+        "Maybe.maybe(original).orElse(Maybe.maybe(another))"
+      , "Maybe.maybe(original).orElse(Maybe.maybe(another)) should return Just(original)"
       )
       .when(() ->
-        Maybe.just(expectedValue).orElse(() -> Maybe.just(unexpectedValue))
+        Maybe.maybe(expectedValue).orElse(() -> Maybe.maybe(unexpectedValue))
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -266,11 +266,11 @@ public class MaybeTest {
     final Integer expectedValue = 999;
     final Integer alternativeValue = 0;
     test(
-        "Maybe.just(expectedValue).getOrElse(() -> alternativeValue)"
-      , "Maybe.just(expectedValue).getOrElse(() -> alternativeValue) should return expectedValue"
+        "Maybe.maybe(expectedValue).getOrElse(() -> alternativeValue)"
+      , "Maybe.maybe(expectedValue).getOrElse(() -> alternativeValue) should return expectedValue"
       )
       .when(() ->
-        Maybe.just(expectedValue).getOrElse(() -> alternativeValue)
+        Maybe.maybe(expectedValue).getOrElse(() -> alternativeValue)
       )
       .then(actual ->
         assertThat(actual).isEqualTo(expectedValue)
@@ -300,14 +300,14 @@ public class MaybeTest {
     final String additional = " and something else";
     final String expectedValue = input + additional;
     test(
-        "Maybe.nothing.orElse(Maybe.just).map"
-      , "Maybe.nothing.orElse(Maybe.just).map(function) should apply the given function"
+        "Maybe.nothing.orElse(Maybe.maybe).map"
+      , "Maybe.nothing.orElse(Maybe.maybe).map(function) should apply the given function"
       )
       .when(() ->
-          Maybe.<String>nothing().orElse(() -> Maybe.just(input)).map(s -> s + additional)
+          Maybe.<String>nothing().orElse(() -> Maybe.maybe(input)).map(s -> s + additional)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -317,14 +317,14 @@ public class MaybeTest {
     final Integer additionalValue = 1;
     final Integer expectedValue = input + additionalValue;
     test(
-        "Maybe.just.orElse(Maybe.nothing).map"
-      , "Maybe.just.orElse(Maybe.nothing).map(function) should apply the given function"
+        "Maybe.maybe.orElse(Maybe.nothing).map"
+      , "Maybe.maybe.orElse(Maybe.nothing).map(function) should apply the given function"
       )
       .when(() ->
-        Maybe.just(input).orElse(() -> Maybe.nothing()).map(i -> i + additionalValue)
+        Maybe.maybe(input).orElse(() -> Maybe.nothing()).map(i -> i + additionalValue)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
 
   }
@@ -335,14 +335,14 @@ public class MaybeTest {
     final Integer additionalValue = 1;
     final Integer expectedValue = input + additionalValue;
     test(
-        "Maybe.just(original).orElse(Maybe.just(another)).map"
-      , "Maybe.just(original).orElse(Maybe.just(another)).map(function) should apply the given function to the original"
+        "Maybe.maybe(original).orElse(Maybe.maybe(another)).map"
+      , "Maybe.maybe(original).orElse(Maybe.maybe(another)).map(function) should apply the given function to the original"
       )
       .when(() ->
-        Maybe.just(input).orElse(() -> Maybe.just(0)).map(i -> i + additionalValue)
+        Maybe.maybe(input).orElse(() -> Maybe.maybe(0)).map(i -> i + additionalValue)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
 
   }
@@ -355,7 +355,7 @@ public class MaybeTest {
       )
       .when(() ->
         Maybe.<Integer>nothing().orElse(() -> Maybe.nothing())
-          .flatMap(s -> Maybe.just(s + "abc"))
+          .flatMap(s -> Maybe.maybe(s + "abc"))
       )
       .then(actual ->
         assertThat(actual).isEqualTo(Maybe.nothing())
@@ -369,15 +369,15 @@ public class MaybeTest {
     final Integer additionalValue = 1;
     final Integer expectedValue = input + additionalValue;
     test(
-        "Maybe.nothing.orElse(Maybe.just).flatMap"
-      , "Maybe.nothing.orElse(Maybe.just).flatMap(function) should apply the given function"
+        "Maybe.nothing.orElse(Maybe.maybe).flatMap"
+      , "Maybe.nothing.orElse(Maybe.maybe).flatMap(function) should apply the given function"
       )
       .when(() ->
-        Maybe.<Integer>nothing().orElse(() -> Maybe.just(input))
-          .flatMap(i -> Maybe.just(i + additionalValue))
+        Maybe.<Integer>nothing().orElse(() -> Maybe.maybe(input))
+          .flatMap(i -> Maybe.maybe(i + additionalValue))
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
 
   }
@@ -388,16 +388,16 @@ public class MaybeTest {
     final Integer additionalValue = 1;
     final Integer expectedValue = input + additionalValue;
     test(
-        "Maybe.just.orElse(Maybe.nothing).flatMap"
-      , "Maybe.just.orElse(Maybe.nothing).flatMap(function) should apply the given function"
+        "Maybe.maybe.orElse(Maybe.nothing).flatMap"
+      , "Maybe.maybe.orElse(Maybe.nothing).flatMap(function) should apply the given function"
       )
       .when(() ->
-        Maybe.just(input)
+        Maybe.maybe(input)
           .orElse(() -> Maybe.nothing())
-          .flatMap(i -> Maybe.just(i + additionalValue))
+          .flatMap(i -> Maybe.maybe(i + additionalValue))
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -408,16 +408,16 @@ public class MaybeTest {
     final Integer expectedValue = input + additionalValue;
 
     test(
-      "Maybe.just(original).orElse(Maybe.just(another)).flatMap"
-      , "Maybe.just(original).orElse(Maybe.just(another)).flatMap(function) should apply the given function to the original"
+      "Maybe.maybe(original).orElse(Maybe.maybe(another)).flatMap"
+      , "Maybe.maybe(original).orElse(Maybe.maybe(another)).flatMap(function) should apply the given function to the original"
       )
       .when(() ->
-        Maybe.just(input)
-          .orElse(() -> Maybe.just(0))
-          .flatMap(i -> Maybe.just(i + additionalValue))
+        Maybe.maybe(input)
+          .orElse(() -> Maybe.maybe(0))
+          .flatMap(i -> Maybe.maybe(i + additionalValue))
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -444,11 +444,11 @@ public class MaybeTest {
     final Optional<Integer> expected = Optional.ofNullable(input);
 
     test(
-        "Maybe.just(original).toOptional()",
-        "Maybe.just(original).toOptional() should return Optional.ofNullable(original)"
+        "Maybe.maybe(original).toOptional()",
+        "Maybe.maybe(original).toOptional() should return Optional.ofNullable(original)"
       )
       .when(() ->
-        Maybe.just(input)
+        Maybe.maybe(input)
           .toOptional()
       )
       .then(actual ->
@@ -481,11 +481,11 @@ public class MaybeTest {
     final Either<String, Integer> expected = Either.right(input);
 
     test(
-        "Maybe.just(original).toEither(leftValue)",
-        "Maybe.just(original).toEither(leftValue) should return Either.right(original)"
+        "Maybe.maybe(original).toEither(leftValue)",
+        "Maybe.maybe(original).toEither(leftValue) should return Either.right(original)"
       )
       .when(() ->
-        Maybe.just(input)
+        Maybe.maybe(input)
           .toEither(() -> leftValue)
       )
       .then(actual ->
@@ -507,21 +507,21 @@ public class MaybeTest {
   @Test
   public void filter_Just_TrueCase() {
     final Integer expectedValue = 999;
-    test("Maybe.just.filter(true case)", "Maybe.just.filter(true case) should return Just itself")
+    test("Maybe.maybe.filter(true case)", "Maybe.maybe.filter(true case) should return Just itself")
       .when(() ->
-        Maybe.just(expectedValue).filter(i -> true)
+        Maybe.maybe(expectedValue).filter(i -> true)
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
   @Test
   public void filter_Just_FalseCase() {
     final Integer input = 999;
-    test("Maybe.just.filter(false case)", "Maybe.just.filter(false case) should return Nothing")
+    test("Maybe.maybe.filter(false case)", "Maybe.maybe.filter(false case) should return Nothing")
       .when(() ->
-        Maybe.just(input).filter(i -> false)
+        Maybe.maybe(input).filter(i -> false)
       )
       .then(actual ->
         assertThat(actual).isEqualTo(Maybe.nothing())
@@ -532,7 +532,7 @@ public class MaybeTest {
   public void ap_NothingCase() {
     test("Maybe.ap on Nothing", "Maybe.ap on Nothing should just return itself")
       .when(() ->
-        Maybe.<Integer>nothing().ap(() -> Maybe.just(i -> i * 2))
+        Maybe.<Integer>nothing().ap(() -> Maybe.maybe(i -> i * 2))
       )
       .then(actual ->
         assertThat(actual).isEqualTo(Maybe.nothing())
@@ -546,10 +546,10 @@ public class MaybeTest {
     final Integer expectedValue = input + additional;
     test("Maybe.ap on Just", "Maybe.ap on Just should apply the function in the given Just")
       .when(() ->
-        Maybe.just(input).ap(() -> Maybe.just(i -> i + additional))
+        Maybe.maybe(input).ap(() -> Maybe.maybe(i -> i + additional))
       )
       .then(actual ->
-        assertThat(actual).isEqualTo(Maybe.just(expectedValue))
+        assertThat(actual).isEqualTo(Maybe.maybe(expectedValue))
       );
   }
 
@@ -575,7 +575,7 @@ public class MaybeTest {
     final String expectedValue = String.valueOf(input + additional);
     test("Maybe.fold on Just", "Maybe.fold on Just should apply the function for Just")
       .when(() ->
-        Maybe.just(input)
+        Maybe.maybe(input)
       )
       .then(actual ->
         assertThat(actual.isJust()).isTrue()
@@ -607,7 +607,7 @@ public class MaybeTest {
     final Integer[] updated = { null };
     test("Maybe.forEach on Just", "Maybe.forEach on Just should apply the given function with side-effect")
       .when(() ->
-        Maybe.just(input)
+        Maybe.maybe(input)
           .forEach(i -> updated[0] = i + additional)
       )
       .then(() ->
@@ -633,7 +633,7 @@ public class MaybeTest {
     final int expected = Objects.hashCode(input);
     test("Maybe.hashCode on Just", "Maybe.hashCode on Just should return the hashCode of Just data")
       .when(() ->
-        Maybe.just(input).hashCode()
+        Maybe.maybe(input).hashCode()
       )
       .then(actual ->
         assertThat(actual).isEqualTo(expected)
@@ -658,7 +658,7 @@ public class MaybeTest {
     final String expected = "Maybe<Integer> = Just(" + input + ")";
     test("Maybe.toString on Just", "Maybe.toString on Just should return Just(\"data\")")
       .when(() ->
-        Maybe.just(input).toString()
+        Maybe.maybe(input).toString()
       )
       .then(actual ->
         assertThat(actual).isEqualTo(expected)

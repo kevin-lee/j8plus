@@ -68,7 +68,7 @@ public class EitherTest {
   @Test
   public void fromMaybe_JustCase() {
     final Integer expectedValue = 999;
-    final Maybe<Integer> input = Maybe.just(expectedValue);
+    final Maybe<Integer> input = Maybe.maybe(expectedValue);
     test("Either.fromMaybe(just)", "Either.fromMaybe(Just(someValue)) should create Right")
       .when(() ->
         Either.fromMaybe(input, () -> "Some error")
@@ -413,7 +413,7 @@ public class EitherTest {
   @Test
   public void toMaybe_RighttCase() {
     final Integer rightValue = 1;
-    final Maybe<Integer> expected = Maybe.just(rightValue);
+    final Maybe<Integer> expected = Maybe.maybe(rightValue);
     test(
         "Either.right(rightValue).toMaybe()",
         "Either.right(rightValue).toMaybe() should return Just(rightValue)"
