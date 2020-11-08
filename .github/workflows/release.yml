@@ -10,11 +10,32 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    strategy:
+      matrix:
+        scala:
+          - { binary-version: "2.13", java-version: "8" }
+
     steps:
     - uses: actions/checkout@v2
     - uses: actions/setup-java@v1
       with:
-        java-version: "8"
+        java-version: ${{ matrix.scala.java-version }}
+
+    - name: Cache Coursier
+      uses: actions/cache@v1
+      with:
+        path: ~/.cache/coursier
+        key: ${{ runner.os }}-coursier-scala-${{ matrix.scala.binary-version }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-coursier-scala-${{ matrix.scala.binary-version }}-
+
+    - name: Cache Ivy
+      uses: actions/cache@v1
+      with:
+        path: ~/.ivy2/cache
+        key: ${{ runner.os }}-ivy-scala-${{ matrix.scala.binary-version }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
+        restore-keys: |
+          ${{ runner.os }}-ivy-scala-${{ matrix.scala.binary-version }}-
 
     - name: sbt GitHub Release
       env:
