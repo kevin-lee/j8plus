@@ -193,7 +193,18 @@ public abstract class Maybe<A> implements Serializable {
 
     @Override
     public String toString() {
-      return "Maybe<" + value.getClass().getSimpleName() + "> = Just(" + String.valueOf(value) + ")";
+      final String typeParam;
+      final String valueInJust;
+      if (value instanceof Maybe) {
+        final String valueString = String.valueOf(value);
+        final int spaceEqualSpaceIndex = valueString.indexOf(" = ");
+        typeParam = valueString.substring(0, spaceEqualSpaceIndex);
+        valueInJust = valueString.substring(spaceEqualSpaceIndex + " = ".length());
+      } else {
+        typeParam = value.getClass().getSimpleName();
+        valueInJust = String.valueOf(value);
+      }
+      return "Maybe<" + typeParam + "> = Just(" + valueInJust + ")";
     }
   }
 
