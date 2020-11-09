@@ -45,7 +45,7 @@ final Optional<String> optionalName = Optional.ofNullable("Kevin");
 
 // ...
 final Maybe<String> maybeName = Maybe.fromOptional(optionalName);
-// Just(Kevin)
+// Maybe<String> = Just(Kevin)
 ```
 
 ### `Maybe` to `Optional`
@@ -53,8 +53,8 @@ If you need to convert `Maybe` into `Optional`, you can do it with `Maybe.toOpti
 ```java
 import j8plus.types.Maybe;
 
-Maybe.maybe(1).toOptional() // Optional[1]
-Maybe.nothing().toOptional() // Optional.empty
+Maybe.maybe(1).toOptional(); // Optional[1]
+Maybe.nothing().toOptional(); // Optional.empty
 ```
 
 
@@ -64,7 +64,7 @@ Maybe.nothing().toOptional() // Optional.empty
 ```java
 import j8plus.types.Maybe;
 
-Maybe.maybe(1).map(n -> n * 2) // Maybe<Integer> = Just(2)
+Maybe.maybe(1).map(n -> n * 2); // Maybe<Integer> = Just(2)
 ```
 
 
@@ -79,11 +79,11 @@ public Maybe<User> findUser(final Long id)
 
 final Maybe<User> maybeUser = findUser(1L);
 // Maybe<User> = Just(User(1L, Kevin, Maybe<String> = Just(kevin@blah.blah)))
-maybeUser.flatMap(user -> user.getEmail()) // Maybe<String> = Just(kevin@blah.blah)
+maybeUser.flatMap(user -> user.getEmail()); // Maybe<String> = Just(kevin@blah.blah)
 
 final Maybe<User> maybeUser2 = findUser(2L);
 // Maybe<User> = Just(User(2L, John, Maybe = Nothing))
-maybeUser2.flatMap(user -> user.getEmail()) // Maybe = Nothing
+maybeUser2.flatMap(user -> user.getEmail()); // Maybe = Nothing
 ```
 
 
@@ -141,8 +141,8 @@ When it is `Maybe.Just`, if you don't want to change the value but just want to 
 import java.util.function.Function;
 import j8plus.types.Maybe;
 
-Maybe.maybe(123).fold(() -> 0, Function.identity()) // 123
-Maybe.nothing().fold(() -> 0, Function.identity()) // 0
+Maybe.maybe(123).fold(() -> 0, Function.identity()); // 123
+Maybe.nothing().fold(() -> 0, Function.identity()); // 0
 
 ``` 
 
@@ -177,8 +177,8 @@ To check if a `Maybe` instance is `Maybe.Just`, use `Maybe.isJust()`. If `true`,
 ```java
 import j8plus.types.Maybe;
 
-Maybe.maybe(1).isJust() // true
-Maybe.nothing().isJust() // false
+Maybe.maybe(1).isJust(); // true
+Maybe.nothing().isJust(); // false
 ```
 
 
@@ -188,6 +188,6 @@ To check if a `Maybe` instance is `Maybe.Nothing`, use `Maybe.isNothing()`. If `
 ```java
 import j8plus.types.Maybe;
 
-Maybe.nothing().isNothing() // true
-Maybe.maybe(1).isNothing() // false
+Maybe.nothing().isNothing(); // true
+Maybe.maybe(1).isNothing(); // false
 ```
