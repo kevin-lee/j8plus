@@ -124,4 +124,22 @@ public class TailCallsTest {
     /* then */
     assertThat(actual).isEqualTo(expected);
   }
+
+  public static TailCallable<Long> termial(final Long n, final Long acc) {
+    if (n >= 1) {
+      return () -> termial(n - 1, acc + n);
+    } else {
+      return TailCalls.done(acc);
+    }
+  }
+
+  @Test
+  public final void testTermial() {
+    final Long expected = 5000050000L;
+
+    final Long actual = TailCalls.trampoline(termial(100000L, 0L));
+
+    assertThat(actual).isEqualTo(expected);
+  }
+
 }
