@@ -5,6 +5,5 @@ sidebar_label: 'Functional Programming (WIP)'
 slug: ./
 ---
 
-## Recursion
-
-## Currying
+* [Recursion](recursion)
+* [Currying](currying)
