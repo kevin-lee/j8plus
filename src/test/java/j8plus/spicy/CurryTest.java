@@ -2,7 +2,6 @@ package j8plus.spicy;
 
 import j8plus.types.*;
 import org.assertj.core.api.Assertions;
-import org.elixirian.kommonlee.test.CommonTestHelper;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,17 +20,6 @@ import static org.assertj.core.api.Assertions.*;
  * @since 2015-06-22
  */
 public class CurryTest {
-
-  @Test
-  public void testCurry() throws Exception {
-    /* @formatter:off */
-    test("test Curry()", "Curry() must be private")
-        .when(() ->
-          CommonTestHelper.newConstructorTester(Curry.class, this).mustBePrivate().test()
-        )
-        .expect(throwing(IllegalAccessException.class));
-    /* @formatter:on */
-  }
 
   @Test
   public void testCurrying2() throws Exception {
