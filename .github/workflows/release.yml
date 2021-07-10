@@ -39,7 +39,7 @@ jobs:
 
     - name: sbt GitHub Release
       env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_AUTH_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_AUTH_TOKEN_GITHUB }}
       run: |
         echo "Run] sbt GitHub release"
         echo 'sbt -J-Xmx2048m "; clean; test; packagedArtifacts; gitHubRelease"'
