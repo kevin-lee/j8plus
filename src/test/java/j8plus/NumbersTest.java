@@ -10,7 +10,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.function.Predicate;
 
-import org.elixirian.kommonlee.test.CommonTestHelper;
 import org.junit.jupiter.api.Test;
 
 /**
@@ -19,18 +18,6 @@ import org.junit.jupiter.api.Test;
  *
  */
 public class NumbersTest {
-
-  @Test
-  public final void testNumbers() {
-    /* @formatter:off */
-    test("test Numbers()", "Numbers() must be private")
-      .when(() ->
-        CommonTestHelper.newConstructorTester(Numbers.class, this).mustBePrivate().test()
-      )
-      .expect(throwing(IllegalAccessException.class));
-    /* @formatter:on */
-
-  }
 
   @Test
   public final void testIsOddInt() {

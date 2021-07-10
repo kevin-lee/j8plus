@@ -21,50 +21,46 @@ jobs:
       with:
         java-version: ${{ matrix.scala.java-version }}
 
-    - name: Cache Coursier
-      uses: actions/cache@v1
+    - name: Cache SBT
+      uses: actions/cache@v2.1.5
       with:
-        path: ~/.cache/coursier
-        key: ${{ runner.os }}-coursier-scala-${{ matrix.scala.binary-version }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
+        path: |
+          ~/.ivy2/cache
+          ~/.cache/coursier
+          ~/.sbt
+        key: ${{ runner.os }}-sbt-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
         restore-keys: |
-          ${{ runner.os }}-coursier-scala-${{ matrix.scala.binary-version }}-
-
-    - name: Cache Ivy
-      uses: actions/cache@v1
-      with:
-        path: ~/.ivy2/cache
-        key: ${{ runner.os }}-ivy-scala-${{ matrix.scala.binary-version }}-${{ hashFiles('**/*.sbt') }}-${{ hashFiles('**/build.properties') }}
-        restore-keys: |
-          ${{ runner.os }}-ivy-scala-${{ matrix.scala.binary-version }}-
+          ${{ runner.os }}-sbt
 
     - name: sbt GitHub Release
       env:
         GITHUB_TOKEN: ${{ secrets.RELEASE_AUTH_TOKEN_GITHUB }}
       run: |
         echo "Run] sbt GitHub release"
-        echo 'sbt -J-Xmx2048m "; clean; test; packagedArtifacts; gitHubRelease"'
-        sbt -J-Xmx2048m "; clean; test; packagedArtifacts; gitHubRelease"
+        echo 'sbt -J-Xmx2048m devOopsGitHubRelease'
+        sbt \
+          -J-XX:MaxMetaspaceSize=1024m \
+          -J-Xmx2048m \
+          devOopsGitHubRelease
+
     - name: sbt Publish
       env:
-        BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-        BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
+        PGP_PASSPHRASE: ${{ secrets.PGP_PASSPHRASE }}
+        PGP_SECRET: ${{ secrets.PGP_SECRET }}
+        SONATYPE_PASSWORD: ${{ secrets.SONATYPE_PASSWORD }}
+        SONATYPE_USERNAME: ${{ secrets.SONATYPE_USERNAME }}
+        GITHUB_TOKEN: ${{ secrets.RELEASE_AUTH_TOKEN_GITHUB }}
       run: |
-        echo "Run] sbt publish"
-        echo 'sbt -J-Xmx2048m "; clean; publish"'
-        sbt -J-Xmx2048m "; clean; publish"
-
-    - name: Sync to Maven Central
-      env:
-        BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-        BINTRAY_PASS: ${{ secrets.BINTRAY_PASS }}
-      run: |
-        PROJECT_VERSION="${GITHUB_REF#refs/tags/v}"
-        BINTRAY_SUBJECT=kevinlee
-        BINTRAY_REPO=maven
-        BINTRAY_PACKAGE=j8plus
-        echo "BINTRAY_SUBJECT: $BINTRAY_SUBJECT"
-        echo "   BINTRAY_REPO: $BINTRAY_REPO"
-        echo "BINTRAY_PACKAGE: $BINTRAY_PACKAGE"
-        echo "PROJECT_VERSION: $PROJECT_VERSION"
-        echo "Sync to Maven Central..."
-        curl --user $BINTRAY_USER:$BINTRAY_PASS -X POST "https://api.bintray.com/maven_central_sync/$BINTRAY_SUBJECT/$BINTRAY_REPO/$BINTRAY_PACKAGE/versions/$PROJECT_VERSION"
+        echo "Run] sbt ci-release"
+        export SOURCE_DATE_EPOCH=$(date +%s)
+        echo "SOURCE_DATE_EPOCH=$SOURCE_DATE_EPOCH"
+        echo 'sbt -J-XX:MaxMetaspaceSize=1024m -J-Xmx2048m -v clean +test +packagedArtifacts ci-release devOopsGitHubReleaseUploadArtifacts'
+        sbt \
+        -J-XX:MaxMetaspaceSize=1024m \
+        -J-Xmx2048m \
+        -v \
+        clean \
+        test \
+        packagedArtifacts \
+        ci-release \
+        devOopsGitHubReleaseUploadArtifacts
