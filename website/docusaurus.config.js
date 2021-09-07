@@ -1,6 +1,9 @@
 const algoliaConfig = require('./algolia.config.json');
 const googleAnalyticsConfig = require('./google-analytics.config.json');
 
+const lightCodeTheme = require('prism-react-renderer/themes/github');
+const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+
 const isEmptyObject = obj => {
   for (field in obj) return false;
   return true;
@@ -19,7 +22,14 @@ const websiteConfig = {
   organizationName: 'Kevin-Lee', // Usually your GitHub org/user name.
   projectName: 'j8plus', // Usually your repo name.
   themeConfig: {
-    sidebarCollapsible: false,
+    image: 'img/poster.png',
+    prism: {
+      // theme: lightCodeTheme,
+      // darkTheme: darkCodeTheme,
+      additionalLanguages: [
+        'java',
+      ],
+    },
     navbar: {
       title: 'J8+',
       logo: {
@@ -75,6 +85,7 @@ const websiteConfig = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.js'),
+          sidebarCollapsible: false,
         },
         blog: {
           showReadingTime: true,
