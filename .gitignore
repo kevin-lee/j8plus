@@ -35,3 +35,5 @@ gradle/
 gradlew*
 .gradle
 build/
+
+.scalafmt.conf
