@@ -34,8 +34,31 @@ Either.<String, Integer>left("Error message");
 ```
 
 ### `Either` from `Optional`
+```java
+import j8plus.types.Either;
+
+final Optional<Integer> num = Optional.ofNullable(1);
+Either.fromOptional(num, () -> "No number found");
+// Either<String, Integer> = Either.Right(1)
+
+final Optional<Integer> noNum = Optional.empty();
+Either.fromOptional(noNum, () -> "No number found");
+// Either<String, Integer> = Either.Left("No number found")
+```
 
 ### `Either` from `Maybe`
+```java
+import j8plus.types.Maybe;
+import j8plus.types.Either;
+
+final Maybe<Integer> num = Maybe.maybe(1);
+Either.fromMaybe(num, () -> "No number found");
+// Either<String, Integer> = Either.Right(1)
+
+final Maybe<Integer> noNum = Maybe.nothing();
+Either.fromMaybe(noNum, () -> "No number found");
+// Either<String, Integer> = Either.Left("No number found")
+```
 
 
 ## Transform
