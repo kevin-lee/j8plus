@@ -10,6 +10,10 @@ When your function (or method) is a partial function meaning that it may not hav
 
 To make it a total function so that it always has the output for the given input, there can be multiple ways but an easy and recommended way is using `Either`.
 
+:::caution NOTE
+`Either` is right-biased meaning that the most well-known combinators on `Either` (e.g. `map`, `flatMap`, etc.) are by default for the `Right` value. If you want to manipulate the left one, you need to use the combinators for `Left` which are usually prefixed with `left` (e.g. `leftMap`, `leftFlatMap`, etc.).  
+:::
+
 ## Create
 
 ### Either.right to contain the result
@@ -29,7 +33,33 @@ Either.<String, Integer>left("Error message");
 // Either<String, Integer> = Either.Right(1)
 ```
 
-### Either Example
+### `Either` from `Optional`
+
+### `Either` from `Maybe`
+
+
+## Transform
+### `Either.map`
+
+### `Either.flatMap`
+
+### `Either.swap`
+
+
+
+## Get the Value
+
+### `Either.fold`
+
+
+## Check Value in Either
+
+### `Either.isRight`
+
+### `Either.isLeft`
+
+
+### Example
 ```java
 import j8plus.types.Either;
 
