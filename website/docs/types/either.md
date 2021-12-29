@@ -63,6 +63,15 @@ Either.fromMaybe(noNum, () -> "No number found");
 
 ## Transform
 ### `Either.map`
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorOrNumber = Either.right(5);
+// Either<String, Integer> = Either.Right(5)
+
+errorOrNumber.map(n -> n * 2);
+// Either<String, Integer> = Either.Right(10)
+```
 
 ### `Either.flatMap`
 
