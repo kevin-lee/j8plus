@@ -74,6 +74,63 @@ errorOrNumber.map(n -> n * 2);
 ```
 
 ### `Either.flatMap`
+```java
+import j8plus.types.Either;
+
+public Either<String, Integer> foo(int n) {
+  if (n < 0) {
+    return Either.left(
+      "foo can't take a negative int. [n: " + n + "]"
+    );
+  } else {
+    return Either.right(n * 2);
+  }
+}
+
+public Either<String, Integer> bar(int n) {
+  if (n < 100) {
+    return Either.left(
+      "bar can't take an int less than 100. [n: " + n + "]"
+    );
+  } else {
+    return Either.right(n - 100);
+  }
+}
+```
+
+All happy paths
+```java
+Either.<String, Integer>right(50) // Either<String, Integer> = Right(50)
+  .flatMap(n -> foo(n))           // Either<String, Integer> = Right(100)
+  .flatMap(n -> bar(n))           // Either<String, Integer> = Right(0)
+// Or with method references
+Either.<String, Integer>right(50) // Either<String, Integer> = Right(50)
+  .flatMap(this::foo)             // Either<String, Integer> = Right(100)
+  .flatMap(this::bar)             // Either<String, Integer> = Right(0)
+```
+
+Unhappy path cases
+```java
+Either.<String, Integer>right(-1) // Either<String, Integer> = Right(-1)
+  .flatMap(n -> foo(n))           // Either<String, Integer> = Left("foo can't take a negative int. [n: -1]")
+  .flatMap(n -> bar(n));          // Either<String, Integer> = Left("foo can't take a negative int. [n: -1]")
+ 
+// Or with method references
+Either.<String, Integer>right(-1) // Either<String, Integer> = Right(-1)
+  .flatMap(this::foo)             // Either<String, Integer> = Left("foo can't take a negative int. [n: -1]")
+  .flatMap(this::bar);            // Either<String, Integer> = Left("foo can't take a negative int. [n: -1]")
+```
+
+```java
+Either.<String, Integer>right(5) // Either<String, Integer> = Right(5)
+  .flatMap(n -> foo(n))          // Either<String, Integer> = Right(10)
+  .flatMap(n -> bar(n));         // Either<String, Integer> = Left("bar can't take an int less than 100. [n: 10]")
+ 
+// Or with method references
+Either.<String, Integer>right(5) // Either<String, Integer> = Right(5)
+  .flatMap(this::foo)            // Either<String, Integer> = Right(10)
+  .flatMap(this::bar);           // Either<String, Integer> = Left("bar can't take an int less than 100. [n: 10]")
+```
 
 ### `Either.swap`
 
