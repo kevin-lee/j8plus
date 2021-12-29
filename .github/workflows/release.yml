@@ -22,7 +22,7 @@ jobs:
         java-version: ${{ matrix.scala.java-version }}
 
     - name: Cache SBT
-      uses: actions/cache@v2.1.5
+      uses: actions/cache@v2.1.7
       with:
         path: |
           ~/.ivy2/cache
