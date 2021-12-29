@@ -30,7 +30,7 @@ Either.<String, Integer>right(1);
 import j8plus.types.Either;
 
 Either.<String, Integer>left("Error message");
-// Either<String, Integer> = Either.Right(1)
+// Either<String, Integer> = Either.Left("Error message")
 ```
 
 ### `Either` from `Optional`
