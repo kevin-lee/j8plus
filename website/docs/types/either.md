@@ -1,7 +1,7 @@
 ---
 id: either
 title: 'Either - Turn Your Partial Function into a Total Function'
-sidebar_label: 'Either (WIP)'
+sidebar_label: 'Either'
 ---
 ## Why `Either`
 `Either` can turn a partial function into a total function.
