@@ -219,6 +219,62 @@ errorMsgOrNum.swap();
 ## Get the Value
 
 ### `Either.fold`
+If you want to get the value inside `Either`, you can use `Either.fold`. Since you can have only one result type, you have to provide ways to turn a type in `Right` and a type in `Left` into one result type. So `fold` takes two functions. One for the `Right` case and the other for the `Left` case.
+
+The `Right` case,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.right(999);
+// Either<String, Integer> = Right(999)
+
+errorMsgOrNum.fold(err -> 0, n -> n);
+// Integer = 999
+
+// Or using the identity function from java.util.function.Function
+import java.util.function.Function;
+
+errorMsgOrNum.fold(err -> 0, Function.identity());
+// Integer = 999
+```
+
+The `Left` case,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum.fold(err -> 0, n -> n);
+// Integer = 0
+```
+
+You can also turn the value into a completely different type.
+```java
+import j8plus.types.Either;
+import java.time.Instant;
+
+final Either<String, Long> errorMsgOrMillis = Either.right(1638316800000L);
+// Either<String, Integer> = Right(1638316800000L)
+
+errorMsgOrMillis.fold(err -> Instant.now(), millis -> Instant.ofEpochMilli(millis));
+// Instant = 2021-12-01T00:00:00Z
+
+// Or using method reference  
+errorMsgOrMillis.fold(err -> Instant.now(), Instant::ofEpochMilli);
+// Instant = 2021-12-01T00:00:00Z
+```
+
+```java
+import j8plus.types.Either;
+import java.time.Instant;
+
+final Either<String, Long> errorMsgOrMillis = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrMillis.fold(err -> Instant.now(), millis -> Instant.ofEpochMilli(millis));
+// Instant = 2021-12-30T09:15:24.033117Z
+```
 
 
 ## Check Value in Either
