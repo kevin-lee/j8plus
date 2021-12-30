@@ -318,7 +318,7 @@ errorMsgOrNum2.isLeft();
 ```
 
 
-### Example
+## Example
 ```java
 import j8plus.types.Either;
 
