@@ -21,7 +21,7 @@ To make it a total function so that it always has the output for the given input
 import j8plus.types.Either;
 
 Either.<String, Integer>right(1);
-// Either<String, Integer> = Either.Right(1)
+// Either<String, Integer> = Right(1)
 ```
 
 
@@ -30,7 +30,7 @@ Either.<String, Integer>right(1);
 import j8plus.types.Either;
 
 Either.<String, Integer>left("Error message");
-// Either<String, Integer> = Either.Left("Error message")
+// Either<String, Integer> = Left("Error message")
 ```
 
 ### `Either` from `Optional`
@@ -39,11 +39,11 @@ import j8plus.types.Either;
 
 final Optional<Integer> num = Optional.ofNullable(1);
 Either.fromOptional(num, () -> "No number found");
-// Either<String, Integer> = Either.Right(1)
+// Either<String, Integer> = Right(1)
 
 final Optional<Integer> noNum = Optional.empty();
 Either.fromOptional(noNum, () -> "No number found");
-// Either<String, Integer> = Either.Left("No number found")
+// Either<String, Integer> = Left("No number found")
 ```
 
 ### `Either` from `Maybe`
@@ -53,11 +53,11 @@ import j8plus.types.Either;
 
 final Maybe<Integer> num = Maybe.maybe(1);
 Either.fromMaybe(num, () -> "No number found");
-// Either<String, Integer> = Either.Right(1)
+// Either<String, Integer> = Right(1)
 
 final Maybe<Integer> noNum = Maybe.nothing();
 Either.fromMaybe(noNum, () -> "No number found");
-// Either<String, Integer> = Either.Left("No number found")
+// Either<String, Integer> = Left("No number found")
 ```
 
 
@@ -67,10 +67,10 @@ Either.fromMaybe(noNum, () -> "No number found");
 import j8plus.types.Either;
 
 final Either<String, Integer> errorOrNumber = Either.right(5);
-// Either<String, Integer> = Either.Right(5)
+// Either<String, Integer> = Right(5)
 
 errorOrNumber.map(n -> n * 2);
-// Either<String, Integer> = Either.Right(10)
+// Either<String, Integer> = Right(10)
 ```
 
 ### `Either.flatMap`
@@ -151,10 +151,10 @@ public class MyError {
 }
 
 final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
-// Either<String, Integer> = Either.Left(Error message)
+// Either<String, Integer> = Left(Error message)
 
 errorMsgOrNum.leftMap(err -> new MyError(err));
-// Either<MyError, Integer> = Either.Left(MyError(message=Error message))
+// Either<MyError, Integer> = Left(MyError(message=Error message))
 ```
 
 ### `Either.swap`
