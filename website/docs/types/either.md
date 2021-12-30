@@ -300,6 +300,22 @@ errorMsgOrNum2.isRight();
 ```
 
 ### `Either.isLeft`
+To check if the `Either` is `Left`, use `isLeft()`,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.right(999);
+// Either<String, Integer> = Right(999)
+
+errorMsgOrNum.isLeft();
+// boolean = false
+
+final Either<String, Integer> errorMsgOrNum2 = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum2.isLeft();
+// boolean = true
+```
 
 
 ### Example
