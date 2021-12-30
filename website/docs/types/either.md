@@ -132,6 +132,31 @@ Either.<String, Integer>right(5) // Either<String, Integer> = Right(5)
   .flatMap(this::bar);           // Either<String, Integer> = Left("bar can't take an int less than 100. [n: 10]")
 ```
 
+### `Either.leftMap`
+If you want to change the left value, you can use `map` to do it.
+
+```java
+import j8plus.types.Either;
+
+public class MyError {
+  public final String message;
+  public MyError(final String message) {
+    this.message = message;
+  }
+  
+  @Override
+  public String toString() {
+    return "MyError(message=" + message + ")";
+  }
+}
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Either.Left(Error message)
+
+errorMsgOrNum.leftMap(err -> new MyError(err));
+// Either<MyError, Integer> = Either.Left(MyError(message=Error message))
+```
+
 ### `Either.swap`
 
 
