@@ -1,8 +1,8 @@
 const algoliaConfig = require('./algolia.config.json');
 const googleAnalyticsConfig = require('./google-analytics.config.json');
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/nightOwlLight');
+const darkCodeTheme = require('prism-react-renderer/themes/nightOwl');
 
 const isEmptyObject = obj => {
   for (field in obj) return false;
@@ -24,8 +24,8 @@ const websiteConfig = {
   themeConfig: {
     image: 'img/poster.png',
     prism: {
-      // theme: lightCodeTheme,
-      // darkTheme: darkCodeTheme,
+      theme: lightCodeTheme,
+      darkTheme: darkCodeTheme,
       additionalLanguages: [
         'java',
       ],
