@@ -195,7 +195,25 @@ errorMsgOrNum.leftFlatMap(err -> Either.left(new MyError(err)));
 ```
 
 ### `Either.swap`
+If you want to swap `Left` and `Right`? You can use `Either.swap()`.
+```java
+import j8plus.types.Either;
 
+final Either<String, Integer> errorMsgOrNum = Either.right(1);
+// Either<String, Integer> = Right(1)
+
+errorMsgOrNum.swap();
+// Either<Integer, String> = Left(1)
+```
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum.swap();
+// Either<Integer, String> = Right(Error message)
+```
 
 
 ## Get the Value
