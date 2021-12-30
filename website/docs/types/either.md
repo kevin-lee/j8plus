@@ -157,6 +157,43 @@ errorMsgOrNum.leftMap(err -> new MyError(err));
 // Either<MyError, Integer> = Left(MyError(message=Error message))
 ```
 
+### `Either.leftFlatMap`
+Would you like to place the `Left` value with another `Either` which can be another `Left` or even `Right`? You can use `leftFlatMap`.
+
+`Left` to `Right`
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum.leftFlatMap(err -> Either.right(0));
+// Either<String, Integer> = Right(0)
+```
+
+Or it can be another `Left` like
+```java
+import j8plus.types.Either;
+
+public class MyError {
+  public final String message;
+  public MyError(final String message) {
+    this.message = message;
+  }
+
+  @Override
+  public String toString() {
+    return "MyError(message=" + message + ")";
+  }
+}
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum.leftFlatMap(err -> Either.left(new MyError(err)));
+// Either<MyError, Integer> = Left(MyError(message=Error message))
+```
+
 ### `Either.swap`
 
 
