@@ -226,7 +226,7 @@ The `Right` case,
 import j8plus.types.Either;
 
 final Either<String, Integer> errorMsgOrNum = Either.right(999);
-// Either<String, Integer> = Right(999)
+// Either<String, Long> = Right(999)
 
 errorMsgOrNum.fold(err -> 0, n -> n);
 // Integer = 999
@@ -243,7 +243,7 @@ The `Left` case,
 import j8plus.types.Either;
 
 final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
-// Either<String, Integer> = Left(Error message)
+// Either<String, Long> = Left(Error message)
 
 errorMsgOrNum.fold(err -> 0, n -> n);
 // Integer = 0
@@ -255,7 +255,7 @@ import j8plus.types.Either;
 import java.time.Instant;
 
 final Either<String, Long> errorMsgOrMillis = Either.right(1638316800000L);
-// Either<String, Integer> = Right(1638316800000L)
+// Either<String, Long> = Right(1638316800000L)
 
 errorMsgOrMillis.fold(err -> Instant.now(), millis -> Instant.ofEpochMilli(millis));
 // Instant = 2021-12-01T00:00:00Z
@@ -270,7 +270,7 @@ import j8plus.types.Either;
 import java.time.Instant;
 
 final Either<String, Long> errorMsgOrMillis = Either.left("Error message");
-// Either<String, Integer> = Left(Error message)
+// Either<String, Long> = Left(Error message)
 
 errorMsgOrMillis.fold(err -> Instant.now(), millis -> Instant.ofEpochMilli(millis));
 // Instant = 2021-12-30T09:15:24.033117Z
