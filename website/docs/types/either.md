@@ -279,7 +279,25 @@ errorMsgOrMillis.fold(err -> Instant.now(), millis -> Instant.ofEpochMilli(milli
 
 ## Check Value in Either
 
+If you want to chekc if `Either` is `Right` or `Left`, you can use `isRight()` and `isLeft()` respectively.
+
 ### `Either.isRight`
+To check if the `Either` is `Right`, use `isRight()`,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.right(999);
+// Either<String, Integer> = Right(999)
+
+errorMsgOrNum.isRight();
+// boolean = true
+
+final Either<String, Integer> errorMsgOrNum2 = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum2.isRight();
+// boolean = false
+```
 
 ### `Either.isLeft`
 
