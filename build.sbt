@@ -28,14 +28,14 @@ lazy val j8plus = (project in file("."))
       "-encoding",
       "UTF-8"
     ),
-    javacOptions in (Compile, compile) ++= Seq(
+    Compile / compile / javacOptions ++= Seq(
       "-target",
       javaVersion.value,
       "-Xlint:unchecked",
       "-g",
       "-deprecation"
     ),
-    javacOptions in (Compile, test) := (javacOptions in (Compile, compile)).value,
+    Compile / test / javacOptions := (Compile / compile / javacOptions).value,
     resolvers ++= List(
       Resolver.jcenterRepo,
       "kevin-public-releases" at "https://repo.kevinlee.io/repository/kevin-public-releases",
@@ -50,7 +50,7 @@ lazy val j8plus = (project in file("."))
     ),
     testOptions += Tests.Argument(TestFrameworks.JUnit, "-a"),
     publishMavenStyle := true,
-    publishArtifact in Test := false,
+    Test / publishArtifact := false,
 //    pomIncludeRepository := { _ => false },
     licenses := List("Apache-2.0" -> url("https://opensource.org/licenses/apache2.0")),
     jacocoReportSettings := JacocoReportSettings(
