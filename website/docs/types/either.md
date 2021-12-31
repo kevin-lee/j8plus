@@ -287,7 +287,7 @@ final Either<String, Integer> errorMsgOrNum = Either.right(999);
 // Either<String, Integer> = Right(999)
 
 errorMsgOrNum.getOrElse(() -> 0);
-// Either<String, Integer> = Right(999)
+// Integer = 999
 ```
 
 `Left` case,
@@ -298,7 +298,7 @@ final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
 // Either<String, Integer> = Left(Error message)
 
 errorMsgOrNum.getOrElse(() -> 0);
-// Either<String, Integer> = Right(0)
+// Integer = 0
 ```
 
 ## Check Value in Either
