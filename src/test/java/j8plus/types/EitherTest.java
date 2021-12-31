@@ -330,6 +330,38 @@ public class EitherTest {
   }
 
   @Test
+  public void getOrElse_LeftCase() {
+    final String input = "Some error";
+    final int expected = 999;
+    test("Either.getOrElse on Left", "Either.getOrElse on Left should return the given alternative")
+      .when(() ->
+        Either.<String, Integer>left(input)
+      )
+      .then(actual ->
+        assertThat(actual.isLeft()).isTrue()
+      )
+      .then(actual ->
+        assertThat(actual.<String>getOrElse(() -> expected)).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void getOrElse_RightCase() {
+    final Integer input = 999;
+    final Integer expected = input;
+    test("Either.getOrElse on Right", "Either.getOrElse on Right should return the Right value")
+      .when(() ->
+        Either.<String, Integer>right(input)
+      )
+      .then(actual ->
+        assertThat(actual.isRight()).isTrue()
+      )
+      .then(actual ->
+        assertThat(actual.<String>getOrElse(() -> Integer.MIN_VALUE)).isEqualTo(expected)
+      );
+  }
+
+  @Test
   public void forEach_LeftCase() {
     final String input = "Some error";
     final Integer[] updated = { null };
