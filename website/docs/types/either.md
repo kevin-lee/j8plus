@@ -326,6 +326,21 @@ errorMsgOrNum.getLeftOrElse(() -> "Default");
 // String = Error message
 ```
 
+## Use Value
+
+### `Either.forEach`
+If you want to use the `Right` value and don't need to return anything, you can use `forEach`.
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.right(999);
+// Either<String, Integer> = Right(999)
+
+errorMsgOrNum.forEach(n -> System.out.println("The value is " + n));
+// The value is 999
+```
+
+
 ## Check Value in Either
 
 If you want to chekc if `Either` is `Right` or `Left`, you can use `isRight()` and `isLeft()` respectively.
