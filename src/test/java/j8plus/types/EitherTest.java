@@ -341,7 +341,7 @@ public class EitherTest {
         assertThat(actual.isLeft()).isTrue()
       )
       .then(actual ->
-        assertThat(actual.<String>getOrElse(() -> expected)).isEqualTo(expected)
+        assertThat(actual.getOrElse(() -> expected)).isEqualTo(expected)
       );
   }
 
@@ -357,7 +357,7 @@ public class EitherTest {
         assertThat(actual.isRight()).isTrue()
       )
       .then(actual ->
-        assertThat(actual.<String>getOrElse(() -> Integer.MIN_VALUE)).isEqualTo(expected)
+        assertThat(actual.getOrElse(() -> Integer.MIN_VALUE)).isEqualTo(expected)
       );
   }
 
