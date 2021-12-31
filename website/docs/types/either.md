@@ -276,6 +276,30 @@ errorMsgOrMillis.fold(err -> Instant.now(), millis -> Instant.ofEpochMilli(milli
 // Instant = 2021-12-30T09:15:24.033117Z
 ```
 
+### `Either.getOrElse`
+To get the `Right` value, you can use `getOrElse(Supplier<AlternativeValue>)`. If the `Either` is `Left`, it returns the given alternative from the supplier param.
+
+`Right` case,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.right(999);
+// Either<String, Integer> = Right(999)
+
+errorMsgOrNum.getOrElse(() -> 0);
+// Either<String, Integer> = Right(999)
+```
+
+`Left` case,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum.getOrElse(() -> 0);
+// Either<String, Integer> = Right(0)
+```
 
 ## Check Value in Either
 
