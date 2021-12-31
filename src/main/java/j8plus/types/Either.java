@@ -34,6 +34,8 @@ public abstract class Either<A, B> implements Serializable {
   , final Function<? super B, C> rightFunction
   );
 
+  public abstract B getOrElse(Supplier<B> alternative);
+
   public abstract void forEach(Consumer<? super B> f);
 
   public abstract Optional<B> toOptional();
@@ -134,6 +136,11 @@ public abstract class Either<A, B> implements Serializable {
     }
 
     @Override
+    public B getOrElse(final Supplier<B> alternative) {
+      return alternative.get();
+    }
+
+    @Override
     public void forEach(final Consumer<? super B> f) {
     }
 
@@ -218,6 +225,11 @@ public abstract class Either<A, B> implements Serializable {
     , final Function<? super B, C> rightFunction
     ) {
       return rightFunction.apply(this.value);
+    }
+
+    @Override
+    public B getOrElse(final Supplier<B> alternative) {
+      return this.value;
     }
 
     @Override
