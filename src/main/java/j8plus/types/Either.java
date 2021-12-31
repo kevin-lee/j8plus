@@ -40,6 +40,8 @@ public abstract class Either<A, B> implements Serializable {
 
   public abstract void forEach(Consumer<? super B> f);
 
+  public abstract void forEachLeft(Consumer<? super A> f);
+
   public abstract Optional<B> toOptional();
 
   public Maybe<B> toMaybe() {
@@ -152,6 +154,11 @@ public abstract class Either<A, B> implements Serializable {
     }
 
     @Override
+    public void forEachLeft(final Consumer<? super A> f) {
+      f.accept(this.value);
+    }
+
+    @Override
     public Optional<B> toOptional() {
       return Optional.empty();
     }
@@ -247,6 +254,10 @@ public abstract class Either<A, B> implements Serializable {
     @Override
     public void forEach(final Consumer<? super B> f) {
       f.accept(this.value);
+    }
+
+    @Override
+    public void forEachLeft(final Consumer<? super A> f) {
     }
 
     @Override
