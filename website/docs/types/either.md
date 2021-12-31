@@ -226,7 +226,7 @@ The `Right` case,
 import j8plus.types.Either;
 
 final Either<String, Integer> errorMsgOrNum = Either.right(999);
-// Either<String, Long> = Right(999)
+// Either<String, Integer> = Right(999)
 
 errorMsgOrNum.fold(err -> 0, n -> n);
 // Integer = 999
@@ -243,7 +243,7 @@ The `Left` case,
 import j8plus.types.Either;
 
 final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
-// Either<String, Long> = Left(Error message)
+// Either<String, Integer> = Left(Error message)
 
 errorMsgOrNum.fold(err -> 0, n -> n);
 // Integer = 0
