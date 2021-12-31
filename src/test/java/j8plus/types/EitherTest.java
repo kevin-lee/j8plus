@@ -424,6 +424,35 @@ public class EitherTest {
   }
 
   @Test
+  public void forEachLeft_LeftCase() {
+    final String input = "Some error";
+    final String expected = input;
+    final String[] updated = { null };
+    test("Either.forEachLeft on Left", "Either.forEachLeft on Left should apply the given function with side-effect")
+      .when(() ->
+        Either.<String, Integer>left(input)
+          .forEachLeft(err -> updated[0] = err)
+      )
+      .then(() ->
+        assertThat(updated[0]).isEqualTo(expected)
+      );
+  }
+
+  @Test
+  public void forEachLeft_RightCase() {
+    final Integer input = 999;
+    final String[] updated = { null };
+    test("Either.forEachLeft on Right", "Either.forEachLeft on Right should do nothing")
+      .when(() ->
+        Either.<String, Integer>right(input)
+          .forEachLeft(err -> updated[0] = err)
+      )
+      .then(() ->
+        assertThat(updated[0]).isNull()
+      );
+  }
+
+  @Test
   public void toOptional_LeftCase() {
     final String leftValue = "Some Error";
     final Optional<Integer> expected = Optional.empty();
