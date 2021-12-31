@@ -340,6 +340,18 @@ errorMsgOrNum.forEach(n -> System.out.println("The value is " + n));
 // The value is 999
 ```
 
+### `Either.forEachLeft`
+If you want to use the `Left` value and don't need to return anything, you can use `forEachLeft`.
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum.forEachLeft(err -> System.out.println("ERROR: " + err));
+// ERROR: Error message
+```
+
 
 ## Check Value in Either
 
