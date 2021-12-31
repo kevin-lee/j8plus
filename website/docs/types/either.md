@@ -301,6 +301,31 @@ errorMsgOrNum.getOrElse(() -> 0);
 // Integer = 0
 ```
 
+### `Either.getLeftOrElse`
+To get the `Left` value, you can use `getLeftOrElse(Supplier<AlternativeValue>)`. If the `Either` is `Right`, it returns the given alternative from the supplier param.
+
+`Right` case,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.right(999);
+// Either<String, Integer> = Right(999)
+
+errorMsgOrNum.getLeftOrElse(() -> "Default");
+// String = Default
+```
+
+`Left` case,
+```java
+import j8plus.types.Either;
+
+final Either<String, Integer> errorMsgOrNum = Either.left("Error message");
+// Either<String, Integer> = Left(Error message)
+
+errorMsgOrNum.getLeftOrElse(() -> "Default");
+// String = Error message
+```
+
 ## Check Value in Either
 
 If you want to chekc if `Either` is `Right` or `Left`, you can use `isRight()` and `isLeft()` respectively.
