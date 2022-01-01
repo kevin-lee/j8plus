@@ -9,10 +9,11 @@ slug: /
 J8+ (J8Plus) - The Missing Functional Parts of Java 8
 
 [![Build Status](https://github.com/Kevin-Lee/j8plus/workflows/Build/badge.svg)](https://github.com/Kevin-Lee/j8plus/actions?workflow=Build)
-[![Release Status](https://github.com/Kevin-Lee/j8plus/workflows/Release/badge.svg)](https://github.com/Kevin-Lee/j8plus/actions?workflow=Release) [![Coverage Status](https://coveralls.io/repos/Kevin-Lee/j8plus/badge.svg)](https://coveralls.io/r/Kevin-Lee/j8plus)
-
-[![Download](https://api.bintray.com/packages/kevinlee/maven/j8plus/images/download.svg) ](https://bintray.com/kevinlee/maven/j8plus/_latestVersion)
+[![Release Status](https://github.com/Kevin-Lee/j8plus/workflows/Release/badge.svg)](https://github.com/Kevin-Lee/j8plus/actions?workflow=Release)
 [![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.kevinlee/j8plus/badge.svg)](https://search.maven.org/artifact/io.kevinlee/j8plus)
+
+[![Coverage Status](https://coveralls.io/repos/Kevin-Lee/j8plus/badge.svg)](https://coveralls.io/r/Kevin-Lee/j8plus)
+[![codecov](https://codecov.io/gh/Kevin-Lee/j8plus/branch/main/graph/badge.svg?token=ljEFnSj73n)](https://codecov.io/gh/Kevin-Lee/j8plus)
 
 
 ## Get J8+
@@ -21,15 +22,13 @@ J8+ (J8Plus) - The Missing Functional Parts of Java 8
 
 ```xml
 <dependencies>
-  ...
 
   <dependency>
     <groupId>io.kevinlee</groupId>
     <artifactId>j8plus</artifactId>
-    <version>1.0.1</version>
+    <version>1.1.0</version>
   </dependency>
 
-  ...
 </dependencies>
 ```
 
@@ -37,12 +36,12 @@ J8+ (J8Plus) - The Missing Functional Parts of Java 8
 * Add Dependency
 
 ```gradle
-compile group: 'io.kevinlee', name: 'j8plus', version: '1.0.1'
+compile group: 'io.kevinlee', name: 'j8plus', version: '1.1.0'
 ```
   OR
 
 ```gradle
-compile "io.kevinlee:testosterone:1.0.1"
+compile "io.kevinlee:testosterone:1.1.0"
 ```
 
 
