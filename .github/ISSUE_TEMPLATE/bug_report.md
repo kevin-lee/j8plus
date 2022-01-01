@@ -9,7 +9,7 @@ assignees: Kevin-Lee
 
 # Bug
 
-# Summary 
+# Summary
 
 # Project Details
 Version:
