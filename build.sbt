@@ -13,6 +13,8 @@ ThisBuild / developers := projectDevelopers
 ThisBuild / homepage := projectHomePage
 ThisBuild / scmInfo := projectScmInfo
 
+ThisBuild / resolvers += "sonatype-snapshots" at s"https://${props.SonatypeCredentialHost}/content/repositories/snapshots"
+
 lazy val j8plus = (project in file("."))
   .enablePlugins(
     DevOopsJavaPlugin,
@@ -72,5 +74,17 @@ lazy val j8plus = (project in file("."))
     docusaurDir := (ThisBuild / baseDirectory).value / "website",
     docusaurBuildDir := docusaurDir.value / "build",
     /* } Docs */
-
   )
+  .settings(mavenCentralPublishSettings)
+
+lazy val props = new {
+  val SonatypeCredentialHost = "s01.oss.sonatype.org"
+  val SonatypeRepository     = s"https://$SonatypeCredentialHost/service/local"
+}
+
+lazy val mavenCentralPublishSettings: SettingsDefinition = List(
+  /* Publish to Maven Central { */
+  sonatypeCredentialHost := props.SonatypeCredentialHost,
+  sonatypeRepository     := props.SonatypeRepository,
+  /* } Publish to Maven Central */
+)

@@ -1,6 +1,6 @@
 logLevel := Level.Warn
 
-addSbtPlugin("com.geirsson"   % "sbt-ci-release"        % "1.5.7")
+addSbtPlugin("com.github.sbt" % "sbt-ci-release"        % "1.5.10")
 addSbtPlugin("com.github.sbt" % "sbt-jacoco"            % "3.3.0")
 addSbtPlugin("net.aichler"    % "sbt-jupiter-interface" % "0.9.1")
 
