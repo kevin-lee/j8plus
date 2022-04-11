@@ -33,4 +33,4 @@ jobs:
         export CI_BRANCH="${GITHUB_REF#refs/heads/}"
         .github/workflows/sbt-build.sh 2.13.3
 
-    - uses: codecov/codecov-action@v2
+    - uses: codecov/codecov-action@v3
